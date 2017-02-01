@@ -60,8 +60,8 @@ app.post("/api/posts", function(req, res) {
   var newPost = req.body;
   newPost.createDate = new Date();
 
-  if (!req.body.name) {
-    handleError(res, "Invalid user input", "Must provide a name.", 400);
+  if (!req.body.image) {
+    handleError(res, "Invalid user input", "Must provide a image.", 400);
   }
 
   db.collection(POSTS_DATA).insertOne(newPost, function(err, doc) {
