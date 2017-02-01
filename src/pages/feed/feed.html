@@ -7,12 +7,52 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>feed</ion-title>
+  
+   
+
+      <ion-title text-center>Willegram</ion-title>
+       <ion-buttons end>
+            <button ion-button clear large item-right (click)="buttonClick()"><ion-icon item-left name="camera"></ion-icon></button>
+       </ion-buttons>
+ 
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+
+
+      <ion-item no-lines>
+        <ion-avatar item-left>
+          <img src="assets/images/profile.jpg">
+        </ion-avatar>
+        <h2 color="grey">sirjuan</h2>
+        <ion-icon item-right name="menu"></ion-icon>
+
+      </ion-item>
+
+
+
+      <img src="assets/images/food.jpg" />
+
+      <button ion-button icon-left clear>
+        <ion-icon name="heart-outline"></ion-icon>
+        
+      </button>
+
+      <button ion-button icon-left clear>
+        <ion-icon name="text"></ion-icon>
+       
+      </button>
+<hr>
+<ion-item no-lines>
+      <ion-icon small name="heart"> </ion-icon> 1 578 likes
+
+      <span style="font-weight: bold;">sirjuan </span> marokkolainen lammaspata suoraan uunista otettuna kolmen tunnin haudutuksen jälkeen. Alkaishan tuo jo nälkä
+ollakin. ;-) #käteväemäntä #vaimomatskuu
+<p color="grey" style="padding: 0px; font-size: 0.8em">View all 7 comments</p>
+<p text-uppercase color="grey" style="padding: 0px; font-size: 0.8em">14 hours ago</p>
+</ion-item>
 
 </ion-content>

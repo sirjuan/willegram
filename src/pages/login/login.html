@@ -6,19 +6,55 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content center text-center padding>
 
-    <ion-item>
-    <ion-label fixed>Username</ion-label>
-    <ion-input type="text" value=""></ion-input>
-  </ion-item>
+<div class="login-box">
+    <form (ngSubmit)="login()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="registerCredentials.email" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+            </ion-item>
+            
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>
+          <button ion-button class="register-btn" block clear (click)="createAccount()">Create New Account</button>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+  </div>
 
-  <ion-item>
-    <ion-label fixed>Password</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
 
-  <button ion-button large block>Log In</button>
+    <ion-grid center>
+        <ion-row center>
+              <ion-col>
+                      <ion-item>
+                        <ion-label floating>Username</ion-label>
+                        <ion-input type="text" value=""></ion-input>
+                      </ion-item>
+
+                      <ion-item>
+                        <ion-label floating>Password</ion-label>
+                        <ion-input type="password"></ion-input>
+                      </ion-item>
+                      <button center text-center ion-button large block>Log In</button>
+              </ion-col>
+        </ion-row>
+  </ion-grid>
+
+</ion-content>
 
 
   <ion-footer>
@@ -28,4 +64,4 @@
 </ion-footer>
 
 
-</ion-content>
+
