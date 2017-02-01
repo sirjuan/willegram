@@ -1,5 +1,5 @@
 export class Post {
-  id: number;
+  _id?: number;
   image: string;
   caption: string;
 }
