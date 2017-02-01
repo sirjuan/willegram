@@ -4,6 +4,8 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 import { NewPostPage } from '../new-post/new-post';
 import { PostCommentsPage } from '../post-comments/post-comments';
+import { Post } from '.../providers/post';
+import { Data } from '.../providers/data';
 
 
 /*

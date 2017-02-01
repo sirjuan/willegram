@@ -8,42 +8,42 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class Data {
-    private contactsUrl = '/api/contacts';
+    private postsUrl = '/api/posts';
 
     constructor (private http: Http) {}
 
-    // get("/api/contacts")
-    getContacts(): Promise<Contact[]> {
-      return this.http.get(this.contactsUrl)
+    // get("/api/posts")
+    getPosts(): Promise<Post[]> {
+      return this.http.get(this.postsUrl)
                  .toPromise()
-                 .then(response => response.json() as Contact[])
+                 .then(response => response.json() as Post[])
                  .catch(this.handleError);
     }
 
-    // post("/api/contacts")
-    createContact(newContact: Contact): Promise<Contact> {
-      return this.http.post(this.contactsUrl, newContact)
+    // post("/api/posts")
+    createPost(newPost: Post): Promise<Post> {
+      return this.http.post(this.postsUrl, newPost)
                  .toPromise()
-                 .then(response => response.json() as Contact)
+                 .then(response => response.json() as Post)
                  .catch(this.handleError);
     }
 
-    // get("/api/contacts/:id") endpoint not used by Angular app
+    // get("/api/posts/:id") endpoint not used by Angular app
 
-    // delete("/api/contacts/:id")
-    deleteContact(delContactId: String): Promise<String> {
-      return this.http.delete(this.contactsUrl + '/' + delContactId)
+    // delete("/api/posts/:id")
+    deletePost(delPostId: String): Promise<String> {
+      return this.http.delete(this.postsUrl + '/' + delPostId)
                  .toPromise()
                  .then(response => response.json() as String)
                  .catch(this.handleError);
     }
 
-    // put("/api/contacts/:id")
-    updateContact(putContact: Contact): Promise<Contact> {
-      var putUrl = this.contactsUrl + '/' + putContact._id;
-      return this.http.put(putUrl, putContact)
+    // put("/api/posts/:id")
+    updatePost(putPost: Post): Promise<Post> {
+      var putUrl = this.postsUrl + '/' + putPost._id;
+      return this.http.put(putUrl, putPost)
                  .toPromise()
-                 .then(response => response.json() as Contact)
+                 .then(response => response.json() as Post)
                  .catch(this.handleError);
     }
 

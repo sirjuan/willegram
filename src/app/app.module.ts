@@ -13,6 +13,7 @@ import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { FeedPage } from '../pages/feed/feed';
 import { CameraPage } from '../pages/camera/camera';
+import { Camera2Page } from '../pages/camera2/camera2';
 import { NewPostPage } from '../pages/new-post/new-post';
 import { PostCommentsPage } from '../pages/post-comments/post-comments';
 import { ProfileFeedPage } from '../pages/profile-feed/profile-feed';
@@ -24,6 +25,8 @@ import { SearchTagsPage } from '../pages/search-tags/search-tags';
 
 import { Register } from '../providers/register'
 import { Auth } from '../providers/auth'
+import { Data } from '../providers/data'
+
 
 
 
@@ -39,6 +42,7 @@ import { Auth } from '../providers/auth'
     RegisterPage,
     FeedPage,
     CameraPage,
+    Camera2Page,
     NewPostPage,
     PostCommentsPage,
     ProfileFeedPage,
@@ -68,8 +72,9 @@ import { Auth } from '../providers/auth'
     NewPostPage,
     ProfileFeedPage,
     ProfilePicturesPage,
-    CameraPage
+    CameraPage,
+    Camera2Page
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data ]
 })
 export class AppModule {}
