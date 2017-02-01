@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var POSTS_COLLECTION = "posts";
+var CONTACTS_COLLECTION = "contacts";
 
 var app = express();
 app.use(bodyParser.json());
@@ -33,7 +33,7 @@ mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   });
 });
 
-// posts API ROUTES BELOW
+// CONTACTS API ROUTES BELOW
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -41,61 +41,61 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-/*  "/api/posts"
- *    GET: finds all posts
- *    POST: creates a new post
+/*  "/api/contacts"
+ *    GET: finds all contacts
+ *    POST: creates a new contact
  */
 
-app.get("/api/posts", function(req, res) {
-  db.collection(POSTS_COLLECTION).find({}).toArray(function(err, docs) {
+app.get("/api/contacts", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
-      handleError(res, err.message, "Failed to get posts.");
+      handleError(res, err.message, "Failed to get contacts.");
     } else {
       res.status(200).json(docs);
     }
   });
 });
 
-app.post("/api/posts", function(req, res) {
-  var newPost = req.body;
-  newPost.createDate = new Date();
+app.post("/api/contacts", function(req, res) {
+  var newContact = req.body;
+  newContact.createDate = new Date();
 
   if (!req.body.name) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
 
-  db.collection(POSTS_COLLECTION).insertOne(newPost, function(err, doc) {
+  db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to create new post.");
+      handleError(res, err.message, "Failed to create new contact.");
     } else {
       res.status(201).json(doc.ops[0]);
     }
   });
 });
 
-/*  "/api/posts/:id"
- *    GET: find post by id
- *    PUT: update post by id
- *    DELETE: deletes post by id
+/*  "/api/contacts/:id"
+ *    GET: find contact by id
+ *    PUT: update contact by id
+ *    DELETE: deletes contact by id
  */
 
-app.get("/api/posts/:id", function(req, res) {
-  db.collection(POSTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+app.get("/api/contacts/:id", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to get post");
+      handleError(res, err.message, "Failed to get contact");
     } else {
       res.status(200).json(doc);
     }
   });
 });
 
-app.put("/api/posts/:id", function(req, res) {
+app.put("/api/contacts/:id", function(req, res) {
   var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(POSTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
+  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to update post");
+      handleError(res, err.message, "Failed to update contact");
     } else {
       updateDoc._id = req.params.id;
       res.status(200).json(updateDoc);
@@ -103,10 +103,10 @@ app.put("/api/posts/:id", function(req, res) {
   });
 });
 
-app.delete("/api/posts/:id", function(req, res) {
-  db.collection(POSTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+app.delete("/api/contacts/:id", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
     if (err) {
-      handleError(res, err.message, "Failed to delete post");
+      handleError(res, err.message, "Failed to delete contact");
     } else {
       res.status(200).json(req.params.id);
     }
