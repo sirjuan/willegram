@@ -1,10 +1,11 @@
 {
   "name": "ionic-hello-world",
   "author": "Ionic Framework",
-  "start": "node server.js",
+ 
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
+     "start": "node server.js",
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
     "ionic:build": "ionic-app-scripts build",

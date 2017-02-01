@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
 
-var CONTACTS_COLLECTION = "contacts";
+var POSTS_COLLECTION = "posts";
 
 var app = express();
 app.use(bodyParser.json());
@@ -41,25 +41,33 @@ function handleError(res, reason, message, code) {
  *    GET: finds all contacts
  *    POST: creates a new contact
  */
-
 app.get("/api/posts", function(req, res) {
+  db.collection(POSTS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get posts.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
 
 app.post("/api/posts", function(req, res) {
-  var newContact = req.body;
+  var newPost = req.image;
 
-  if (!req.body.name) {
+  if (!req.body.image) {
     handleError(res, "Invalid user input", "Must provide a name.", 400);
   }
 
-  db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
+  db.collection(POSTS_COLLECTION).insertOne(newPost, function(err, doc) {
     if (err) {
-      handleError(res, err.message, "Failed to create new contact.");
+      handleError(res, err.message, "Failed to create new post.");
     } else {
       res.status(201).json(doc.ops[0]);
     }
   });
 });
+
+
 
 /*  "/api/contacts/:id"
  *    GET: find contact by id
@@ -75,3 +83,11 @@ app.put("/api/posts/:id", function(req, res) {
 
 app.delete("/api/posts/:id", function(req, res) {
 });
+
+/*  "/api/contacts"
+ *    GET: finds all contacts
+ *    POST: creates a new contact
+ */
+
+
+
