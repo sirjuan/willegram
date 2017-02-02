@@ -1,114 +1,110 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
-var ObjectID = mongodb.ObjectID;
-
-var POSTS_DATA = "posts";
-
+var express = require('express');
+var bodyParser = require('body-parser');
+var cors = require('cors');
 var app = express();
+
+var mongodb = require('mongodb'),
+mongoClient = mongodb.MongoClient,
+ObjectID = mongodb.ObjectID, // Used in API endpoints
+db; // We'll initialize connection below
+
 app.use(bodyParser.json());
+app.set('port', process.env.PORT || 8080);
+app.use(cors()); // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
+app.use(express.static("www")); // Our Ionic app build is in the www folder (kept up-to-date by the Ionic CLI using 'ionic serve')
 
-// Create link to Angular build directory
-var distDir = __dirname + "/dist/";
-app.use(express.static(distDir));
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://heroku_vn17t7s4:mv05rge4sm4jeh90snm7ha3u9q@ds139939.mlab.com:39939/heroku_vn17t7s4';
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-
-// Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://heroku_vn17t7s4:mv05rge4sm4jeh90snm7ha3u9q@ds139939.mlab.com:39939/heroku_vn17t7s4', function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
-    console.log("App now running on port", port);
-  });
-});
-
-// POSTS API ROUTES BELOW
-
-// Generic error handler used by all endpoints.
-function handleError(res, reason, message, code) {
-  console.log("ERROR: " + reason);
-  res.status(code || 500).json({"error": message});
+// Initialize database connection and then start the server.
+mongoClient.connect(MONGODB_URI, function (err, database) {
+if (err) {
+process.exit(1);
 }
 
-/*  "/api/posts"
- *    GET: finds all posts
- *    POST: creates a new post
- */
+db = database; // Our database object from mLab
 
+console.log("Database connection ready");
+
+// Initialize the app.
+app.listen(app.get('port'), function () {
+console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.get('port'));
+});
+});
+
+/*
+* Endpoint --> "/api/posts"
+*/
+
+// GET: retrieve all posts
 app.get("/api/posts", function(req, res) {
-  db.collection(POSTS_DATA).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get posts.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
+db.collection("posts").find({}).toArray(function(err, docs) {
+if (err) {
+handleError(res, err.message, "Failed to get posts");
+} else {
+res.status(200).json(docs);
+}
+});
 });
 
+// POST: create a new post
 app.post("/api/posts", function(req, res) {
-  var newPost = req.body;
-  newPost.createDate = new Date();
+var newPost = {
+image: req.body.image,
+caption: req.body.caption,
+isComplete: false
+}
 
-  if (!req.body.image) {
-    handleError(res, "Invalid user input", "Must provide a image.", 400);
-  }
-
-  db.collection(POSTS_DATA).insertOne(newPost, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new post.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
+db.collection("posts").insertOne(newPost, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to add post");
+} else {
+res.status(201).json(doc.ops[0]);
+}
+});
 });
 
-/*  "/api/posts/:id"
- *    GET: find post by id
- *    PUT: update post by id
- *    DELETE: deletes post by id
- */
+/*
+* Endpoint "/api/posts/:id"
+*/
 
+// GET: retrieve a post by id -- Note, not used on front-end
 app.get("/api/posts/:id", function(req, res) {
-  db.collection(POSTS_DATA).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get post");
-    } else {
-      res.status(200).json(doc);
-    }
-  });
+db.collection("posts").findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get post by _id");
+} else {
+res.status(200).json(doc);
+}
+});
 });
 
+// PUT: update a post by id
 app.put("/api/posts/:id", function(req, res) {
-  var updateDoc = req.body;
-  delete updateDoc._id;
+var updatePost = req.body;
+delete updatePost._id;
 
-  db.collection(POSTS_DATA).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to update post");
-    } else {
-      updateDoc._id = req.params.id;
-      res.status(200).json(updateDoc);
-    }
-  });
+db.collection("posts").updateOne({_id: new ObjectID(req.params.id)}, updatePost, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to update post");
+} else {
+res.status(204).end();
+}
+});
 });
 
+// DELETE: delete a post by id
 app.delete("/api/posts/:id", function(req, res) {
-  db.collection(POSTS_DATA).deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-    if (err) {
-      handleError(res, err.message, "Failed to delete post");
-    } else {
-      res.status(200).json(req.params.id);
-    }
-  });
+db.collection("posts").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+if (err) {
+handleError(res, err.message, "Failed to delete post");
+} else {
+res.status(204).end();
+}
 });
+});
+
+// Error handler for the api
+function handleError(res, reason, message, code) {
+console.log("API Error: " + reason);
+res.status(code || 500).json({"Error": message});
+}

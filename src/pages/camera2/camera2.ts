@@ -14,24 +14,39 @@ import { Data } from '../../providers/data';
 export class Camera2Page {
 
   public base64Image: string;
-  public capt: string;
-  posts: Post[];
-  selectedPost: Post;
-
+  public posts: Post[];
   
- 
-  image;
-  caption;
-  public dataposts;
-    cameraData: string;
+
+  cameraData: string;
   photoTaken: boolean;
   cameraUrl: string;
   photoSelected: boolean;
 
+   ionViewDidLoad() {
+    console.log('ionViewDidLoad CameraPage');
+
+ }
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
-       
+       this.loadPosts();
   }
 
+    loadPosts() {
+      console.log('loadTodos camerassa');
+    this.postService.load()
+        .subscribe(data => {
+          this.posts = data;
+        })
+  }
+
+    addPost(photo: string, post:string) {
+      console.log(photo);
+      console.log(post);
+    this.postService.add(photo, post)
+        .subscribe(data  => {
+          this.posts.push(data)
+        });
+  }
     selectFromGallery() {
     var options = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
@@ -63,85 +78,10 @@ export class Camera2Page {
     });
   }
 
-  getPosts(): void {
-    
-  
-  }
-
 //  addPost2(newImage, newCaption) {
 
 //    this.posts.push({image: newImage, caption: newCaption});
 
 //  }
-
-
-
-  private getIndexOfPost = (postId: String) => {
-    return this.posts.findIndex((post) => {
-      return post._id === postId;
-    });
-  }
-
-  selectPost(post: Post) {
-    this.selectedPost = post
-  }
-
-  createNewPost() {
-    var post: Post = {
-  user: '',
-  image: '',
-  caption: '',
-  comments: {
-    user: '',
-    content: '',
-  }
-    };
-
-    // By default, a newly-created post will have the selected state.
-    this.selectPost(post);
-  }
-
-  deletePost = (postId: String) => {
-    var idx = this.getIndexOfPost(postId);
-    if (idx !== -1) {
-      this.posts.splice(idx, 1);
-      this.selectPost(null);
-    }
-    return this.posts;
-  }
-
-  addPost = (post: Post) => {
-    this.posts.push(post);
-    this.selectPost(post);
-    return this.posts;
-  }
-
-  updatePost = (post: Post) => {
-    var idx = this.getIndexOfPost(post._id);
-    if (idx !== -1) {
-      this.posts[idx] = post;
-      this.selectPost(post);
-    }
-    return this.posts;
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CameraPage');
-
-         this.postService
-      .getPosts()
-      .then((posts: Post[]) => {
-        this.posts = posts.map((post) => {
-          if (!post.comments) {
-            post.comments = {
-              user: '',
-              content: ''
-            }
-          }
-          return post;
-        });
-      });
-
-  }
 
 }
