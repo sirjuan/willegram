@@ -3,9 +3,9 @@ export class Post {
   user: string;
   image: string;
   caption: string;
-  comments: {
+  comments: [{
     _id?: number;
     user: string;
     comment: string;
-  }
+  }]
 }

@@ -36,7 +36,10 @@ post: Post;
   }
 
   openComments(post) {
-    this.navCtrl.push(PostCommentsPage, {user: this.post.comments.user, comment: this.post.comments.comment} );
+    console.log(post);
+    console.log(post.comments);
+    console.log(post.comments.comment);
+    this.navCtrl.push(PostCommentsPage );
   }
 
 }

@@ -52,14 +52,9 @@ var newPost = {
     user: 'sirjuan',
     image: req.body.image,
     caption: req.body.caption,
-    comments: {
-        user: 'sirjuan',
-        comment: 'joojoo'
-    }
+    comments: []
 
 }
-
-
 
 db.collection("posts").insertOne(newPost, function(err, doc) {
 if (err) {
@@ -69,6 +64,10 @@ res.status(201).json(doc.ops[0]);
 }
 });
 });
+
+
+
+
 
 /*
 * Endpoint "/api/posts/:id"
