@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
-import { Auth } from '../../providers/auth';
+import { AuthService } from '../../providers/auth-service';
  
 @Component({
   selector: 'page-register',
@@ -10,7 +10,7 @@ export class RegisterPage {
   createSuccess = false;
   registerCredentials = {email: '', password: ''};
  
-  constructor(private nav: NavController, private auth: Auth, private alertCtrl: AlertController) {}
+  constructor(private nav: NavController, private auth: AuthService, private alertCtrl: AlertController) {}
  
   public register() {
     this.auth.register(this.registerCredentials).subscribe(success => {

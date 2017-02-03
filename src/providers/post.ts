@@ -6,6 +6,6 @@ export class Post {
   comments: {
     _id?: number;
     user: string;
-    content: string;
+    comment: string;
   }
 }

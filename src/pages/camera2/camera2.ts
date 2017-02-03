@@ -32,8 +32,7 @@ export class Camera2Page {
   }
 
     loadPosts() {
-      console.log('loadTodos camerassa');
-    this.postService.load()
+      this.postService.load()
         .subscribe(data => {
           this.posts = data;
         })
@@ -42,7 +41,7 @@ export class Camera2Page {
     addPost(photo: string, post:string) {
       console.log(photo);
       console.log(post);
-    this.postService.add(photo, post)
+    this.postService.add(this.base64Image, post)
         .subscribe(data  => {
           this.posts.push(data)
         });
@@ -50,12 +49,13 @@ export class Camera2Page {
     selectFromGallery() {
     var options = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: Camera.DestinationType.FILE_URI,
+      destinationType: Camera.DestinationType.DATA_URL,
+      allowEdit: true,
               targetWidth: 1000,
         targetHeight: 1000
     };
     Camera.getPicture(options).then((imageData) => {
-      this.base64Image = imageData;
+      this.base64Image = "data:image/jpeg;base64," + imageData;
       this.photoSelected = true;
       this.photoTaken = false;
     }, (err) => {
@@ -66,6 +66,7 @@ export class Camera2Page {
   takePicture(){
     Camera.getPicture({
         destinationType: Camera.DestinationType.DATA_URL,
+        allowEdit: true,
         targetWidth: 1000,
         targetHeight: 1000
     }).then((imageData) => {
@@ -77,11 +78,5 @@ export class Camera2Page {
         console.log(err);
     });
   }
-
-//  addPost2(newImage, newCaption) {
-
-//    this.posts.push({image: newImage, caption: newCaption});
-
-//  }
 
 }

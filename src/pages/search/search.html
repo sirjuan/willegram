@@ -9,19 +9,15 @@
 
   <ion-navbar>
     
-    <ion-searchbar clearInput></ion-searchbar>
+    <ion-searchbar clearInput (click)="openSearch()"></ion-searchbar>
   </ion-navbar>
 
 </ion-header>
 
 
 
-<ion-content padding>
+<ion-content>
 
-<ion-list>
-  <ion-item>
-   tdrgdrf
-  </ion-item>
-</ion-list>
+<page-grid-content [posts]="posts"></page-grid-content>
 
 </ion-content>

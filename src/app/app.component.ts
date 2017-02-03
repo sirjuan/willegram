@@ -5,19 +5,29 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
+import { Auth } from '@ionic/cloud-angular';
+
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage = TabsPage;
+  rootPage;
 
-  constructor(platform: Platform) {
-    platform.ready().then(() => {
+  constructor(platform: Platform, public auth:Auth) {
+ 
+        platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      if(this.auth.isAuthenticated()) {
+        this.rootPage = TabsPage;
+      } else {
+        this.rootPage = LoginPage;
+      }
+
     });
   }
 }

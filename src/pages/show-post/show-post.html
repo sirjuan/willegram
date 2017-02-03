@@ -1,0 +1,57 @@
+<!--
+  Generated template for the Feed page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+  
+   
+
+      <ion-title text-center>Willegram</ion-title>
+       <ion-buttons end>
+            <button ion-button icon-only (click)="logout()" clear large item-right><ion-icon item-left name="camera"></ion-icon></button>
+       </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-list>
+     
+      <ion-item no-lines>
+        
+        <ion-item no-lines><ion-avatar item-left>
+          <img [src]="profilePictureUrl">
+        </ion-avatar>
+        <h2 color="grey">{{userName}}</h2>
+        <ion-icon item-right name="menu"></ion-icon>
+        </ion-item>
+                
+          <img [src]="image" />
+
+
+      <ion-item no-lines>
+      <button ion-button icon-left icon-only clear>
+        <ion-icon name="heart-outline"></ion-icon>
+        
+      </button>
+
+      <button ion-button icon-left icon-only clear>
+        <ion-icon name="text"></ion-icon>
+       
+      </button>
+      </ion-item>
+<hr>
+
+      <ion-icon small name="heart"> </ion-icon> {{likeCount}} likes
+
+      <span style="font-weight: bold;">{{userName}} </span> {{caption}}
+      <p color="grey" style="padding: 0px; font-size: 0.8em">View all {{commentsCount}} comments</p>
+      <p text-uppercase color="grey" style="padding: 0px; font-size: 0.8em">{{postTime}} ago</p>
+
+      </ion-item>
+      </ion-list>

@@ -1,5 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { Post } from '../../providers/post';
+import { Data } from '../../providers/data';
+import { FeedContentPage} from '../feed-content/feed-content';
+
+
+import { Auth, User } from '@ionic/cloud-angular';
+import { LoginPage } from '../login/login';
 
 /*
   Generated class for the Feed page.
@@ -13,10 +20,25 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class FeedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  public posts: Post[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) {
+    
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedPage');
+    this.loadPosts();
+  }
+      loadPosts() {
+          this.postService.load()
+        .subscribe(data => {
+          this.posts = data;
+        })
+  }
+    logout() {
+    this.auth.logout();
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }

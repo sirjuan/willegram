@@ -15,6 +15,9 @@ export class PostCommentsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
+  image = this.navParams.get('image');
+  caption = this.navParams.get('caption');
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostCommentsPage');
   }

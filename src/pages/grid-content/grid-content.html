@@ -1,0 +1,10 @@
+<ion-grid no-padding>
+  <ion-row wrap>
+
+    <ion-col *ngFor="let post of posts" width-33 no-padding>
+      <img [src]="post.image" (click)="loadPost(post)" />
+    </ion-col>
+
+
+  </ion-row>
+</ion-grid>
