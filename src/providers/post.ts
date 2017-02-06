@@ -6,6 +6,7 @@ export class Post {
   caption: string;
   postTime: string;
   tags: [string];
+  likes: [string];
   comments: [{
     _id?: number;
     userId: string;
@@ -13,6 +14,6 @@ export class Post {
     comment: string;
     commentTime: string;
   }];
-  likes: [string]
+  
 
 }

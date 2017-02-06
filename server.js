@@ -112,6 +112,16 @@ res.status(204).end();
 });
 });
 
+app.delete("/api/posts/:id/likes", function(req, res) {
+db.collection("posts").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+if (err) {
+handleError(res, err.message, "Failed to delete post");
+} else {
+res.status(204).end();
+}
+});
+});
+
 // Error handler for the api
 function handleError(res, reason, message, code) {
 console.log("API Error: " + reason);

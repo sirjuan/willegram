@@ -54,6 +54,15 @@ export class Data {
                     .catch(this.handleError);
   }
     
+  // Unlike
+  unlike(post: Post, like: string) {
+    let url = `${this.postsUrl}/${post._id}/likes/`;
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.delete(url + like, headers)
+               .catch(this.handleError);
+  }
+
     handleError(error) {
       console.error(error);
       return Observable.throw(error.json().error || 'Server error');

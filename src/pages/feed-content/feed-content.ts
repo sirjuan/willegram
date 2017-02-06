@@ -25,64 +25,71 @@ export class FeedContentPage {
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
 
-@Input() posts: Post[];
-@Input() post: Post;
+  @Input() posts: Post[];
+  post: Post;
   constructor(public navCtrl: NavController, public navParams: NavParams, public postService: Data) {
     console.log(this.posts);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedContentPage');
-    console.log(this.post.comments)
-   
+    console.log(this.post.comments);
+
   }
 
   openComments(post) {
-  
+
     console.log(post.comments);
-    
-   
+
+
     this.navCtrl.push(PostCommentsPage, { post: post });
   }
 
-       loadPosts() {
-          this.postService.load()
-        .subscribe(data => {
-          this.posts = data;
-        })
+  loadPosts() {
+    this.postService.load()
+      .subscribe(data => {
+        this.posts = data;
+      })
   }
 
-    updatePost(user: string) {
-    this.post.likes.push(user);
-    this.postService.update(this.post)
+
+
+  likePost(user: string, post: Post) {
+
+    console.log('Uusi tykkäys: ' + user);
+    console.log(post);
+    console.log(post.likes);
+    console.log(post.likes.indexOf('taa_tykkasi'));
+
+
+    if (post.likes.indexOf(user) < 0) {
+      post.likes.push(user);
+
+
+
+
+      this.postService.update(post)
         .subscribe(response => {
-        
+
         });
-  }
+      this.liked = true;
 
-      likePost(user: string) {
+    }
 
-        console.log('Uusi tykkäys: ' + user);
-    this.post.likes.push(user);
 
-    this.postService.update(this.post)
-        .subscribe(response => {
-        
-        });
-console.log('Koko posti: ' + this.post);
-        console.log('Kaikki tykkäykset: ' + this.post.likes);
+
   }
 
 
 
-//  like() {
-//    this.liked = true;
-//    console.log('like: ' + this.liked); 
-//  }
+  //  like() {
+  //    this.liked = true;
+  //    console.log('like: ' + this.liked); 
+  //  }
 
   unlike() {
     this.liked = false;
-    console.log('unlike: ' + this.liked); 
+    console.log('unlike: ' + this.liked);
   }
 
 }

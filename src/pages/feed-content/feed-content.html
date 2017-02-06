@@ -1,6 +1,6 @@
 
      
-      <ion-item no-lines *ngFor="let post of posts">
+      <ion-item no-lines *ngFor="let post of posts; let index = index">">
         
         <ion-item no-lines><ion-avatar item-left>
           <img [src]="profilePictureUrl">
@@ -11,27 +11,10 @@
                 
           <img [src]="post.image" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <ion-item no-lines>
       
         
-        <button (click)="likePost('taa_tykkasi')" *ngIf="!liked" ion-button icon-left icon-only clear>
+        <button (click)="likePost('taa_tykkasi', post)" *ngIf="!liked" ion-button icon-left icon-only clear>
         <ion-icon name="heart-outline"></ion-icon>
         </button>
 
@@ -46,7 +29,7 @@
       </ion-item>
 <hr>
 
-      <span *ngIf="liked"><ion-icon small name="heart"> </ion-icon> This post is liked</span>
+      <ion-icon small name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like}}</span>
 
       <span style="font-weight: bold;">{{userName}} </span> {{post.caption}}
       <p (click)="openComments(post)" color="grey" style="padding: 0px; font-size: 0.8em">View all {{commentCount}} comments</p>
