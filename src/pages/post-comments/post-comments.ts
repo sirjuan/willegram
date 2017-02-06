@@ -23,8 +23,10 @@ export class PostCommentsPage {
   }
 
   addComment(comment) {
-
-    this.post.comments.push({user: "sirjuan", comment: comment})
+    
+    console.log(comment);
+    this.post.comments.push({user: "sirjuan", comment: comment});
+    console.log
 
   }
 

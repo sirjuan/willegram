@@ -19,6 +19,7 @@ export class FeedContentPage {
 
   public liked = false;
 
+
   public postTime = '14 hours'
   public commentsCount = 7;
   public userName = 'sirjuan';
@@ -29,11 +30,12 @@ export class FeedContentPage {
   post: Post;
   constructor(public navCtrl: NavController, public navParams: NavParams, public postService: Data) {
     console.log(this.posts);
-  }
 
+  
+  
+     }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad FeedContentPage');
-    console.log(this.post.comments);
+
 
   }
 
@@ -56,17 +58,8 @@ export class FeedContentPage {
 
   likePost(user: string, post: Post) {
 
-    console.log('Uusi tykkäys: ' + user);
-    console.log(post);
-    console.log(post.likes);
-    console.log(post.likes.indexOf('taa_tykkasi'));
-
-
     if (post.likes.indexOf(user) < 0) {
       post.likes.push(user);
-
-
-
 
       this.postService.update(post)
         .subscribe(response => {
@@ -76,8 +69,25 @@ export class FeedContentPage {
 
     }
 
+  }
 
+    unlikePost(user: string, post: Post) {
+      console.log(user);
+       console.log(post);
+       
 
+    let index = post.likes.indexOf(user);
+
+    console.log(index);
+    post.likes.splice(index, 1);
+    
+//    this.postService.unlike(post)
+  //      .subscribe(res => {
+          
+    //    });
+        this.liked = false;
+
+        console.log(post);
   }
 
 

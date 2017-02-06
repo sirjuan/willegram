@@ -1,6 +1,6 @@
 
      
-      <ion-item no-lines *ngFor="let post of posts; let index = index">">
+      <ion-item no-lines *ngFor="let post of posts; let index = index">
         
         <ion-item no-lines><ion-avatar item-left>
           <img [src]="profilePictureUrl">
@@ -9,16 +9,16 @@
         <ion-icon item-right name="menu"></ion-icon>
         </ion-item>
                 
-          <img [src]="post.image" />
+          <img [src]="post.imageUrl" />
 
       <ion-item no-lines>
       
         
-        <button (click)="likePost('taa_tykkasi', post)" *ngIf="!liked" ion-button icon-left icon-only clear>
+        <button (click)="likePost('taa_tykkasi', post)" *ngIf="post.likes.indexOf('taa_tykkasi') < 0 " ion-button icon-left icon-only clear>
         <ion-icon name="heart-outline"></ion-icon>
         </button>
 
-         <button (click)="unlike()" *ngIf="liked" ion-button icon-left icon-only clear>
+         <button (click)="unlikePost('taa_tykkasi', post)" *ngIf="post.likes.indexOf('taa_tykkasi') == 0" ion-button icon-left icon-only clear>
         <ion-icon name="heart"></ion-icon>
         </button>
      

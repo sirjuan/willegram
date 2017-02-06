@@ -2,7 +2,7 @@
   <ion-row wrap>
 
     <ion-col *ngFor="let post of posts" width-33 no-padding>
-      <img [src]="post.image" (click)="loadPost(post)" />
+      <img [src]="post.imageUrl" (click)="loadPost(post)" />
     </ion-col>
 
 

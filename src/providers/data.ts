@@ -55,12 +55,14 @@ export class Data {
   }
     
   // Unlike
-  unlike(post: Post, like: string) {
-    let url = `${this.postsUrl}/${post._id}/likes/`;
+  unlike(post: Post) {
+    let url = `${this.postsUrl}/${post._id}`;
+    let body = JSON.stringify(post)
     let headers = new Headers({'Content-Type': 'application/json'});
 
-    return this.http.unlike(url + like, headers)
-               .catch(this.handleError);
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => post) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
   }
 
     handleError(error) {
