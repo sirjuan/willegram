@@ -14,12 +14,12 @@ import { NavController, NavParams } from 'ionic-angular';
 export class PostCommentsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  image = this.navParams.get('image');
-  caption = this.navParams.get('caption');
+  comments = this.navParams.get('comments');
+  
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostCommentsPage');
+    console.log(this.comments);
   }
 
 }

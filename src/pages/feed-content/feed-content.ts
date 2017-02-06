@@ -31,15 +31,16 @@ post: Post;
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedContentPage');
-    console.log(this.post.comments.user)
+    console.log(this.post.comments)
    
   }
 
   openComments(post) {
-    console.log(post);
+  
     console.log(post.comments);
-    console.log(post.comments.comment);
-    this.navCtrl.push(PostCommentsPage );
+    
+   
+    this.navCtrl.push(PostCommentsPage, { comments: post.comments });
   }
 
 }
