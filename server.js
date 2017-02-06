@@ -112,7 +112,7 @@ res.status(204).end();
 });
 });
 
-app.unlike("/api/posts/:id/likes", function(req, res) {
+app.delete("/api/posts/:id/likes", function(req, res) {
 db.collection("posts").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
 if (err) {
 handleError(res, err.message, "Failed to delete post");

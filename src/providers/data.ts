@@ -59,7 +59,7 @@ export class Data {
     let url = `${this.postsUrl}/${post._id}/likes/`;
     let headers = new Headers({'Content-Type': 'application/json'});
 
-    return this.http.delete(url + like, headers)
+    return this.http.unlike(url + like, headers)
                .catch(this.handleError);
   }
 
