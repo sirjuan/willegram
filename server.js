@@ -49,11 +49,14 @@ res.status(200).json(docs);
 // POST: create a new post
 app.post("/api/posts", function(req, res) {
 var newPost = {
-    user: 'sirjuan',
-    image: req.body.image,
+    userId: 'joku',
+    userName: 'sirjuan',
+    imageUrl: req.body.image,
     caption: req.body.caption,
-    comments: []
-
+    postTime: '10:16',
+    tags: [],
+    comments: [],
+    likes: []
 }
 
 db.collection("posts").insertOne(newPost, function(err, doc) {

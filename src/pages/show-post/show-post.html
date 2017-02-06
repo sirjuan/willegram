@@ -31,7 +31,7 @@
         <ion-icon item-right name="menu"></ion-icon>
         </ion-item>
                 
-          <img [src]="image" />
+          <img [src]="post.image" />
 
 
       <ion-item no-lines>
@@ -49,9 +49,9 @@
 
       <ion-icon small name="heart"> </ion-icon> {{likeCount}} likes
 
-      <span style="font-weight: bold;">{{userName}} </span> {{caption}}
+      <span style="font-weight: bold;">{{userName}} </span> {{post.caption}}
       <p color="grey" style="padding: 0px; font-size: 0.8em">View all {{commentsCount}} comments</p>
       <p text-uppercase color="grey" style="padding: 0px; font-size: 0.8em">{{postTime}} ago</p>
 
       </ion-item>
-      </ion-list>
+</ion-list>

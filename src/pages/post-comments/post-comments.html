@@ -20,54 +20,26 @@
 
     <ion-item text-wrap>
 
-            <span style="font-weight: bold;">sirjuan </span> marokkolainen lammaspata suoraan uunista otettuna kolmen tunnin haudutuksen jälkeen. Alkaishan tuo jo nälkä
-ollakin. ;-) #käteväemäntä #vaimomatskuu<ion-avatar item-left>
-      <img src="assets/images/profile.jpg">
-    </ion-avatar>
+      <span style="font-weight: bold;">{{post.user}} </span> {{post.caption}}
+<ion-avatar item-left><img src="assets/images/profile.jpg"></ion-avatar>
 
-    </ion-item>
+</ion-item>
 
-      <ion-item  style="font-size: 0.8em" *ngFor="let comment of comments">
+<ion-item style="font-size: 0.8em" *ngFor="let comment of post.comments">
 
-    <span style="font-weight: bold">{{comment.user}}</span> {{comment.comment}}
-     <ion-icon item-right name="heart-outline"></ion-icon>
-  <br>
-  <div color="grey">
-  <span>14h</span> 
+<span style="font-weight: bold">{{comment.user}}</span> {{comment.comment}}
+<ion-icon item-right name="heart-outline"></ion-icon>
+<br>
+<div color="grey">
+  <span>14h</span>
   <span color="grey" style="padding-left: 10px; font-weight: bold">Reply</span>
-  </div>
-             <ion-avatar item-left>
-      <img src="assets/images/profile.jpg">
-    </ion-avatar>
-  </ion-item>
+</div>
+<ion-avatar item-left>
+  <img src="assets/images/profile.jpg">
+</ion-avatar>
+</ion-item>
 
-  <ion-item  style="font-size: 0.8em">
 
-    <span style="font-weight: bold">sirjuan</span> I have posted this comment.
-     <ion-icon item-right name="heart-outline"></ion-icon>
-  <br>
-  <div color="grey">
-  <span>14h</span> 
-  <span color="grey" style="padding-left: 10px; font-weight: bold">Reply</span>
-  </div>
-             <ion-avatar item-left>
-      <img src="assets/images/profile.jpg">
-    </ion-avatar>
-  </ion-item>
-
-    <ion-item  style="font-size: 0.8em">
-
-    <span style="font-weight: bold">sirjuan</span> I have posted this comment.
-     <ion-icon item-right name="heart-outline"></ion-icon>
-  <br>
-  <div color="grey">
-  <span>14h</span> 
-  <span color="grey" style="padding-left: 10px; font-weight: bold">Reply</span>
-  </div>
-             <ion-avatar item-left>
-      <img src="assets/images/profile.jpg">
-    </ion-avatar>
-  </ion-item>
 
 
 </ion-list>
@@ -77,7 +49,7 @@ ollakin. ;-) #käteväemäntä #vaimomatskuu<ion-avatar item-left>
 <ion-footer>
 
   <ion-item no-lines>
-    <ion-input placeholder="Write a comment..."></ion-input>
-    <button ion-button item-right clear>POST</button>
-    </ion-item>
+    <ion-input placeholder="Write a comment..." [(ngModel)]="comment"></ion-input>
+    <button (click)="addComment(comment)" ion-button item-right clear>POST</button>
+  </ion-item>
 </ion-footer>

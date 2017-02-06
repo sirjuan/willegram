@@ -25,7 +25,7 @@ export class ShowPostPage {
   public userName = 'sirjuan';
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
-  public post: Post;
+  
   
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) {
@@ -33,14 +33,16 @@ export class ShowPostPage {
    
      
   }
-  image = this.navParams.get('image');
-  caption = this.navParams.get('caption');
+ 
+  post = this.navParams.get('post');
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShowPostPage');
     
     console.log('navparams.caption' + this.navParams.get('caption'));
-    console.log('this.caption' + this.caption);
+    console.log('this.caption' + this.post);
 
   }
 

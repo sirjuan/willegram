@@ -29,7 +29,7 @@ onePostArray: Post[];
           this.post = data;
           console.log(this.post);
           
-          this.navCtrl.push(ShowPostPage, {image: this.post.image, caption: this.post.caption} );
+          this.navCtrl.push(ShowPostPage, {post: this.post} );
         })
   }
 

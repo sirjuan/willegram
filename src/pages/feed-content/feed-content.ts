@@ -17,6 +17,8 @@ import { PostCommentsPage } from '../post-comments/post-comments';
 })
 export class FeedContentPage {
 
+  public liked = false;
+
   public postTime = '14 hours'
   public commentsCount = 7;
   public userName = 'sirjuan';
@@ -24,8 +26,8 @@ export class FeedContentPage {
   public likeCount = 1578;
 
 @Input() posts: Post[];
-post: Post;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+@Input() post: Post;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public postService: Data) {
     console.log(this.posts);
   }
 
@@ -40,7 +42,47 @@ post: Post;
     console.log(post.comments);
     
    
-    this.navCtrl.push(PostCommentsPage, { comments: post.comments });
+    this.navCtrl.push(PostCommentsPage, { post: post });
+  }
+
+       loadPosts() {
+          this.postService.load()
+        .subscribe(data => {
+          this.posts = data;
+        })
+  }
+
+    updatePost(user: string) {
+    this.post.likes.push(user);
+    this.postService.update(this.post)
+        .subscribe(response => {
+        
+        });
+  }
+
+      likePost(user: string) {
+
+        console.log('Uusi tykkäys: ' + user);
+    this.post.likes.push(user);
+
+    this.postService.update(this.post)
+        .subscribe(response => {
+        
+        });
+console.log('Koko posti: ' + this.post);
+        console.log('Kaikki tykkäykset: ' + this.post.likes);
+  }
+
+
+
+//  like() {
+//    this.liked = true;
+//    console.log('like: ' + this.liked); 
+//  }
+
+  unlike() {
+    this.liked = false;
+    console.log('unlike: ' + this.liked); 
   }
 
 }

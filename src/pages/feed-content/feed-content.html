@@ -1,4 +1,4 @@
-<ion-list>
+
      
       <ion-item no-lines *ngFor="let post of posts">
         
@@ -12,12 +12,33 @@
           <img [src]="post.image" />
 
 
-      <ion-item no-lines>
-      <button ion-button icon-left icon-only clear>
-        <ion-icon name="heart-outline"></ion-icon>
-        
-      </button>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <ion-item no-lines>
+      
+        
+        <button (click)="likePost('taa_tykkasi')" *ngIf="!liked" ion-button icon-left icon-only clear>
+        <ion-icon name="heart-outline"></ion-icon>
+        </button>
+
+         <button (click)="unlike()" *ngIf="liked" ion-button icon-left icon-only clear>
+        <ion-icon name="heart"></ion-icon>
+        </button>
+     
       <button ion-button icon-left icon-only clear>
         <ion-icon name="text"></ion-icon>
        
@@ -25,11 +46,10 @@
       </ion-item>
 <hr>
 
-      <ion-icon small name="heart"> </ion-icon> {{likeCount}} likes
+      <span *ngIf="liked"><ion-icon small name="heart"> </ion-icon> This post is liked</span>
 
       <span style="font-weight: bold;">{{userName}} </span> {{post.caption}}
       <p (click)="openComments(post)" color="grey" style="padding: 0px; font-size: 0.8em">View all {{commentCount}} comments</p>
       <p text-uppercase color="grey" style="padding: 0px; font-size: 0.8em">{{postTime}} ago</p>
 
       </ion-item>
-      </ion-list>

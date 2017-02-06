@@ -1,11 +1,18 @@
 export class Post {
   _id?: string;
-  user: string;
-  image: string;
+  userId: string;
+  userName: string;
+  imageUrl: string;
   caption: string;
+  postTime: string;
+  tags: [string];
   comments: [{
     _id?: number;
-    user: string;
+    userId: string;
+    userName: string;
     comment: string;
-  }]
+    commentTime: string;
+  }];
+  likes: [string]
+
 }

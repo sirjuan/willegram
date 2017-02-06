@@ -14,12 +14,18 @@ import { NavController, NavParams } from 'ionic-angular';
 export class PostCommentsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
-  comments = this.navParams.get('comments');
+  post = this.navParams.get('post');
   
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostCommentsPage');
-    console.log(this.comments);
+    console.log(this.post.comments);
+  }
+
+  addComment(comment) {
+
+    this.post.comments.push({user: "sirjuan", comment: comment})
+
   }
 
 }
