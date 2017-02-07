@@ -54,18 +54,15 @@
 
 <div padding>
   <ion-segment [(ngModel)]="view">
-    <ion-segment-button value="feed">
-      
-      
-      <ion-icon  color="grey" large name="list"></ion-icon>
-       
-     
-    </ion-segment-button>
+
     <ion-segment-button value="grid">
-
       <ion-icon color="grey" large name="grid"></ion-icon>
-
     </ion-segment-button>
+
+    <ion-segment-button value="feed">            
+      <ion-icon  color="grey" large name="list"></ion-icon>
+    </ion-segment-button>
+
   </ion-segment>
 </div>
 
@@ -74,19 +71,23 @@
 <ion-item no-lines text-center>
 
   <div [ngSwitch]="view">
-  <ion-list *ngSwitchCase="'feed'">
-<page-feed-content [posts]="posts"></page-feed-content>
-  </ion-list>
+    <ion-list *ngSwitchCase="'feed'">
+      <page-feed-content [posts]="posts"></page-feed-content>
+    </ion-list>
+ 
+
+
+    <ion-list *ngSwitchCase="'grid'">
+      <page-grid-content [posts]="posts"></page-grid-content>
+    </ion-list>
+ 
+
+
+    <ion-list *ngSwitchDefault>
+      <page-grid-content [posts]="posts"></page-grid-content>
+    </ion-list>
   </div>
 
-    <div [ngSwitch]="view">
-  <ion-list *ngSwitchCase="'grid'">
-
-<page-grid-content [posts]="posts"></page-grid-content>
-
-
-  </ion-list>
-  </div>
 </ion-item>
 
 

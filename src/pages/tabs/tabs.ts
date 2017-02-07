@@ -1,14 +1,8 @@
 import { Component } from '@angular/core';
 
-import { PostCommentsPage } from '../post-comments/post-comments';
 import { FeedPage } from '../feed/feed';
-
-import { LoginPage } from '../login/login';
 import { SearchPage } from '../search/search';
-import { CameraPage } from '../camera/camera';
 import { Camera2Page } from '../camera2/camera2';
-import { NewPostPage } from '../new-post/new-post';
-
 import { ProfilePage } from '../profile/profile';
 
 

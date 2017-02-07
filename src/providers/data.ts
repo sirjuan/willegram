@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response  } from '@angular/http';
-import { Storage } from '@ionic/storage';
+import { Headers, Http  } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Post } from './post'
 import 'rxjs/add/operator/toPromise';

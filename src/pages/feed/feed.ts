@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
-import { FeedContentPage} from '../feed-content/feed-content';
+
 
 
 import { Auth, User } from '@ionic/cloud-angular';

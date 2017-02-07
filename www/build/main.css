@@ -26125,3 +26125,15 @@ sub {
     padding-top: calc(16px + 20px);
   }
 }
+
+page-login .header-no-padding {
+  padding: 0px !important;
+}
+
+page-login .toolbar-md {
+  padding: 0px !important;
+}
+
+page-login .toolbar-ios {
+  padding: 0px !important;
+}

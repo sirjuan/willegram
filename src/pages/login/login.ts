@@ -13,6 +13,7 @@ export class LoginPage {
   email:string = '';
   password:string = '';
   name:string = '';
+  register = false;
 
   constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
 
@@ -66,7 +67,9 @@ export class LoginPage {
       this.showLogin = true;
     }
   }
-
+  registerForm() {
+    this.showLogin = false;
+  }
   doRegister() {
     if(!this.showLogin) {
       console.log('process register');
