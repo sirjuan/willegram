@@ -6,7 +6,7 @@ import { Data } from '../../providers/data';
 
 
 import { Auth, User } from '@ionic/cloud-angular';
-import { LoginPage } from '../login/login';
+
 
 /*
   Generated class for the Feed page.

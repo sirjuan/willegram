@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
-import { GridContentPage} from '../grid-content/grid-content';
+
 import { SearchPeoplePage} from '../search-people/search-people';
 
 /*

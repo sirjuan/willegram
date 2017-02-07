@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
-import { FeedContentPage} from '../feed-content/feed-content';
-import { GridContentPage} from '../grid-content/grid-content';
+
 
 /*
   Generated class for the ProfileFeed page.
