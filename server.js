@@ -140,9 +140,9 @@ res.status(200).json(docs);
 // USER: create a new user
 app.post("/api/users", function(req, res) {
 var newUser = {
-    userName: req.body.userName,
+    userName: 'name',
     profilePictureUrl: '',
-    email: req.body.email,
+    email: 'email',
     followers: [],
     follows: []
 }
