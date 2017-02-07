@@ -8,9 +8,7 @@
 
   <ion-navbar>
   
-   
-
-      <ion-title text-center>Willegram</ion-title>
+         <ion-title text-center>Willegram</ion-title>
        <ion-buttons end>
             <button ion-button icon-only (click)="logout()" clear large item-right><ion-icon item-left name="camera"></ion-icon></button>
        </ion-buttons>
@@ -21,11 +19,11 @@
 
 
 <ion-content>
-<button ion-button block outline (click)="loadPosts()">Update feed</button>
-<ion-list>
+<button ion-button block clear (click)="loadPosts()">Update feed</button>
+
 
 <page-feed-content [posts]="posts"></page-feed-content>
 
-</ion-list>
+
 
 </ion-content>

@@ -3,9 +3,12 @@ import { NavController, AlertController, LoadingController } from 'ionic-angular
 import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 import { TabsPage } from '../tabs/tabs';
 
+import { UserService } from '../../providers/user-service';
+
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html'
+  templateUrl: 'login.html',
+  providers: [UserService]
 })
 export class LoginPage {
 
@@ -15,7 +18,7 @@ export class LoginPage {
   name:string = '';
   register = false;
 
-  constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
+  constructor(public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
 
   ionViewDidLoad() {  }
 
@@ -87,7 +90,7 @@ export class LoginPage {
         content: "Registering your account..."
       });
       loader.present();
-
+      this.userService.add(this.name, this.email);
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
           loader.dismissAll();

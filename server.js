@@ -122,6 +122,25 @@ res.status(204).end();
 });
 });
 
+// USER: create a new user
+app.post("/api/users", function(req, res) {
+var newPost = {
+    userName: req.body.userName,
+    profilePictureUrl: '',
+    email: req.body.email,
+    followers: [],
+    follows: []
+}
+
+db.collection("posts").insertOne(newPost, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to add post");
+} else {
+res.status(201).json(doc.ops[0]);
+}
+});
+});
+
 // Error handler for the api
 function handleError(res, reason, message, code) {
 console.log("API Error: " + reason);

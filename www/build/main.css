@@ -26126,6 +26126,26 @@ sub {
   }
 }
 
+page-feed-content .item-md.item-block .item-inner {
+  padding-right: 0px !important;
+}
+
+page-feed-content .remove-margin {
+  margin: 0px !important;
+}
+
+page-feed-content .label-md {
+  margin: 0px !important;
+}
+
+page-feed-content .details {
+  font-size: 0.9em;
+}
+
+page-feed-content .small-icon {
+  font-size: 0.8em;
+}
+
 page-login .header-no-padding {
   padding: 0px !important;
 }

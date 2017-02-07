@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
+import { ImagePicker } from 'ionic-native';
+//import { GalleryPage } from '../../gallery/gallery';
 
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
@@ -17,6 +19,7 @@ export class Camera2Page {
   photoTaken: boolean;
   cameraUrl: string;
   photoSelected: boolean;
+  images: [{}];
 
   ionViewDidLoad() {  }
 
@@ -36,6 +39,20 @@ export class Camera2Page {
         .subscribe(data  => {
           this.posts.push(data)
         });
+  }
+
+  openGallery(): void {
+  let options = {
+    maximumImagesCount: 8,
+    width: 500,
+    height: 500,
+    quality: 75
+  }
+
+  ImagePicker.getPictures(options).then(
+    file_uris => this.images.push({images: file_uris}),
+    err => console.log('uh oh')
+    );
   }
 
   selectFromGallery() {

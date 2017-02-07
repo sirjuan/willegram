@@ -13,9 +13,6 @@ export class Data {
 
   constructor (private http: Http) {}
 
-    // get("/api/posts")
-    
-
   load(): Observable<Post[]> {
     return this.http.get(this.postsUrl)
                .map(res => res.json())
