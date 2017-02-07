@@ -17,9 +17,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public auth:Auth, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
 
-  ionViewDidLoad() {
-    console.log('Hello LoginPage Page');
-  }
+  ionViewDidLoad() {  }
 
   /*
   for both of these, if the right form is showing, process the form,
@@ -27,8 +25,7 @@ export class LoginPage {
   */
   doLogin() {
     if(this.showLogin) {
-      console.log('process login');
-
+   
       if(this.email === '' || this.password === '') {
         let alert = this.alertCtrl.create({
           title:'Register Error', 
@@ -45,13 +42,11 @@ export class LoginPage {
       loader.present();
       
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
-        console.log('ok i guess?');
         loader.dismissAll();
         this.navCtrl.setRoot(TabsPage);        
       }, (err) => {
         loader.dismissAll();
-        console.log(err.message);
-
+       
         let errors = '';
         if(err.message === 'UNPROCESSABLE ENTITY') errors += 'Email isn\'t valid.<br/>';
         if(err.message === 'UNAUTHORIZED') errors += 'Password is required.<br/>';
@@ -72,8 +67,7 @@ export class LoginPage {
   }
   doRegister() {
     if(!this.showLogin) {
-      console.log('process register');
-
+  
       /*
       do our own initial validation
       */
@@ -88,7 +82,6 @@ export class LoginPage {
       }
 
       let details: UserDetails = {'email':this.email, 'password':this.password, 'name':this.name};
-      console.log(details);
       
       let loader = this.loadingCtrl.create({
         content: "Registering your account..."
@@ -96,7 +89,6 @@ export class LoginPage {
       loader.present();
 
       this.auth.signup(details).then(() => {
-        console.log('ok signup');
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
           loader.dismissAll();
           this.navCtrl.setRoot(TabsPage);
@@ -106,7 +98,6 @@ export class LoginPage {
         loader.dismissAll();
         let errors = '';
         for(let e of err.details) {
-          console.log(e);
           if(e === 'required_email') errors += 'Email is required.<br/>';
           if(e === 'required_password') errors += 'Password is required.<br/>';
           if(e === 'conflict_email') errors += 'A user with this email already exists.<br/>';

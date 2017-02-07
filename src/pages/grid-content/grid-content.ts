@@ -11,26 +11,19 @@ import { ShowPostPage } from '../show-post/show-post';
   templateUrl: 'grid-content.html'
 })
 export class GridContentPage {
+  @Input() posts: Post[];
+  post: Post;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
-@Input() posts: Post[];
 
-post: Post;
-onePostArray: Post[];
+  ionViewDidLoad() {  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GridContentPage');
-  }
-         loadPost(post) {
-          console.log('loading');
-          console.log(post)
-          this.postService.loadPost(post)
-        .subscribe(data => {
-          this.post = data;
-          console.log(this.post);
-          
-          this.navCtrl.push(ShowPostPage, {post: this.post} );
-        })
+  loadPost(post) {
+    this.postService.loadPost(post)
+                    .subscribe(data => {
+      this.post = data;
+      this.navCtrl.push(ShowPostPage, {post: this.post} );
+    })
   }
 
 }

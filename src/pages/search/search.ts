@@ -5,16 +5,11 @@ import { Data } from '../../providers/data';
 
 import { SearchPeoplePage} from '../search-people/search-people';
 
-/*
-  Generated class for the Search page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-search',
   templateUrl: 'search.html'
 })
+
 export class SearchPage {
 
   public posts: Post[];
@@ -22,7 +17,6 @@ export class SearchPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
     this.loadPosts();
   }
 
@@ -33,7 +27,6 @@ export class SearchPage {
         })
   }
   openSearch() {
-
     this.navCtrl.push(SearchPeoplePage);
   }
 

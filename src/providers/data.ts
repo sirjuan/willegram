@@ -1,20 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http  } from '@angular/http';
-import 'rxjs/add/operator/map';
-import { Post } from './post'
-import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-
-
- 
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import { Post } from './post'
 
 @Injectable()
 export class Data {
     
-    postsUrl = 'https://peaceful-island-53615.herokuapp.com/api/posts';
+  postsUrl = 'https://peaceful-island-53615.herokuapp.com/api/posts';
 
-    constructor (private http: Http) {}
+  constructor (private http: Http) {}
 
     // get("/api/posts")
     

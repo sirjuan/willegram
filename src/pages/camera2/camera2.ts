@@ -13,44 +13,38 @@ export class Camera2Page {
 
   public base64Image: string;
   public posts: Post[];
-  
-
   cameraData: string;
   photoTaken: boolean;
   cameraUrl: string;
   photoSelected: boolean;
 
-   ionViewDidLoad() {
-    console.log('ionViewDidLoad CameraPage');
-
- }
+  ionViewDidLoad() {  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
        this.loadPosts();
   }
 
-    loadPosts() {
+  loadPosts() {
       this.postService.load()
         .subscribe(data => {
           this.posts = data;
         })
   }
 
-    addPost(photo: string, post:string) {
-      console.log(photo);
-      console.log(post);
+  addPost(photo: string, post:string) {
     this.postService.add(this.base64Image, post)
         .subscribe(data  => {
           this.posts.push(data)
         });
   }
-    selectFromGallery() {
+
+  selectFromGallery() {
     var options = {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: Camera.DestinationType.DATA_URL,
       allowEdit: true,
-              targetWidth: 1000,
-        targetHeight: 1000
+      targetWidth: 1000,
+      targetHeight: 1000
     };
     Camera.getPicture(options).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
