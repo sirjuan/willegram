@@ -30,8 +30,10 @@ export class UserService {
                .catch(this.handleError);
   }
 
-      add(userName: string, email: string): Observable<AppUser> {
+  add(userName: string, email: string): Observable<AppUser> {
+    console.log('userservice add running' + userName + email)
     let body = JSON.stringify({userName: userName, email: email});
+    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http.post(this.usersUrl, body, {headers: headers})

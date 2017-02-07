@@ -122,9 +122,24 @@ res.status(204).end();
 });
 });
 
+/*
+* Endpoint --> "/api/users"
+*/
+
+// GET: retrieve all users
+app.get("/api/users", function(req, res) {
+db.collection("users").find({}).toArray(function(err, docs) {
+if (err) {
+handleError(res, err.message, "Failed to get users");
+} else {
+res.status(200).json(docs);
+}
+});
+});
+
 // USER: create a new user
 app.post("/api/users", function(req, res) {
-var newPost = {
+var newUser = {
     userName: req.body.userName,
     profilePictureUrl: '',
     email: req.body.email,
@@ -132,9 +147,9 @@ var newPost = {
     follows: []
 }
 
-db.collection("posts").insertOne(newPost, function(err, doc) {
+db.collection("users").insertOne(newUser, function(err, doc) {
 if (err) {
-handleError(res, err.message, "Failed to add post");
+handleError(res, err.message, "Failed to add user");
 } else {
 res.status(201).json(doc.ops[0]);
 }

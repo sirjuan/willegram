@@ -90,7 +90,9 @@ export class LoginPage {
         content: "Registering your account..."
       });
       loader.present();
+      console.log('detailit loginissa: ' + this.name + this.email)
       this.userService.add(this.name, this.email);
+
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
           loader.dismissAll();
