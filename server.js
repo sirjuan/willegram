@@ -180,7 +180,7 @@ res.status(200).json(doc);
 });
 
 // GET: retrieve a user by userName
-app.get("/api/users/:email", function(req, res) {
+app.get("/api/users/email/:email", function(req, res) {
 db.collection("users").findOne({ userName: req.params.email }, function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get post by email");
