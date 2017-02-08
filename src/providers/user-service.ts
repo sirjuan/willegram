@@ -9,12 +9,32 @@ import { AppUser } from './app-user'
 @Injectable()
 export class UserService {
     
+  currentUser: {currentUserName: ''; currentUserId: ''};
   usersUrl = 'https://peaceful-island-53615.herokuapp.com/api/users';
 
   constructor (private http: Http) {}
 
-    // get("/api/users")
+  // currentUser functions
+
+  setCurrentUser(email) {
+       this.loadUserByEmail(email)
+        .subscribe(data => {
+          console.log('data: ' + data)
+         this.currentUser = {currentUserName: data.userName, currentUserId: data._id};
+         console.log('this.currentUser: ' + this.currentUser)
+        })
     
+  }
+
+  getCurrentUser() {
+    return this.currentUser;
+  }
+
+  clearCurrentUser() {
+    this.currentUser = {currentUserName: '', currentUserId: ''};
+  }
+    
+  // get("/api/users")
 
   load(): Observable<AppUser[]> {
     return this.http.get(this.usersUrl)
@@ -30,16 +50,25 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  add(userName: string, email: string): Observable<AppUser> {
-    console.log('userservice add running' + userName + email)
-    let body = JSON.stringify({userName: userName, email: email});
-    console.log(body);
-    let headers = new Headers({'Content-Type': 'application/json'});
+  loadUserByEmail(email) {
 
+    let url = `${this.usersUrl}/${email}`;
+    return this.http.get(url)
+               .map(res => res.json())
+               .catch(this.handleError);
+  }
+
+  add(userName: string, email: string): Observable<AppUser> {
+ 
+    let body = JSON.stringify({userName: userName, email: email});
+    
+    let headers = new Headers({'Content-Type': 'application/json'});
+  
     return this.http.post(this.usersUrl, body, {headers: headers})
                     .map(res => res.json())
                     .catch(this.handleError);
   }
+
 
     // Update a user
   update(user: AppUser) {

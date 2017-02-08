@@ -24,6 +24,7 @@ import { PostCommentsPage } from '../pages/post-comments/post-comments';
 
 
 import { Data } from '../providers/data';
+import { UserService } from '../providers/user-service';
 
 
 const cloudSettings: CloudSettings = {
@@ -65,6 +66,6 @@ const cloudSettings: CloudSettings = {
     SearchPeoplePage,
     ShowPostPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data ]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data, UserService ]
 })
 export class AppModule {}

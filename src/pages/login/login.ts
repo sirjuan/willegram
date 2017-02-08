@@ -4,6 +4,7 @@ import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
 import { TabsPage } from '../tabs/tabs';
 
 import { UserService } from '../../providers/user-service';
+import { AppUser } from '../../providers/app-user';
 
 @Component({
   selector: 'page-login',
@@ -17,11 +18,22 @@ export class LoginPage {
   password:string = '';
   name:string = '';
   register = false;
+  public users: AppUser[];
 
-  constructor(public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {}
+  constructor(public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
+    this.loadUsers();
+  }
 
   ionViewDidLoad() {  }
 
+      loadUsers() {
+      this.userService.load()
+        .subscribe(data => {
+          this.users = data;
+        })
+  }
+
+  
   /*
   for both of these, if the right form is showing, process the form,
   otherwise show it
@@ -46,6 +58,7 @@ export class LoginPage {
       
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
         loader.dismissAll();
+        this.userService.setCurrentUser(this.email);
         this.navCtrl.setRoot(TabsPage);        
       }, (err) => {
         loader.dismissAll();
@@ -68,6 +81,14 @@ export class LoginPage {
   registerForm() {
     this.showLogin = false;
   }
+
+  addUser(userName: string, email:string) {
+    this.userService.add(userName, email)
+        .subscribe(data  => {
+          this.users.push(data)
+        });
+  }
+
   doRegister() {
     if(!this.showLogin) {
   
@@ -91,7 +112,7 @@ export class LoginPage {
       });
       loader.present();
       console.log('detailit loginissa: ' + this.name + this.email)
-      this.userService.add(this.name, this.email);
+      this.addUser(this.name, this.email);
 
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {

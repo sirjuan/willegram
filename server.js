@@ -137,7 +137,8 @@ res.status(200).json(docs);
 });
 });
 
-// USER: create a new user
+
+// POST: create a new user
 app.post("/api/users", function(req, res) {
 var newUser = {
     userName: req.body.userName,
@@ -152,6 +153,17 @@ if (err) {
 handleError(res, err.message, "Failed to add user");
 } else {
 res.status(201).json(doc.ops[0]);
+}
+});
+});
+
+// GET: retrieve a user by email
+app.get("/api/posts/:email", function(req, res) {
+db.collection("posts").findOne({ email: req.params.email }, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get post by email");
+} else {
+res.status(200).json(doc);
 }
 });
 });

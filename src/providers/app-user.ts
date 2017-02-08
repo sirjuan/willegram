@@ -3,6 +3,6 @@ export class AppUser {
   userName: string;
   email: string;
   profilePictureUrl: string;
-	followers: [string];
-	follows: [string];
+	followers: [{userId: string; userName: string;}];
+	follows: [{userId: string; userName: string;}];
 }
