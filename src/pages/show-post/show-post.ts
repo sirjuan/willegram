@@ -7,13 +7,8 @@ import { Data } from '../../providers/data';
 
 import { Auth, User } from '@ionic/cloud-angular';
 import { Storage } from '@ionic/storage';
+import { UserService } from '../../providers/user-service';
 
-/*
-  Generated class for the Feed page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-show-post',
   templateUrl: 'show-post.html'
@@ -30,9 +25,21 @@ export class ShowPostPage {
   
   post = this.navParams.get('post');
     
-  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth, storage: Storage) { }
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth, storage: Storage) {
+
+    this.getCurrentUser();
+    
+   }
  
   ionViewDidLoad() {  }
 
+    getCurrentUser() {   
+        this.userService.storage.get('currentUserName').then((data) => {
+            this.currentUserName = data;       
+        })    
+        this.userService.storage.get('currentUserId').then((data) => {
+            this.currentUserId = data;
+        })
+  }
 }
 

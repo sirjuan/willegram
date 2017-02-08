@@ -7,6 +7,7 @@ import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
 import { Storage } from '@ionic/storage';
 
+
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -25,9 +26,19 @@ export class LoginPage {
 
   constructor(storage: Storage, public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
     this.loadUsers();
+    this.getCurrentUser();
   }
 
   ionViewDidLoad() {  }
+
+    getCurrentUser() {   
+        this.userService.storage.get('currentUserName').then((data) => {
+            this.currentUserName = data;       
+        })    
+        this.userService.storage.get('currentUserId').then((data) => {
+            this.currentUserId = data;
+        })
+  }
 
       loadUsers() {
       this.userService.load()

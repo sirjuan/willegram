@@ -25,18 +25,21 @@ export class FeedContentPage {
   @Input() posts: Post[];
   post: Post;
   constructor(storage: Storage, public navCtrl: NavController, public navParams: NavParams, public postService: Data, public userService: UserService) { 
- 
-   }
-  
-  ionViewDidLoad() { 
+     
+     this.getCurrentUser();
 
-  }
+   }
+
+  ionViewDidLoad() { }
   
-  getCurrentUser() {
-    this.currentUserName = this.userService.getCurrentUserName();
-    this.currentUserId = this.userService.getCurrentUserId();
-    console.log('pyydetään käyttäjää');
-    console.log(this.currentUserName);
+  
+  getCurrentUser() {   
+        this.userService.storage.get('currentUserName').then((data) => {
+            this.currentUserName = data;       
+        })    
+        this.userService.storage.get('currentUserId').then((data) => {
+            this.currentUserId = data;
+        })
   }
   openComments(post) {
     this.navCtrl.push(PostCommentsPage, { post: post });
@@ -51,7 +54,7 @@ export class FeedContentPage {
 
   likePost(user, post: Post) {
 
-    if (post.likes.indexOf(user.userName) < 0) {
+    if (post.likes.indexOf(this.currentUserName) < 0) {
       post.likes.push(user);
       this.postService.update(post)
         .subscribe(response => {

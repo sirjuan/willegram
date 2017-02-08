@@ -51,7 +51,7 @@ app.post("/api/posts", function(req, res) {
 var newPost = {
     userId: 'joku',
     userName: 'sirjuan',
-    imageUrl: req.body.image,
+    imageUrl: req.body.imageUrl,
     caption: req.body.caption,
     postTime: '10:16',
     tags: [],

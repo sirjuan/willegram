@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 import { Storage } from '@ionic/storage';
+import { UserService } from '../../providers/user-service';
 
 @Component({
   selector: 'page-profile',
@@ -17,10 +18,22 @@ export class ProfilePage {
     currentUserName: string;
   currentUserId: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {}
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
+
+    this.getCurrentUser();
+  }
 
   ionViewDidLoad() {
      this.loadPosts();
+  }
+
+      getCurrentUser() {   
+        this.userService.storage.get('currentUserName').then((data) => {
+            this.currentUserName = data;       
+        })    
+        this.userService.storage.get('currentUserId').then((data) => {
+            this.currentUserId = data;
+        })
   }
 
   loadPosts() {

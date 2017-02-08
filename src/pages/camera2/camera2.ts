@@ -6,6 +6,7 @@ import { ImagePicker } from 'ionic-native';
 import { Storage } from '@ionic/storage';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
+import { UserService } from '../../providers/user-service';
 
 @Component({
   selector: 'page-camera2',
@@ -23,10 +24,22 @@ export class Camera2Page {
   currentUserId: string;
   images: [{}];
 
+
+
   ionViewDidLoad() {  }
 
-  constructor(storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
+  constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
        this.loadPosts();
+        this.getCurrentUser();
+  }
+
+    getCurrentUser() {   
+        this.userService.storage.get('currentUserName').then((data) => {
+            this.currentUserName = data;       
+        })    
+        this.userService.storage.get('currentUserId').then((data) => {
+            this.currentUserId = data;
+        })
   }
 
   loadPosts() {
@@ -41,20 +54,6 @@ export class Camera2Page {
         .subscribe(data  => {
           this.posts.push(data)
         });
-  }
-
-  openGallery(): void {
-  let options = {
-    maximumImagesCount: 8,
-    width: 500,
-    height: 500,
-    quality: 75
-  }
-
-  ImagePicker.getPictures(options).then(
-    file_uris => this.images.push({images: file_uris}),
-    err => console.log('uh oh')
-    );
   }
 
   selectFromGallery() {

@@ -13,7 +13,7 @@ export class UserService {
   public currentUser;
   usersUrl = 'https://peaceful-island-53615.herokuapp.com/api/users';
   storage = new Storage();
-  currentUserName: string;
+  currentUserName;
   currentUserId: string;
 
   constructor (private http: Http, storage: Storage) {
@@ -23,41 +23,26 @@ export class UserService {
   // currentUser functions
 
   setCurrentUser(data) {
-    console.log('setCurrentUser data');
-    console.log(data);
+
     this.storage.set('currentUserName', data.userName);
     this.storage.set('currentUserId', data._id);
-    console.log('storage keys');
-    console.log(this.storage.keys());
-    console.log(this.storage.get('currentUserName'));
+ 
+    console.log('data.userName');
+    console.log('data.userId');
 
-    let currentUser = {currentUserName: data.userName, currentUserId: data._id};
-        console.log('setCurrentUser this.currentUser');
-    console.log(this.currentUser);
-    return this.currentUser;            
+
+               
     
   }
 
-  getCurrentUserName() {
-    let userName;
-    userName = this.storage.get('currentUserName').then((val) => {
-        userName = val;   
-        
-     })
-     console.log(userName);
-     console.log(userName.val);
-     return userName.val;
 
-  }
-
-  getCurrentUserId() {
+getToken: Observable<any> = 
+    Observable.fromPromise(this.storage.get('currentUserName').then(currentUserName => {
+      console.log(('before parse', currentUserName));
     
-     this.storage.get('currentUserId').then((val) => {
-        console.log('Your user id is', val);
-         return val;
-     })
+        return currentUserName;
+}));
 
-  }
 
   clearCurrentUser() {
     this.currentUser = {currentUserName: '', currentUserId: ''};
