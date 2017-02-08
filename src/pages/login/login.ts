@@ -58,6 +58,8 @@ export class LoginPage {
       
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
         loader.dismissAll();
+       
+     
         this.userService.setCurrentUser(this.email);
         this.navCtrl.setRoot(TabsPage);        
       }, (err) => {
@@ -112,7 +114,8 @@ export class LoginPage {
       });
       loader.present();
       console.log('detailit loginissa: ' + this.name + this.email)
-      this.addUser(this.name, this.email);
+      let encodedEmail = btoa(this.email);
+      this.addUser(this.name, encodedEmail);
 
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {

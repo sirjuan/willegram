@@ -17,7 +17,8 @@ export class UserService {
   // currentUser functions
 
   setCurrentUser(email) {
-       this.loadUserByEmail(email)
+       let encodedEmail = btoa(email);
+       this.loadCurrentUser(encodedEmail)
         .subscribe(data => {
           console.log('data: ' + data)
          this.currentUser = {currentUserName: data.userName, currentUserId: data._id};
@@ -50,10 +51,9 @@ export class UserService {
                .catch(this.handleError);
   }
 
-  loadCurrentUser() {
+  loadCurrentUser(email) {
 
-    let url = `${this.usersUrl}/email/current`;
-    console.log(url);
+    let url = `${this.usersUrl}/${email}`;
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
