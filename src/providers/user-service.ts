@@ -53,7 +53,8 @@ export class UserService {
 
   loadCurrentUser(email) {
 
-    let url = `${this.usersUrl}/${email}`;
+    let url = `${this.usersUrl}/email/${email}`;
+    console.log(url);
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
