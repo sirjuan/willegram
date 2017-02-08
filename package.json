@@ -26,7 +26,7 @@
     "@angular/platform-browser-dynamic": "2.2.1",
     "@angular/platform-server": "2.2.1",
     "@ionic/cloud-angular": "^0.9.1",
-    "@ionic/storage": "1.1.7",
+    "@ionic/storage": "^1.1.7",
     "angular-cli": "1.0.0-beta.24",
     "body-parser": "^1.16.0",
     "cors": "^2.8.1",

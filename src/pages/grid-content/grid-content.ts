@@ -4,7 +4,7 @@ import { Post } from '../../providers/post';
 
 import { Data } from '../../providers/data';
 import { ShowPostPage } from '../show-post/show-post';
-
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-grid-content',
@@ -13,8 +13,10 @@ import { ShowPostPage } from '../show-post/show-post';
 export class GridContentPage {
   @Input() posts: Post[];
   post: Post;
+   currentUserName: string;
+  currentUserId: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
+  constructor(storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
 
   ionViewDidLoad() {  }
 

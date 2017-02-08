@@ -5,30 +5,58 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AppUser } from './app-user'
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class UserService {
     
-  currentUser: {currentUserName: ''; currentUserId: ''};
+  public currentUser;
   usersUrl = 'https://peaceful-island-53615.herokuapp.com/api/users';
+  storage = new Storage();
+  currentUserName: string;
+  currentUserId: string;
 
-  constructor (private http: Http) {}
+  constructor (private http: Http, storage: Storage) {
+       
+  }
 
   // currentUser functions
 
-  setCurrentUser(email) {
-       let encodedEmail = btoa(email);
-       this.loadCurrentUser(encodedEmail)
-        .subscribe(data => {
-          console.log('data: ' + data)
-         this.currentUser = {currentUserName: data.userName, currentUserId: data._id};
-         console.log('this.currentUser: ' + this.currentUser)
-        })
+  setCurrentUser(data) {
+    console.log('setCurrentUser data');
+    console.log(data);
+    this.storage.set('currentUserName', data.userName);
+    this.storage.set('currentUserId', data._id);
+    console.log('storage keys');
+    console.log(this.storage.keys());
+    console.log(this.storage.get('currentUserName'));
+
+    let currentUser = {currentUserName: data.userName, currentUserId: data._id};
+        console.log('setCurrentUser this.currentUser');
+    console.log(this.currentUser);
+    return this.currentUser;            
     
   }
 
-  getCurrentUser() {
-    return this.currentUser;
+  getCurrentUserName() {
+    let userName;
+    userName = this.storage.get('currentUserName').then((val) => {
+        userName = val;   
+        
+     })
+     console.log(userName);
+     console.log(userName.val);
+     return userName.val;
+
+  }
+
+  getCurrentUserId() {
+    
+     this.storage.get('currentUserId').then((val) => {
+        console.log('Your user id is', val);
+         return val;
+     })
+
   }
 
   clearCurrentUser() {
@@ -54,11 +82,11 @@ export class UserService {
   loadCurrentUser(email) {
 
     let url = `${this.usersUrl}/email/${email}`;
-    console.log(url);
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
-  }
+       
+   }
 
   add(userName: string, email: string): Observable<AppUser> {
  

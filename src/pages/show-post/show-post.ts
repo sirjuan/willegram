@@ -6,7 +6,7 @@ import { Data } from '../../providers/data';
 
 
 import { Auth, User } from '@ionic/cloud-angular';
-
+import { Storage } from '@ionic/storage';
 
 /*
   Generated class for the Feed page.
@@ -25,10 +25,12 @@ export class ShowPostPage {
   public userName = 'sirjuan';
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
+  currentUserName: string;
+  currentUserId: string;
   
   post = this.navParams.get('post');
     
-  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth, storage: Storage) { }
  
   ionViewDidLoad() {  }
 

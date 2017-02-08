@@ -5,6 +5,7 @@ import { MyApp } from './app.component';
 
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { Storage } from '@ionic/storage';
 
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -66,6 +67,6 @@ const cloudSettings: CloudSettings = {
     SearchPeoplePage,
     ShowPostPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data, UserService ]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data, UserService, Storage ]
 })
 export class AppModule {}

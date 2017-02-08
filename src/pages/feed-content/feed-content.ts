@@ -3,8 +3,9 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 
 import { Data } from '../../providers/data';
+import { UserService } from '../../providers/user-service';
 import { PostCommentsPage } from '../post-comments/post-comments';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-feed-content',
   templateUrl: 'feed-content.html'
@@ -18,12 +19,25 @@ export class FeedContentPage {
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
 
+  currentUserName;
+  currentUserId;
+
   @Input() posts: Post[];
   post: Post;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public postService: Data) {  }
+  constructor(storage: Storage, public navCtrl: NavController, public navParams: NavParams, public postService: Data, public userService: UserService) { 
+ 
+   }
   
-  ionViewDidLoad() {  }
+  ionViewDidLoad() { 
 
+  }
+  
+  getCurrentUser() {
+    this.currentUserName = this.userService.getCurrentUserName();
+    this.currentUserId = this.userService.getCurrentUserId();
+    console.log('pyydetään käyttäjää');
+    console.log(this.currentUserName);
+  }
   openComments(post) {
     this.navCtrl.push(PostCommentsPage, { post: post });
   }

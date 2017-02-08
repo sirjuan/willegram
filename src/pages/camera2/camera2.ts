@@ -3,7 +3,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
 import { ImagePicker } from 'ionic-native';
 //import { GalleryPage } from '../../gallery/gallery';
-
+import { Storage } from '@ionic/storage';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 
@@ -19,11 +19,13 @@ export class Camera2Page {
   photoTaken: boolean;
   cameraUrl: string;
   photoSelected: boolean;
+   currentUserName: string;
+  currentUserId: string;
   images: [{}];
 
   ionViewDidLoad() {  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
+  constructor(storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
        this.loadPosts();
   }
 

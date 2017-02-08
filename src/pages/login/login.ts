@@ -5,6 +5,7 @@ import { TabsPage } from '../tabs/tabs';
 
 import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-login',
@@ -19,8 +20,10 @@ export class LoginPage {
   name:string = '';
   register = false;
   public users: AppUser[];
+   currentUserName: string;
+  currentUserId: string;
 
-  constructor(public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
+  constructor(storage: Storage, public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
     this.loadUsers();
   }
 
@@ -32,7 +35,12 @@ export class LoginPage {
           this.users = data;
         })
   }
-
+    setCurrentUser(email) {
+    this.userService.loadCurrentUser(email)
+      .subscribe(data => {
+    this.userService.setCurrentUser(data);
+    })
+  }
   
   /*
   for both of these, if the right form is showing, process the form,
@@ -55,12 +63,14 @@ export class LoginPage {
         content: "Logging in..."
       });
       loader.present();
-      
+      this.setCurrentUser(this.email);
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
+        
+        
         loader.dismissAll();
        
      
-        this.userService.setCurrentUser(this.email);
+        
         this.navCtrl.setRoot(TabsPage);        
       }, (err) => {
         loader.dismissAll();
@@ -114,8 +124,8 @@ export class LoginPage {
       });
       loader.present();
       console.log('detailit loginissa: ' + this.name + this.email)
-      let encodedEmail = btoa(this.email);
-      this.addUser(this.name, encodedEmail);
+      
+      this.addUser(this.name, this.email);
 
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
