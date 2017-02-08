@@ -19,7 +19,7 @@
        
         
         <ion-icon padding-left name="heart" color="danger"  (click)="unlikePost('taa_tykkasi', post)" *ngIf="post.likes.indexOf('taa_tykkasi') >= 0" ></ion-icon>
-        <ion-icon padding-left name="heart"  (click)="likePost('taa_tykkasi', post)" *ngIf="post.likes.indexOf('taa_tykkasi') < 0" ></ion-icon>
+        <ion-icon padding-left name="heart"  (click)="likePost(getCurrentUser(), post)" *ngIf="post.likes.indexOf('taa_tykkasi') < 0" ></ion-icon>
    
        
         <ion-icon padding-left name="text"></ion-icon>

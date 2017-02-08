@@ -157,9 +157,20 @@ res.status(201).json(doc.ops[0]);
 });
 });
 
+// GET: retrieve a user by id
+app.get("/api/users/:id", function(req, res) {
+db.collection("users").findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get post by _id");
+} else {
+res.status(200).json(doc);
+}
+});
+});
+
 // GET: retrieve a user by email
-app.get("/api/posts/:email", function(req, res) {
-db.collection("posts").findOne({ email: req.params.email }, function(err, doc) {
+app.get("/api/users/:email", function(req, res) {
+db.collection("users").findOne({ email: req.params.email }, function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get post by email");
 } else {

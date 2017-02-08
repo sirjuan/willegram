@@ -35,9 +35,9 @@ export class FeedContentPage {
       })
   }
 
-  likePost(user: string, post: Post) {
+  likePost(user, post: Post) {
 
-    if (post.likes.indexOf(user) < 0) {
+    if (post.likes.indexOf(user.userName) < 0) {
       post.likes.push(user);
       this.postService.update(post)
         .subscribe(response => {
@@ -48,7 +48,7 @@ export class FeedContentPage {
 
   }
 
-    unlikePost(user: string, post: Post) {
+    unlikePost(user, post: Post) {
       
       let index = post.likes.indexOf(user);
       post.likes.splice(index, 1);
