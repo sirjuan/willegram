@@ -18,12 +18,16 @@
     </ion-thumbnail>
     
     <ion-textarea *ngIf="base64Image" #newPost style="font-size: 0.8em;" type="text" placeholder="Write a caption..." value=""> </ion-textarea>
+
+    <ion-textarea *ngIf="base64Image" #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post" value=""> </ion-textarea>
+    <p *ngIf="newTags.length < 0">Separate tags with space</p>
    
   </ion-item>
 
-  <button *ngIf="base64Image" ion-button block outline (click)="addPost(this.base64image, newPost.value); newPost.value=''">
+  <button *ngIf="base64Image" ion-button block outline (click)="addPost(this.base64image, newPost.value, newTags.value); newPost.value=''; newTags.value=''">
       <ion-icon name="add-circle"></ion-icon>
        Post
     </button>
-    
+
+  
 </ion-content>

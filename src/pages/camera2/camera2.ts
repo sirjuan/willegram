@@ -7,6 +7,7 @@ import { Storage } from '@ionic/storage';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 import { UserService } from '../../providers/user-service';
+import { DateService } from '../../providers/date-service';
 
 @Component({
   selector: 'page-camera2',
@@ -28,7 +29,7 @@ export class Camera2Page {
 
   ionViewDidLoad() {  }
 
-  constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
+  constructor(public dateService: DateService, public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
        this.loadPosts();
         this.getCurrentUser();
   }
@@ -49,8 +50,12 @@ export class Camera2Page {
         })
   }
 
-  addPost(photo: string, post:string) {
-    this.postService.add(this.base64Image, post)
+  addPost(photo: string, post:string, tags ) {
+    tags = tags.replace(/,#/g, '');
+  
+    tags.split(' ');
+    let postTime = this.dateService.getTime();
+    this.postService.add(this.base64Image, post, postTime, this.currentUserId, this.currentUserName, tags)
         .subscribe(data  => {
           this.posts.push(data)
         });

@@ -49,12 +49,12 @@ res.status(200).json(docs);
 // POST: create a new post
 app.post("/api/posts", function(req, res) {
 var newPost = {
-    userId: 'joku',
-    userName: 'sirjuan',
+    userId: req.body.userId,
+    userName: req.body.userName,
     imageUrl: req.body.imageUrl,
     caption: req.body.caption,
-    postTime: '10:16',
-    tags: [],
+    postTime: req.body.postTime,
+    tags: req.body.tags,
     comments: [],
     likes: []
 }
@@ -108,6 +108,21 @@ if (err) {
 handleError(res, err.message, "Failed to delete post");
 } else {
 res.status(204).end();
+}
+});
+});
+
+/*
+* Endpoint "/api/posts/user/:userId"
+*/
+
+// GET: retrieve a post by UserId
+app.get("/api/posts/user/:userId", function(req, res) {
+db.collection("posts").find({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get posts by userId");
+} else {
+res.status(200).json(doc);
 }
 });
 });
