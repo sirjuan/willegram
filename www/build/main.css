@@ -26145,15 +26145,3 @@ page-feed-content .details {
 page-feed-content .small-icon {
   font-size: 0.8em;
 }
-
-page-login .header-no-padding {
-  padding: 0px !important;
-}
-
-page-login .toolbar-md {
-  padding: 0px !important;
-}
-
-page-login .toolbar-ios {
-  padding: 0px !important;
-}

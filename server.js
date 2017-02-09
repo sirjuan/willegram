@@ -54,7 +54,7 @@ var newPost = {
     imageUrl: req.body.imageUrl,
     caption: req.body.caption,
     postTime: req.body.postTime,
-    tags: req.body.tags,
+    tags: [req.body.tags],
     comments: [],
     likes: []
 }

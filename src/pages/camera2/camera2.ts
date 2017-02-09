@@ -24,6 +24,7 @@ export class Camera2Page {
    currentUserName: string;
   currentUserId: string;
   images: [{}];
+  newTime;
 
 
 
@@ -49,12 +50,24 @@ export class Camera2Page {
           this.posts = data;
         })
   }
+  getNewTime() {
+    this.newTime = this.dateService.getTime();
 
+  }
   addPost(photo: string, post:string, tags ) {
-    tags = tags.replace(/,#/g, '');
+    //tags = tags.replace(/,#/g, '');
   
-    tags.split(' ');
+    //tags.split(' ');
+    console.log('tags');
+    console.log(tags);
     let postTime = this.dateService.getTime();
+    console.log('postTime');
+    console.log(postTime);
+    console.log('id');
+    console.log(this.currentUserId);
+    console.log('username');
+    console.log(this.currentUserName);
+    
     this.postService.add(this.base64Image, post, postTime, this.currentUserId, this.currentUserName, tags)
         .subscribe(data  => {
           this.posts.push(data)
