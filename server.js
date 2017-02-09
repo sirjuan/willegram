@@ -123,7 +123,7 @@ db.collection("posts").finOne({userId: req.params.id}, function(err, result) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by userId");
 } else {
-res.status(200).json(docs);
+res.status(200).json(result);
 }
 });
 });
