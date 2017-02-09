@@ -21,10 +21,11 @@ export class ProfilePage {
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
 
     this.getCurrentUser();
+    this.loadPostsByUser(this.currentUserId);
   }
 
   ionViewDidLoad() {
-     this.loadPosts();
+     
   }
 
       getCurrentUser() {   
@@ -38,6 +39,16 @@ export class ProfilePage {
 
   loadPosts() {
       this.postService.load()
+                      .subscribe(data => {
+      this.posts = data;
+    })
+  }
+
+  loadPostsByUser(id) {
+
+    console.log('loadpost id: ' + id);
+    this.postService.loadPostsByUser(id)
+
                       .subscribe(data => {
       this.posts = data;
     })

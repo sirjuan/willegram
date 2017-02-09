@@ -35,7 +35,16 @@ console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.ge
 * Endpoint --> "/api/posts"
 */
 
-
+// GET: retrieve all posts
+app.get("/api/posts", function(req, res) {
+db.collection("posts").find({}).toArray(function(err, docs) {
+if (err) {
+handleError(res, err.message, "Failed to get posts");
+} else {
+res.status(200).json(docs);
+}
+});
+});
 
 // POST: create a new post
 app.post("/api/posts", function(req, res) {
@@ -118,6 +127,8 @@ res.status(200).json(docs);
 }
 });
 });
+
+
 
 app.delete("/api/posts/:id/likes/user", function(req, res) {
 db.collection("posts.likes").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {

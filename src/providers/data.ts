@@ -27,6 +27,14 @@ export class Data {
                .catch(this.handleError);
   }
 
+    loadPostsByUser(userId) {
+
+    let url = `${this.postsUrl}/users/${userId}`;
+    return this.http.get(url)
+               .map(res => res.json())
+               .catch(this.handleError);
+  }
+
       add(photo, post, postTime, userId, userName, tags): Observable<Post> {
     let body = JSON.stringify({imageUrl: photo, caption: post, postTime: postTime, userId: userId, userName: userName, tags: tags});
     console.log(body);
