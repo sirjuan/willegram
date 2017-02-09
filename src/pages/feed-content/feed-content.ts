@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
-
+import { SearchPeoplePage } from '../search-people/search-people';
 import { Data } from '../../providers/data';
 import { UserService } from '../../providers/user-service';
 import { PostCommentsPage } from '../post-comments/post-comments';
@@ -40,6 +40,10 @@ export class FeedContentPage {
         this.userService.storage.get('currentUserId').then((data) => {
             this.currentUserId = data;
         })
+  }
+  openSearch(tag) {
+    this.navCtrl.push(SearchPeoplePage, { tag: tag });
+    
   }
   openComments(post) {
     this.navCtrl.push(PostCommentsPage, { post: post });

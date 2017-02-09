@@ -35,16 +35,7 @@ console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.ge
 * Endpoint --> "/api/posts"
 */
 
-// GET: retrieve all posts
-app.get("/api/posts", function(req, res) {
-db.collection("posts").find({}).toArray(function(err, docs) {
-if (err) {
-handleError(res, err.message, "Failed to get posts");
-} else {
-res.status(200).json(docs);
-}
-});
-});
+
 
 // POST: create a new post
 app.post("/api/posts", function(req, res) {
@@ -116,13 +107,14 @@ res.status(204).end();
 * Endpoint "/api/posts/user/:userId"
 */
 
-// GET: retrieve a post by UserId
+// GET: retrieve posts by userId
 app.get("/api/posts/user/:userId", function(req, res) {
-db.collection("posts").find({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    
+db.collection("posts").find({ userId: req.params.id }).toArray(function(err, docs) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by userId");
 } else {
-res.status(200).json(doc);
+res.status(200).json(docs);
 }
 });
 });

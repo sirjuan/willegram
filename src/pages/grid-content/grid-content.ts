@@ -17,7 +17,11 @@ export class GridContentPage {
    currentUserName: string;
   currentUserId: string;
 
-  constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
+  constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
+
+    this.getCurrentUser();
+
+  }
 
   ionViewDidLoad() {  }
 

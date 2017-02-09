@@ -21,9 +21,9 @@ export class SearchPeoplePage {
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
 
     this.getCurrentUser();
-    
-  }
 
+  }
+  tag = this.navParams.get('tag');
   ionViewDidLoad() { }
 
     getCurrentUser() {   
