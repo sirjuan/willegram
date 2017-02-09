@@ -21,19 +21,21 @@ export class ProfilePage {
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
 
     this.getCurrentUser();
-    this.loadPostsByUser(this.currentUserId);
+   
   }
 
   ionViewDidLoad() {
-     
+      
   }
 
       getCurrentUser() {   
         this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
+            this.currentUserName = data;
+                   
         })    
         this.userService.storage.get('currentUserId').then((data) => {
             this.currentUserId = data;
+            this.loadPostsByUser(this.currentUserId);
         })
   }
 
