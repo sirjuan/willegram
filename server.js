@@ -119,7 +119,7 @@ res.status(204).end();
 // GET: retrieve posts by userId
 app.get("/api/posts/user/:userId", function(req, res) {
     
-db.collection("posts").findOne({userId: req.params.userId}).toArray(function(err, result) {
+db.collection("posts").find({userId: req.params.userId}).toArray(function(err, result) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by userId");
 } else {
