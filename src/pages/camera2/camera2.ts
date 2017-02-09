@@ -57,7 +57,7 @@ export class Camera2Page {
   addPost(photo: string, post:string, tags ) {
     //tags = tags.replace(/,#/g, '');
   
-    //tags.split(' ');
+    tags.split(' ');
     console.log('tags');
     console.log(tags);
     let postTime = this.dateService.getTime();

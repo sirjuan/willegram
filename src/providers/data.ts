@@ -27,8 +27,9 @@ export class Data {
                .catch(this.handleError);
   }
 
-      add(photo: string, post: string, postTime:Date, userId: string, userName: string, tags): Observable<Post> {
+      add(photo, post, postTime, userId, userName, tags): Observable<Post> {
     let body = JSON.stringify({imageUrl: photo, caption: post, postTime: postTime, userId: userId, userName: userName, tags: tags});
+    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http.post(this.postsUrl, body, {headers: headers})
