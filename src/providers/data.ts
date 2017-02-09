@@ -29,7 +29,7 @@ export class Data {
 
     loadPostsByUser(userId) {
 
-    let url = `${this.postsUrl}/users/${userId}`;
+    let url = `${this.postsUrl}/user/${userId}`;
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
