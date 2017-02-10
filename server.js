@@ -51,6 +51,7 @@ app.post("/api/posts", function(req, res) {
 var newPost = {
     userId: req.body.userId,
     userName: req.body.userName,
+    userProfilePictureUrl: req.body.userPhoto,
     imageUrl: req.body.imageUrl,
     caption: req.body.caption,
     postTime: req.body.postTime,
@@ -160,7 +161,6 @@ res.status(200).json(docs);
 app.post("/api/users", function(req, res) {
 var newUser = {
     userName: req.body.userName,
-    userProfilePictureUrl: req.body.userPhoto,
     profilePictureUrl: "",
     email: req.body.email,
     followers: [],
