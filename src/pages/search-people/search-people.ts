@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
+import { Data } from '../../providers/data';
+import { Post } from '../../providers/post';
 
 @Component({
   selector: 'page-search-people',
@@ -17,8 +19,9 @@ export class SearchPeoplePage {
   public likeCount = 1578;
    currentUserName: string;
   currentUserId: string;
-
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
+  postsByTag: Post[];
+  usersByUserName;
+  constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
 
     this.getCurrentUser();
 
@@ -35,9 +38,27 @@ export class SearchPeoplePage {
         })
   }
 
-  searchTags() {
-    
+  commenceSearch(input) {
+
+    this.getPostsByTag(input);
+    this.getUsersByUserName(input);
+
   }
+  getUsersByUserName(userName) {
+        this.userService.loadUsersByUserName()
+      .subscribe(data => {
+        this.usersByUserName = data;
+      })
+  }
+
+  getPostsByTag(tag) {
+    this.postService.loadPostsByTag()
+      .subscribe(data => {
+        this.postsByTag = data;
+        console.log(this.postsByTag)
+      })
+  }
+
 
 }
 

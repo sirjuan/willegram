@@ -35,13 +35,6 @@ export class Data {
                .catch(this.handleError);
   }
 
-      loadPostsByUserName(userName) {
-
-    let url = `${this.postsUrl}/userName/${userName}`;
-    return this.http.get(url)
-               .map(res => res.json())
-               .catch(this.handleError);
-  }
 
       loadPostsByTag(tag) {
 

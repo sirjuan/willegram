@@ -2,7 +2,7 @@
 
   <ion-navbar>
     
-    <ion-searchbar autofocus clearInput></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="commenceSearch($event)" autofocus clearInput></ion-searchbar>
    
 
 
@@ -33,19 +33,16 @@
   <div [ngSwitch]="search">
   
   <ion-list *ngSwitchCase="'people'">
-
+      <div *ngIf="postsByUser" >
+      <div *ngFor="let postByUser of postsByUser">
         
-        <ion-item no-lines>
-          <ion-avatar item-left><img [src]="profilePictureUrl"></ion-avatar>
-          <h2 color="grey">{{userName}}</h2>
+        <ion-item no-lines  >
+          <ion-avatar item-left><img [src]="postByUser.userProfilePictureUrl"></ion-avatar>
+          <h2 color="grey">{{postByUser.userName}}</h2>
         </ion-item>
 
-        <ion-item no-lines>
-          <ion-avatar item-left><img [src]="profilePictureUrl"></ion-avatar>
-          <h2 bold color="grey">{{userName}}</h2>
-        </ion-item>
-       
-
+      </div>
+      </div>
 
   </ion-list>
 
