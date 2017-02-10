@@ -131,7 +131,7 @@ res.status(200).json(result);
 
 // GET: retrieve a users by userName
 app.get("/api/users/userName/:userName", function(req, res) {
-    var searchQuery = '/.*' + req.params.userName + '.*/';
+    var searchQuery = '/' + req.params.userName + '/';
 db.collection("users").find({ userName: searchQuery }).toArray(function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get users by userName");
