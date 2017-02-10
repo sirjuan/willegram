@@ -143,7 +143,7 @@ res.status(200).json(doc);
 
 // GET: retrieve posts by tags
 app.get("/api/posts/tags/:tag", function(req, res) {
-var searchQuery = '/.*' + req.params.tag + '.*/';
+var searchQuery = '/' + req.params.tag + '/';
 db.collection("posts").find({ tags: searchQuery}).toArray(function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by tags");
