@@ -129,7 +129,27 @@ res.status(200).json(result);
 });
 });
 
+// GET: retrieve a posts by userName
+app.get("/api/posts/userName/:userName", function(req, res) {
+db.collection("posts").find({ userName: req.params.userName }).toArray(function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get posts by userName");
+} else {
+res.status(200).json(doc);
+}
+});
+});
 
+// GET: retrieve posts by tags
+app.get("/api/posts/tags/:tag", function(req, res) {
+db.collection("posts").find({ tags: req.params.tag }).toArray(function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to get posts by tags");
+} else {
+res.status(200).json(doc);
+}
+});
+});
 
 app.delete("/api/posts/:id/likes/user", function(req, res) {
 db.collection("posts.likes").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
