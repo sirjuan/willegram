@@ -39,7 +39,7 @@ export class Data {
 
       loadPostsByTag(tag) {
 
-    let url = `${this.postsUrl}/tag/${tag}`;
+    let url = `${this.postsUrl}/tags/${tag}`;
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);

@@ -33,12 +33,12 @@
   <div [ngSwitch]="search">
   
   <ion-list *ngSwitchCase="'people'">
-      <div *ngIf="postsByUser" >
-      <div *ngFor="let postByUser of postsByUser">
+      <div *ngIf="usersByUserName" >
+      <div *ngFor="let userByUserName of usersByUserName">
         
         <ion-item no-lines  >
-          <ion-avatar item-left><img [src]="postByUser.userProfilePictureUrl"></ion-avatar>
-          <h2 color="grey">{{postByUser.userName}}</h2>
+          <ion-avatar item-left><img [src]="userByUserName.userProfilePictureUrl"></ion-avatar>
+          <h2 color="grey">{{userByUserName.userName}}</h2>
         </ion-item>
 
       </div>

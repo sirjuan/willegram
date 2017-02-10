@@ -141,6 +141,16 @@ res.status(200).json(doc);
 });
 });
 
+app.get("/api/users/userName", function(req, res) {
+ 
+});
+
+app.get("/api/posts/tags", function(req, res) {
+
+});
+
+
+
 // GET: retrieve posts by tags
 app.get("/api/posts/tags/:tag", function(req, res) {
 var searchQuery = '/' + req.params.tag + '/';
