@@ -131,7 +131,8 @@ res.status(200).json(result);
 
 // GET: retrieve a users by userName
 app.get("/api/users/userName/:userName", function(req, res) {
-db.collection("users").find({ userName: /.*req.params.userName.*/ }).toArray(function(err, doc) {
+    var searchQuery = '/.*' + req.params.userName + '.*/';
+db.collection("users").find({ userName: searchQuery }).toArray(function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get users by userName");
 } else {
@@ -142,8 +143,8 @@ res.status(200).json(doc);
 
 // GET: retrieve posts by tags
 app.get("/api/posts/tags/:tag", function(req, res) {
-
-db.collection("posts").find({ tags: /.*req.params.userName.*/ }).toArray(function(err, doc) {
+var searchQuery = '/.*' + req.params.tag + '.*/';
+db.collection("posts").find({ tags: searchQuery}).toArray(function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by tags");
 } else {
