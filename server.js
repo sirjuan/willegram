@@ -142,11 +142,11 @@ res.status(200).json(doc);
 });
 
 app.get("/api/users/userName", function(req, res) {
- res.status(200).json('[]');
+ res.status(200).json({ message: 'hooray! welcome to our api!' });
 });
 
 app.get("/api/posts/tags", function(req, res) {
-res.status(200).json('[]');
+res.status(200).json({ message: 'hooray! welcome to our api!' });
 });
 
 
