@@ -36,6 +36,7 @@ export class Data {
   }
 
 
+
       loadPostsByTag(tag) {
 
     let url = `${this.postsUrl}/tag/${tag}`;

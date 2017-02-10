@@ -21,6 +21,7 @@ export class SearchPeoplePage {
   currentUserId: string;
   postsByTag: Post[];
   usersByUserName;
+  searchQuery;
   constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
 
     this.getCurrentUser();
@@ -38,21 +39,22 @@ export class SearchPeoplePage {
         })
   }
 
-  commenceSearch(input) {
+  commenceSearch() {
 
-    this.getPostsByTag(input);
-    this.getUsersByUserName(input);
+    this.getPostsByTag(this.searchQuery);
+    this.getUsersByUserName(this.searchQuery);
 
   }
   getUsersByUserName(userName) {
-        this.userService.loadUsersByUserName()
+        this.userService.loadUsersByUserName(userName)
       .subscribe(data => {
         this.usersByUserName = data;
+        console.log(this.usersByUserName);
       })
   }
 
   getPostsByTag(tag) {
-    this.postService.loadPostsByTag()
+    this.postService.loadPostsByTag(tag)
       .subscribe(data => {
         this.postsByTag = data;
         console.log(this.postsByTag)
