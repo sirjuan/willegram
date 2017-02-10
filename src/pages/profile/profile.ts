@@ -4,6 +4,7 @@ import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
+import { AppUser } from '../../providers/app-user';
 
 @Component({
   selector: 'page-profile',
@@ -17,6 +18,7 @@ export class ProfilePage {
    public followCount = 20;
     currentUserName: string;
   currentUserId: string;
+  user;
 
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
 
@@ -36,7 +38,10 @@ export class ProfilePage {
         this.userService.storage.get('currentUserId').then((data) => {
             this.currentUserId = data;
             this.loadPostsByUser(this.currentUserId);
+            this.loadUser(this.currentUserId);
+
         })
+        
   }
 
   loadPosts() {
@@ -44,6 +49,16 @@ export class ProfilePage {
                       .subscribe(data => {
       this.posts = data;
     })
+  }
+
+  loadUser(id) {
+
+   this.userService.loadUser(id).subscribe(data => {
+               this.user = data;
+               console.log('this.user');
+               console.log(this.user);
+            })
+
   }
 
   loadPostsByUser(id) {
@@ -62,5 +77,6 @@ export class ProfilePage {
       this.posts = data;
     })
   }
+  
 
 }

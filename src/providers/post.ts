@@ -2,6 +2,7 @@ export class Post {
   _id?: string;
   userId: string;
   userName: string;
+  userProfilePictureUrl: string;
   imageUrl: string;
   caption: string;
   postTime: string;

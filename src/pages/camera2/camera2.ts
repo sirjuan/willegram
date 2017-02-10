@@ -25,6 +25,7 @@ export class Camera2Page {
   currentUserId: string;
   images: [{}];
   newTime;
+  user;
 
 
 
@@ -35,13 +36,28 @@ export class Camera2Page {
         this.getCurrentUser();
   }
 
-    getCurrentUser() {   
+      getCurrentUser() {   
         this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
+            this.currentUserName = data;
+                   
         })    
         this.userService.storage.get('currentUserId').then((data) => {
             this.currentUserId = data;
+            this.loadUser(this.currentUserId);
+
         })
+        
+  }
+
+
+  loadUser(id) {
+
+   this.userService.loadUser(id).subscribe(data => {
+               this.user = data;
+               console.log('this.user');
+               console.log(this.user);
+            })
+
   }
 
   loadPosts() {
@@ -69,7 +85,7 @@ export class Camera2Page {
     console.log('username');
     console.log(this.currentUserName);
     
-    this.postService.add(this.base64Image, post, postTime, this.currentUserId, this.currentUserName, tags)
+    this.postService.add(this.base64Image, post, postTime, this.currentUserId, this.currentUserName, tags, this.user.profilePictureUrl)
         .subscribe(data  => {
           this.posts.push(data)
         });

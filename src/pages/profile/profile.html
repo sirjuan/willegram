@@ -7,7 +7,7 @@
     <ion-buttons end>
         <button ion-button clear large item-right (click)="buttonClick()"><ion-icon item-end large name="settings"></ion-icon></button>
     </ion-buttons>
-       
+
   </ion-navbar>
 
 </ion-header>
@@ -18,14 +18,14 @@
 
 
     <ion-grid>
-      <ion-row>
-        <ion-col text-center width-33><p style="font-weight: bold">{{postCount}}</p>
+      <ion-row *ngIf="user">
+        <ion-col text-center width-33 *ngIf="posts"><p style="font-weight: bold">{{posts.length}}</p>
           <p style="font-size: 0.7em" >posts</p>
 </ion-col>
-<ion-col text-center width-33><p style="font-weight: bold">{{followerCount}}</p>
+<ion-col text-center width-33><p style="font-weight: bold">{{user.followers.length}}</p>
   <p style="font-size: 0.7em" >followers</p>
 </ion-col>
-<ion-col text-center width-33><p style="font-weight: bold">{{followCount}}</p>
+<ion-col text-center width-33><p style="font-weight: bold">{{user.follows.length}}</p>
   <p style="font-size: 0.7em" >following</p>
 </ion-col>
 </ion-row>
@@ -35,7 +35,7 @@
 </ion-grid>
 
     <ion-thumbnail item-left round>
-      <img src="assets/images/profile.jpg">
+     <img *ngIf="user" [src]="user.profilePictureUrl"> 
     </ion-thumbnail>
 </ion-item>
 <hr>

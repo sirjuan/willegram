@@ -160,6 +160,7 @@ res.status(200).json(docs);
 app.post("/api/users", function(req, res) {
 var newUser = {
     userName: req.body.userName,
+    userProfilePictureUrl: req.body.userPhoto,
     profilePictureUrl: "",
     email: req.body.email,
     followers: [],

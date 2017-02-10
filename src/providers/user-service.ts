@@ -56,9 +56,9 @@ getToken: Observable<any> =
                .catch(this.handleError);
   }
 
-  loadUser(user: AppUser) {
+  loadUser(id) {
 
-    let url = `${this.usersUrl}/${user._id}`;
+    let url = `${this.usersUrl}/${id}`;
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
