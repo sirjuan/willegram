@@ -37,6 +37,9 @@ export class FeedContentPage {
   ionViewWillEnter() { 
     this.getCurrentUser();
     this.loadPosts();
+        if (this.post.likes.indexOf(this.currentUser.userName) >= 0) { 
+      this.liked = true;
+    }
   }
   
   
@@ -53,6 +56,7 @@ export class FeedContentPage {
   }
 
   loadPosts() {
+    this.getCurrentUser();
     this.postService.load()
       .subscribe(data => {
         this.posts = data;
@@ -60,27 +64,29 @@ export class FeedContentPage {
   }
 
   likePost(post: Post) {
-
-    if (post.likes.indexOf(this.currentUser.userName) < 0) {
+      this.getCurrentUser();
       post.likes.push(this.currentUser.userName);
       this.postService.update(post)
         .subscribe(response => {
 
         });
      
-    }
+    this.liked = true;
 
   }
 
-    unlikePost(post: Post) {
-      
-      let index = post.likes.indexOf(this.currentUser.userName);
-      post.likes.splice(index, 1);
-    
-      //    this.postService.unlike(post)
-      //      .subscribe(res => {          
-      //    });
+  unlikePost(post) {
+    this.getCurrentUser();
+    console.log('unLike post');
+    console.log(post);
+    let data = {id: post._id, user: this.currentUser.userName};
 
-    }
+    this.userService.unfollow(data)
+      .subscribe(response => { });
+        this.liked = false;
+    let index = this.post.likes.indexOf(this.currentUser.userName);
+    this.post.likes.splice(index, 1);
+
+  }
 
 }

@@ -24,7 +24,10 @@ export class UserService {
   }
 
   getCurrentUser() {
+    console.log('returned currentuser');
+    console.log(this.currentUser);
     return this.currentUser;
+    
   }
 
   loadCurrentUser(email) {
@@ -103,17 +106,6 @@ export class UserService {
                     .catch(this.handleError);
   }
         // Update a post
-
-  // Unlike
-  unlike(user: AppUser) {
-    let url = `${this.usersUrl}/${user._id}`;
-    let body = JSON.stringify(user)
-    let headers = new Headers({'Content-Type': 'application/json'});
-
-    return this.http.put(url, body, {headers: headers})
-                    .map(() => user) //See mdn.io/arrowfunctions
-                    .catch(this.handleError);
-  }
 
     handleError(error) {
       console.error(error);

@@ -19,13 +19,13 @@
       <ion-item class="remove-margin" no-lines no-padding>
       
        
-        <div *ngIf="currentUser">
+  
         <ion-icon padding-left name="heart" color="danger"  (click)="unlikePost(post)" 
-                  *ngIf="post.likes.indexOf(currentUser.userName) >=0"></ion-icon>
+                  *ngIf="this.liked"></ion-icon>
         <ion-icon padding-left name="heart"  (click)="likePost(post)" 
-                   *ngIf="post.likes.indexOf(currentUser.userName) <0" ></ion-icon>
+                   *ngIf="!this.liked" ></ion-icon>
    
-        </div>
+        
         <ion-icon padding-left name="text" (click)="openComments(post)"></ion-icon>
        
      

@@ -68,15 +68,17 @@ export class Data {
   }
     
   // Unlike
-  unlike(post: Post) {
-    let url = `${this.postsUrl}/${post._id}`;
-    let body = JSON.stringify(post)
+      // Unfollow a user
+  unlike(data) {
+    let url = `${this.postsUrl}/${data.id}/unfollow/${data.user}`; //see mdn.io/templateliterals
+    let body = JSON.stringify(data);
+    console.log('UserService body');
+    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http.put(url, body, {headers: headers})
-                    .map(() => post) //See mdn.io/arrowfunctions
-                    .catch(this.handleError);
-  }
+                    .map(() => data) //See mdn.io/arrowfunctions
+  }                
 
     handleError(error) {
       console.error(error);
