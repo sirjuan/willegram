@@ -53,7 +53,11 @@
       <ion-item class="details" no-lines padding-left>
 
 
-      <ion-icon class="small-icon" name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like}}</span> 
+      <ion-icon  *ngIf="post.likes.length > 0" class="small-icon" name="heart"> </ion-icon>
+      
+      <span *ngIf="post.likes.length > 10"> {{post.likes.length}} likes</span>
+      <span *ngIf="post.likes.length < 10 && post.likes.length > 0"><span *ngFor="let like of post.likes"> {{like}}</span></span>
+
 
       <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
       <p><a *ngFor="let tag of post.tags" (click)="openSearch()">#{{tag}} </a></p>

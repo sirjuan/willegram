@@ -70,9 +70,6 @@ res.status(201).json(doc.ops[0]);
 });
 
 
-
-
-
 /*
 * Endpoint "/api/posts/:id"
 */
@@ -88,6 +85,18 @@ res.status(200).json(doc);
 });
 });
 
+// GET: retrieve posts from followed users
+
+app.get("/api/posts/followed", function(req, res) {
+db.collection("posts").find({'followers': { $in: req.body}
+}, function(err, docs){
+if (err) {
+handleError(res, err.message, "Failed to get post by _id");
+} else {
+res.status(200).json(doc);
+}
+});
+});
 // PUT: update a post by id
 app.put("/api/posts/:id", function(req, res) {
 var updatePost = req.body;

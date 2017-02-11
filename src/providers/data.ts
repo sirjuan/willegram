@@ -70,7 +70,7 @@ export class Data {
   // Unlike
       // Unfollow a user
   unlike(data) {
-    let url = `${this.postsUrl}/${data.id}/unfollow/${data.user}`; //see mdn.io/templateliterals
+    let url = `${this.postsUrl}/${data.id}/unlike/${data.user}`; //see mdn.io/templateliterals
     let body = JSON.stringify(data);
     console.log('UserService body');
     console.log(body);

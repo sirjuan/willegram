@@ -74,7 +74,7 @@ export class FeedPage {
     console.log(post);
     let data = {id: post._id, user: this.newCurrentUser.userName};
 
-    this.userService.unfollow(data)
+    this.postService.unlike(data)
       .subscribe(response => { });
     let liked = false;
     let index = post.likes.indexOf(this.newCurrentUser.userName);
