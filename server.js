@@ -238,6 +238,7 @@ app.put("/api/users/:id/unfollow", function(req, res) {
 console.log(req.params);
 console.log(req.params.id);
 console.log(req.params.user);
+
 db.collection("users").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
     { "$pull" : { "followers" :  req.params.user}}, (function(err, doc) {
