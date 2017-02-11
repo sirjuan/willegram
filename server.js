@@ -233,20 +233,22 @@ res.status(204).end();
 });
 });
 
-// PUT: update a user by id
+// PUT: unfollow a user by id
 app.put("/api/users/:id/unfollow", function(req, res) {
 
-db.collection("users").update(
+db.collection("users").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
-    { "$pull" : { "follows" :  req.params.userName}  },
-    function(err, doc) {
-if (err) {
-handleError(res, err.message, "Failed to update user");
-} else {
-res.status(204).end();
-}
-});
-});
+    { "$pull" : { "follows" :  req.params.userName}}, (function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to update user");
+         } 
+        res.status(204).end();
+   
+})
+)}
+);
+
+
 
 
 // GET: retrieve a user by userName
