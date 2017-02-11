@@ -222,11 +222,11 @@ res.status(200).json(doc);
 // PUT: update a user by id
 app.put("/api/users/:id", function(req, res) {
 var updateUser = req.body;
-delete updatePost._id;
+delete updateUser._id;
 
 db.collection("users").updateOne({_id: new ObjectID(req.params.id)}, updateUser, function(err, doc) {
 if (err) {
-handleError(res, err.message, "Failed to update post");
+handleError(res, err.message, "Failed to update user");
 } else {
 res.status(204).end();
 }
