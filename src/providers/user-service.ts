@@ -81,7 +81,7 @@ export class UserService {
       // Unfollow a user
   unfollow(user: AppUser, currentUser) {
     let url = `${this.usersUrl}/${user._id}/unfollow`; //see mdn.io/templateliterals
-    let body = JSON.stringify({id: user._id, userName: currentUser.userName })
+    let body = JSON.stringify({id: user._id, user: currentUser.userName })
     console.log('UserService body');
     console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
