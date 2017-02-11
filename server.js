@@ -234,7 +234,7 @@ res.status(204).end();
 });
 
 // PUT: unfollow a user by id
-app.put("/api/users/:id/unfollow", function(req, res) {
+app.put("/api/users/:id/unfollow/:user", function(req, res) {
 console.log(req.params);
 console.log(req.params.id);
 console.log(req.params.user);

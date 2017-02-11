@@ -67,7 +67,8 @@ ionViewWillEnter() {
     if (user.followers.indexOf(this.currentUser.userName) >= 0) {
     console.log('unFollowUser user');
     console.log(user);
-    this.userService.unfollow(user, this.currentUser)
+    let data = {id: user._id, user: this.currentUser.userName};
+    this.userService.unfollow(data)
       .subscribe(response => { });
         this.followed = false;
       }
