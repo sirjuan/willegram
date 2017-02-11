@@ -56,22 +56,35 @@ ionViewWillEnter() {
   }
 
   followUser(user) {
-     if (user.followers.indexOf(this.currentUser.userName) < 0) {
+
       user.followers.push(this.currentUser.userName);
+      this.currentUser.follows.push(user.userName);
       this.userService.update(user)
-        .subscribe(response => { });
+        .subscribe(response => {
+         
+         });
+      this.userService.update(this.currentUser)
+        .subscribe(response => {  
+         });
+
         this.followed = true;
-      }
+
   }
   unFollowUser(user) {
-    if (user.followers.indexOf(this.currentUser.userName) >= 0) {
+   
     console.log('unFollowUser user');
     console.log(user);
     let data = {id: user._id, user: this.currentUser.userName};
+    let data2 = {id: this.currentUser._id, user: user.userName};
     this.userService.unfollow(data)
       .subscribe(response => { });
+    this.userService.unfollower(data2)
+      .subscribe(response => { });
         this.followed = false;
-      }
+    let index = this.user.followers.indexOf(this.currentUser.userName);
+    this.user.followers.splice(index, 1);
+    let index2 = this.currentUser.follows.indexOf(this.user.userName);
+    this.currentUser.follows.splice(index2, 1);
   }
 
 }

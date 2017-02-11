@@ -251,6 +251,24 @@ db.collection("users").findOneAndUpdate(
 )}
 );
 
+// PUT: unfollow a user by id
+app.put("/api/users/:id/unfollower/:user", function(req, res) {
+console.log(req.params);
+console.log(req.params.id);
+console.log(req.params.user);
+
+db.collection("users").findOneAndUpdate(
+    {_id: new ObjectID(req.params.id)},
+    { "$pull" : { "follows" :  req.params.user}}, (function(err, doc) {
+        if (err) {
+            handleError(res, err.message, "Failed to update user");
+         } 
+        res.status(204).end();
+   
+})
+)}
+);
+
 
 
 

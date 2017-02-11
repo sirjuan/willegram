@@ -80,7 +80,19 @@ export class UserService {
 
       // Unfollow a user
   unfollow(data) {
-    let url = `${this.usersUrl}/${data.id}/unfollow`; //see mdn.io/templateliterals
+    let url = `${this.usersUrl}/${data.id}/unfollow/${data.user}`; //see mdn.io/templateliterals
+    let body = JSON.stringify(data);
+    console.log('UserService body');
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => data) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
+  }
+
+    unfollower(data) {
+    let url = `${this.usersUrl}/${data.id}/unfollower/${data.user}`; //see mdn.io/templateliterals
     let body = JSON.stringify(data);
     console.log('UserService body');
     console.log(body);
