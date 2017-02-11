@@ -69,6 +69,21 @@ export class UserService {
   update(user: AppUser) {
     let url = `${this.usersUrl}/${user._id}`; //see mdn.io/templateliterals
     let body = JSON.stringify(user)
+    console.log('UserService body')
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => user) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
+  }
+
+      // Update a user
+  unfollow(user: AppUser, currentUser) {
+    let url = `${this.usersUrl}/${user._id}/unfollow`; //see mdn.io/templateliterals
+    let body = {id: user._id, userName: currentUser.userName };
+    console.log('UserService body');
+    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http.put(url, body, {headers: headers})

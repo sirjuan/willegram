@@ -233,6 +233,28 @@ res.status(204).end();
 });
 });
 
+// PUT: update a user by id
+app.put("/api/users/:id/unfollow", function(req, res) {
+
+db.collection("users").update(
+    {_id: new ObjectID(req.params.id)},
+    { "$pull" : { "follows" :  req.params.userName}  },
+    function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to update user");
+} else {
+res.status(204).end();
+}
+});
+});
+
+
+
+db.customers.update(
+  { "_id" : 654321  },
+  { "$pull" : { "interested_by" :  "electronics"}  }
+);
+
 // GET: retrieve a user by userName
 app.get("/api/users/username/:userName", function(req, res) {
 db.collection("users").findOne({ userName: req.params.userName }, function(err, doc) {

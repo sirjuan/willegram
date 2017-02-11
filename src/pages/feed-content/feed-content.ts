@@ -28,14 +28,15 @@ export class FeedContentPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public postService: Data, public userService: UserService) { 
      
-     this.getCurrentUser();
+     
 
    }
 
   ionViewDidLoad() { }
 
   ionViewWillEnter() { 
-    
+    this.getCurrentUser();
+    this.loadPosts();
   }
   
   

@@ -20,8 +20,7 @@ export class ProfilePage {
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
 
     this.getCurrentUser();
-    console.log(this.currentUser);
-    this.loadPostsByUserId(this.currentUser._id);
+    
   }
 
   ionViewDidLoad() {
@@ -29,6 +28,8 @@ export class ProfilePage {
   }
 ionViewWillEnter() { 
     this.getCurrentUser();
+    console.log(this.currentUser);
+    this.loadPostsByUserId(this.currentUser._id);
   }
   getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();

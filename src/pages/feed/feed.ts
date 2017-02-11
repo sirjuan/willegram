@@ -20,17 +20,15 @@ export class FeedPage {
 
   constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) { 
      
-     this.getCurrentUser();
-     this.loadPosts();
-     
-   }
+    }
 
   ionViewDidLoad() {
-     this.loadPosts();
+     
 
   }
   ionViewWillEnter() { 
     this.getCurrentUser();
+    this.loadPosts();
   }
 
   getCurrentUser() {

@@ -18,6 +18,7 @@ export class ShowUserPage {
    public currentUser: AppUser;
    user = this.navParams.get('user');
    same = false;
+   followed = false;
 
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
 
@@ -36,7 +37,10 @@ ionViewWillEnter() {
     if (this.user.userName == this.currentUser.userName) {
       this.same = true;
       console.log('sama on');
-      
+    }
+    if (this.user.followers.indexOf(this.currentUser.userName) >= 0) { 
+      this.followed = true;
+
     }
     console.log(this.same);
   }
@@ -52,17 +56,21 @@ ionViewWillEnter() {
   }
 
   followUser(user) {
-    console.log('followUser user');
-    console.log(user);
-    console.log('followuser this.currentuser');
-    console.log(this.currentUser);
-        if (user.followers.indexOf(this.currentUser.userName) < 0) {
+     if (user.followers.indexOf(this.currentUser.userName) < 0) {
       user.followers.push(this.currentUser.userName);
       this.userService.update(user)
         .subscribe(response => { });
-     
-    }
-
+        this.followed = true;
+      }
+  }
+  unFollowUser(user) {
+    if (user.followers.indexOf(this.currentUser.userName) >= 0) {
+    console.log('unFollowUser user');
+    console.log(user);
+    this.userService.unfollow(user, this.currentUser)
+      .subscribe(response => { });
+        this.followed = false;
+      }
   }
 
 }
