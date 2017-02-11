@@ -238,7 +238,7 @@ app.put("/api/users/:id/unfollow", function(req, res) {
 
 db.collection("users").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
-    { "$pull" : { "follows" :  req.params.userName}}, (function(err, doc) {
+    { "$pull" : { "followers" :  req.params.userName}}, (function(err, doc) {
         if (err) {
             handleError(res, err.message, "Failed to update user");
          } 
