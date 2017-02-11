@@ -5,50 +5,34 @@ import 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AppUser } from './app-user'
-import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class UserService {
     
-  public currentUser;
   usersUrl = 'https://peaceful-island-53615.herokuapp.com/api/users';
-  storage = new Storage();
-  currentUserName;
-  currentUserId: string;
+  public currentUser: AppUser;
 
-  constructor (private http: Http, storage: Storage) {
-       
+  constructor (private http: Http) {
+   
   }
 
-  // currentUser functions
-
-  setCurrentUser(data) {
-
-    this.storage.set('currentUserName', data.userName);
-    this.storage.set('currentUserId', data._id);
- 
-    console.log('data.userName');
-    console.log('data.userId');
-
-
-               
-    
+ setCurrentUser(email) {       
+     this.loadCurrentUser(email)
+      .subscribe(data => {
+        this.currentUser = data;
+      })  
   }
 
-
-getToken: Observable<any> = 
-    Observable.fromPromise(this.storage.get('currentUserName').then(currentUserName => {
-      console.log(('before parse', currentUserName));
-    
-        return currentUserName;
-}));
-
-
-  clearCurrentUser() {
-    this.currentUser = {currentUserName: '', currentUserId: ''};
+  getCurrentUser() {
+    return this.currentUser;
   }
-    
-  // get("/api/users")
+
+  loadCurrentUser(email) {
+    let url = `${this.usersUrl}/email/${email}`;
+    return this.http.get(url)
+               .map(res => res.json())
+               .catch(this.handleError);
+    }
 
   load(): Observable<AppUser[]> {
     return this.http.get(this.usersUrl)
@@ -64,7 +48,7 @@ getToken: Observable<any> =
                .catch(this.handleError);
   }
 
-      loadUsersByUserName(userName) {
+  loadUsersByUserName(userName) {
 
     let url = `${this.usersUrl}/userName/${userName}`;
     return this.http.get(url)
@@ -73,26 +57,13 @@ getToken: Observable<any> =
   }
 
 
-  loadCurrentUser(email) {
-
-    let url = `${this.usersUrl}/email/${email}`;
-    return this.http.get(url)
-               .map(res => res.json())
-               .catch(this.handleError);
-       
-   }
-
   add(userName: string, email: string): Observable<AppUser> {
- 
     let body = JSON.stringify({userName: userName, email: email});
-    
     let headers = new Headers({'Content-Type': 'application/json'});
-  
     return this.http.post(this.usersUrl, body, {headers: headers})
                     .map(res => res.json())
                     .catch(this.handleError);
   }
-
 
     // Update a user
   update(user: AppUser) {
@@ -104,7 +75,8 @@ getToken: Observable<any> =
                     .map(() => user) //See mdn.io/arrowfunctions
                     .catch(this.handleError);
   }
-    
+        // Update a post
+
   // Unlike
   unlike(user: AppUser) {
     let url = `${this.usersUrl}/${user._id}`;

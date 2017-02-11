@@ -5,13 +5,11 @@ import { TabsPage } from '../tabs/tabs';
 
 import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
-import { Storage } from '@ionic/storage';
-
 
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [UserService]
+ 
 })
 export class LoginPage {
 
@@ -24,33 +22,16 @@ export class LoginPage {
    currentUserName: string;
   currentUserId: string;
 
-  constructor(storage: Storage, public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
-    this.loadUsers();
-    this.getCurrentUser();
+  constructor(public navCtrl: NavController, public auth:Auth, public userService: UserService, public user: User, public alertCtrl: AlertController, public loadingCtrl:LoadingController) {
+  
   }
 
   ionViewDidLoad() {  }
 
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
-  }
 
-      loadUsers() {
-      this.userService.load()
-        .subscribe(data => {
-          this.users = data;
-        })
-  }
-    setCurrentUser(email) {
-    this.userService.loadCurrentUser(email)
-      .subscribe(data => {
-    this.userService.setCurrentUser(data);
-    })
+  setCurrentUser(email) {
+    this.userService.setCurrentUser(email);
+    
   }
   
   /*
@@ -74,9 +55,9 @@ export class LoginPage {
         content: "Logging in..."
       });
       loader.present();
-      this.setCurrentUser(this.email);
+     
       this.auth.login('basic', {'email':this.email, 'password':this.password}).then(() => {
-        
+         this.setCurrentUser(this.email);
         
         loader.dismissAll();
        

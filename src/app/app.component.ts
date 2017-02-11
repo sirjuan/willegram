@@ -8,8 +8,10 @@ import { LoginPage } from '../pages/login/login';
 import { Auth } from '@ionic/cloud-angular';
 
 
+
 @Component({
-  templateUrl: 'app.html'
+  templateUrl: 'app.html',
+ 
 })
 export class MyApp {
   rootPage;

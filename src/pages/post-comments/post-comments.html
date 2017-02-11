@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Comments {{currentUserName}}</ion-title>
+    <ion-title>Comments {{currentUser.userName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,8 +15,8 @@
 
     <ion-item text-wrap>
 
-      <span style="font-weight: bold;">{{post.user}} </span> {{post.caption}}
-<ion-avatar item-left><img src="assets/images/profile.jpg"></ion-avatar>
+      <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
+<ion-avatar item-left><img [src]="post.userProfilePictureUrl"></ion-avatar>
 
 </ion-item>
 
@@ -30,7 +30,7 @@
   <span color="grey" style="padding-left: 10px; font-weight: bold">Reply</span>
 </div>
 <ion-avatar item-left>
-  <img src="assets/images/profile.jpg">
+  <img src="comment.userProfilePictureUrl">
 </ion-avatar>
 </ion-item>
 

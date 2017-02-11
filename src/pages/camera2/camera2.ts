@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { Camera } from 'ionic-native';
-import { ImagePicker } from 'ionic-native';
-//import { GalleryPage } from '../../gallery/gallery';
-import { Storage } from '@ionic/storage';
+
+
+
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 import { UserService } from '../../providers/user-service';
 import { DateService } from '../../providers/date-service';
+import { AppUser } from '../../providers/app-user'
 
 @Component({
   selector: 'page-camera2',
@@ -21,73 +22,39 @@ export class Camera2Page {
   photoTaken: boolean;
   cameraUrl: string;
   photoSelected: boolean;
-   currentUserName: string;
-  currentUserId: string;
   images: [{}];
   newTime;
-  user;
+  public currentUser: AppUser;
 
+  ionViewDidLoad() { }
 
-
-  ionViewDidLoad() {  }
-
-  constructor(public dateService: DateService, public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
-       this.loadPosts();
-        this.getCurrentUser();
+  ionViewWillEnter() { 
+    this.getCurrentUser();
   }
 
-      getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;
-                   
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-            this.loadUser(this.currentUserId);
-
-        })
-        
+  constructor(public dateService: DateService, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
+    this.getCurrentUser();
   }
 
-
-  loadUser(id) {
-
-   this.userService.loadUser(id).subscribe(data => {
-               this.user = data;
-               console.log('this.user');
-               console.log(this.user);
-            })
-
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
-  loadPosts() {
-      this.postService.load()
-        .subscribe(data => {
-          this.posts = data;
-        })
-  }
   getNewTime() {
     this.newTime = this.dateService.getTime();
-
   }
+
   addPost(photo: string, post:string, tags ) {
     tags = tags.replace(/#/g, '');
     tags = tags.replace(/,/g, '');
-  
     tags = tags.split(' ');
-    console.log('tags');
-    console.log(tags);
     let postTime = this.dateService.getTime();
-    console.log('postTime');
-    console.log(postTime);
-    console.log('id');
-    console.log(this.currentUserId);
-    console.log('username');
-    console.log(this.currentUserName);
-    
-    this.postService.add(this.base64Image, post, postTime, this.currentUserId, this.currentUserName, tags, this.user.profilePictureUrl)
-        .subscribe(data  => {
-          this.posts.push(data)
+    this.getCurrentUser();
+    console.log(this.currentUser);
+    this.postService.add(this.base64Image, post, postTime, this.currentUser._id, this.currentUser.userName, tags, this.currentUser.profilePictureUrl)
+    .subscribe(data  => {
+          var newPost = [];
+          newPost.push(data);
         });
   }
 

@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { Auth, User } from '@ionic/cloud-angular';
 import { LoginPage } from '../login/login';
 import { UserService } from '../../providers/user-service';
+import { AppUser } from '../../providers/app-user'
 
 @Component({
   selector: 'page-feed',
@@ -15,26 +16,25 @@ import { UserService } from '../../providers/user-service';
 export class FeedPage {
 
   public posts: Post[];
-   currentUserName: string;
-  currentUserId: string;
+  public currentUser: AppUser;
 
   constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) { 
-     this.loadPosts();
+     
      this.getCurrentUser();
+     this.loadPosts();
+     
    }
 
   ionViewDidLoad() {
-    
+     this.loadPosts();
 
   }
+  ionViewWillEnter() { 
+    this.getCurrentUser();
+  }
 
-      getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   loadPosts() {

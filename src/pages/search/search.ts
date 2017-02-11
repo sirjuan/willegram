@@ -4,7 +4,7 @@ import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 
 import { SearchPeoplePage} from '../search-people/search-people';
-import { Storage } from '@ionic/storage';
+import { AppUser } from '../../providers/app-user'
 import { UserService } from '../../providers/user-service';
 
 @Component({
@@ -15,34 +15,32 @@ import { UserService } from '../../providers/user-service';
 export class SearchPage {
 
   public posts: Post[];
-   currentUserName: string;
-  currentUserId: string;
+  public currentUser: AppUser;
 
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
 
     this.getCurrentUser();
     
   }
 
   ionViewDidLoad() {
+    
+  }
+ionViewWillEnter() { 
+    this.getCurrentUser();
     this.loadPosts();
   }
-
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
-   loadPosts() {
+  loadPosts() {
           this.postService.load()
         .subscribe(data => {
           this.posts = data;
         })
   }
+  
   openSearch() {
     this.navCtrl.push(SearchPeoplePage);
   }

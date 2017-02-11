@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
-import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
 
@@ -16,67 +15,30 @@ export class ProfilePage {
    public postCount = 24;
    public followerCount = 26;
    public followCount = 20;
-    currentUserName: string;
-  currentUserId: string;
-  user;
+   public currentUser: AppUser;
 
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, storage: Storage) {
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
 
     this.getCurrentUser();
-   
+    console.log(this.currentUser);
+    this.loadPostsByUserId(this.currentUser._id);
   }
 
   ionViewDidLoad() {
       
   }
-
-      getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;
-                   
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-            this.loadPostsByUser(this.currentUserId);
-            this.loadUser(this.currentUserId);
-
-        })
-        
+ionViewWillEnter() { 
+    this.getCurrentUser();
+  }
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
-  loadPosts() {
-      this.postService.load()
-                      .subscribe(data => {
-      this.posts = data;
-    })
-  }
-
-  loadUser(id) {
-
-   this.userService.loadUser(id).subscribe(data => {
-               this.user = data;
-               console.log('this.user');
-               console.log(this.user);
-            })
-
-  }
-
-  loadPostsByUser(id) {
-
-    console.log('loadpost id: ' + id);
+  loadPostsByUserId(id) {
     this.postService.loadPostsByUser(id)
-
-                      .subscribe(data => {
-      this.posts = data;
-    })
+      .subscribe(data => {
+        this.posts = data;
+      })
   }
-
-  loadPost(post) {
-      this.postService.loadPost(post)
-                      .subscribe(data => {
-      this.posts = data;
-    })
-  }
-  
 
 }

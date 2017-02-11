@@ -19,11 +19,13 @@
       <ion-item class="remove-margin" no-lines no-padding>
       
        
-        
-        <ion-icon padding-left name="heart" color="danger"  (click)="unlikePost(currentUserName, post)" *ngIf="post.likes.indexOf(currentUserName) >= 0" ></ion-icon>
-        <ion-icon padding-left name="heart"  (click)="likePost(currentUserName, post)" *ngIf="post.likes.indexOf(currentUserName) < 0" ></ion-icon>
+        <div *ngIf="currentUser">
+        <ion-icon padding-left name="heart" color="danger"  (click)="unlikePost(post)" 
+                  *ngIf="post.likes.indexOf(currentUser.userName) >=0"></ion-icon>
+        <ion-icon padding-left name="heart"  (click)="likePost(post)" 
+                   *ngIf="post.likes.indexOf(currentUser.userName) <0" ></ion-icon>
    
-       
+        </div>
         <ion-icon padding-left name="text" (click)="openComments(post)"></ion-icon>
        
      
@@ -34,7 +36,7 @@
       <ion-item class="details" no-lines padding-left>
 
 
-      <ion-icon class="small-icon" name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like}}</span>
+      <ion-icon class="small-icon" name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like.userName}}</span>
 
       <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
       <p><a *ngFor="let tag of post.tags" (click)="openSearch()">#{{tag}} </a></p>

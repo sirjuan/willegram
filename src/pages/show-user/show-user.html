@@ -1,0 +1,82 @@
+<ion-header>
+
+  <ion-navbar>
+    
+    <ion-title>{{user.userName}}</ion-title>
+
+    <ion-buttons end>
+        <button ion-button clear large item-right (click)="buttonClick()"><ion-icon item-end large name="settings"></ion-icon></button>
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content no-padding>
+  <ion-item padding no-lines>
+
+
+
+    <ion-grid>
+      <ion-row *ngIf="user">
+        <ion-col text-center width-33 *ngIf="posts"><p style="font-weight: bold">{{posts.length}}</p>
+          <p style="font-size: 0.7em" >posts</p>
+</ion-col>
+<ion-col text-center width-33><p style="font-weight: bold">{{user.followers.length}}</p>
+  <p style="font-size: 0.7em" >followers</p>
+</ion-col>
+<ion-col text-center width-33><p style="font-weight: bold">{{user.follows.length}}</p>
+  <p style="font-size: 0.7em" >following</p>
+</ion-col>
+</ion-row>
+<ion-row>
+  <button *ngIf="same" ion-button color="grey" outline block>Edit Profile</button>
+  <button *ngIf="!same" ion-button color="grey" outline block>Follow</button>
+</ion-row>
+</ion-grid>
+
+    <ion-thumbnail item-left round>
+     <img *ngIf="user" [src]="user.profilePictureUrl"> 
+    </ion-thumbnail>
+</ion-item>
+<hr>
+
+<div padding>
+  <ion-segment [(ngModel)]="view">
+
+    <ion-segment-button value="grid">
+      <ion-icon color="grey" large name="grid"></ion-icon>
+    </ion-segment-button>
+
+    <ion-segment-button value="feed">            
+      <ion-icon  color="grey" large name="list"></ion-icon>
+    </ion-segment-button>
+
+  </ion-segment>
+</div>
+
+
+
+<ion-item no-lines text-center>
+
+  <div [ngSwitch]="view">
+    <ion-list *ngSwitchCase="'feed'">
+      <page-feed-content [posts]="posts"></page-feed-content>
+    </ion-list>
+ 
+
+
+    <ion-list *ngSwitchCase="'grid'">
+      <page-grid-content [posts]="posts"></page-grid-content>
+    </ion-list>
+ 
+
+
+    <ion-list *ngSwitchDefault>
+      <page-grid-content [posts]="posts"></page-grid-content>
+    </ion-list>
+  </div>
+
+</ion-item>
+
+

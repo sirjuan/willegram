@@ -7,7 +7,7 @@ export class Post {
   caption: string;
   postTime: string;
   tags: [{userId: string; userName: string;}];
-  likes: [{userId: string; userName: string;}];
+  likes: [string];
   comments: [{
     _id?: number;
     userId: string;

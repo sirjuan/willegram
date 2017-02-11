@@ -55,6 +55,7 @@ export class Data {
                     .catch(this.handleError);
   }
 
+
     // Update a post
   update(post: Post) {
     let url = `${this.postsUrl}/${post._id}`; //see mdn.io/templateliterals

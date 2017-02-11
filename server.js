@@ -146,8 +146,9 @@ app.get("/api/users/userName", function(req, res) {
 });
 
 
-
-
+app.get("/api/posts/tags", function(req, res) {
+ res.status(200).json([]);
+});
 
 // GET: retrieve posts by tags
 app.get("/api/posts/tags/:tag", function(req, res) {
@@ -161,9 +162,6 @@ res.status(200).json(doc);
 });
 });
 
-app.get("/api/posts/tags", function(req, res) {
- res.status(200).json([]);
-});
 
 app.delete("/api/posts/:id/likes/user", function(req, res) {
 db.collection("posts.likes").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
@@ -217,6 +215,20 @@ if (err) {
 handleError(res, err.message, "Failed to get post by _id");
 } else {
 res.status(200).json(doc);
+}
+});
+});
+
+// PUT: update a user by id
+app.put("/api/users/:id", function(req, res) {
+var updateUser = req.body;
+delete updatePost._id;
+
+db.collection("users").updateOne({_id: new ObjectID(req.params.id)}, updateUser, function(err, doc) {
+if (err) {
+handleError(res, err.message, "Failed to update post");
+} else {
+res.status(204).end();
 }
 });
 });

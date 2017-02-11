@@ -36,9 +36,9 @@
       <div *ngIf="usersByUserName" >
       <div *ngFor="let userByUserName of usersByUserName">
         
-        <ion-item no-lines  >
-          <ion-avatar item-left><img [src]="userByUserName.userProfilePictureUrl"></ion-avatar>
-          <h2 color="grey">{{userByUserName.userName}}</h2>
+        <ion-item no-lines (click)="loadUser(userByUserName)">
+          <ion-avatar item-left><img [src]="userByUserName.profilePictureUrl"></ion-avatar>
+          <h2 color="grey">{{userByUserName.userName}} </h2>
         </ion-item>
 
       </div>
@@ -64,15 +64,21 @@
   </ion-list>
 
   <ion-list *ngSwitchCase="'tags'">
+  
 
-        <ion-item no-lines>
-          <ion-avatar item-left>#</ion-avatar>
-          <h2 color="grey">#tag</h2>
-          <p>1926 posts<p>
-            
-        </ion-item>
+<div *ngIf="postsByTag" >
+   <ion-grid no-padding>
+     
+  <ion-row wrap>
+
+    <ion-col *ngFor="let postByTag of postsByTag" width-33 no-padding>
+      <img [src]="postByTag.imageUrl"  (click)="loadPost(postByTag)"/>
+    </ion-col>
 
 
+  </ion-row>
+</ion-grid>
+</div>
 
   </ion-list>
   </div>

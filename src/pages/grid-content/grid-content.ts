@@ -4,8 +4,9 @@ import { Post } from '../../providers/post';
 
 import { Data } from '../../providers/data';
 import { ShowPostPage } from '../show-post/show-post';
-import { Storage } from '@ionic/storage';
+
 import { UserService } from '../../providers/user-service';
+import { AppUser } from '../../providers/app-user';
 
 @Component({
   selector: 'page-grid-content',
@@ -14,31 +15,28 @@ import { UserService } from '../../providers/user-service';
 export class GridContentPage {
   @Input() posts: Post[];
   post: Post;
-   currentUserName: string;
-  currentUserId: string;
 
-  constructor(public userService: UserService, storage: Storage, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
+  public currentUser: AppUser;
+
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
 
     this.getCurrentUser();
 
   }
-
+ionViewWillEnter() { 
+    this.getCurrentUser();
+  }
   ionViewDidLoad() {  }
 
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   loadPost(post) {
     this.postService.loadPost(post)
                     .subscribe(data => {
-      this.post = data;
-      this.navCtrl.push(ShowPostPage, {post: this.post} );
+      
+      this.navCtrl.push(ShowPostPage, {post: data} );
     })
   }
 

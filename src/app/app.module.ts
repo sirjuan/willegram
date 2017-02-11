@@ -21,6 +21,7 @@ import { FeedContentPage } from '../pages/feed-content/feed-content';
 import { GridContentPage } from '../pages/grid-content/grid-content';
 
 import { ShowPostPage } from '../pages/show-post/show-post';
+import { ShowUserPage } from '../pages/show-user/show-user';
 import { PostCommentsPage } from '../pages/post-comments/post-comments';
 
 
@@ -49,7 +50,8 @@ const cloudSettings: CloudSettings = {
     SearchPage,
     SearchPeoplePage,
      ProfilePage,
-    ShowPostPage
+    ShowPostPage,
+    ShowUserPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -66,7 +68,8 @@ const cloudSettings: CloudSettings = {
     Camera2Page,
     ProfilePage,
     SearchPeoplePage,
-    ShowPostPage
+    ShowPostPage,
+    ShowUserPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data, UserService, DateService, Storage ]
 })

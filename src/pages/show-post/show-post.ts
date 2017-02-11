@@ -6,7 +6,7 @@ import { Data } from '../../providers/data';
 
 
 import { Auth, User } from '@ionic/cloud-angular';
-import { Storage } from '@ionic/storage';
+import { AppUser } from '../../providers/app-user'
 import { UserService } from '../../providers/user-service';
 
 @Component({
@@ -20,26 +20,17 @@ export class ShowPostPage {
   public userName = 'sirjuan';
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
-  currentUserName: string;
-  currentUserId: string;
+  public currentUser: AppUser;
   
   post = this.navParams.get('post');
     
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth, storage: Storage) {
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) {
 
-    this.getCurrentUser();
-    
+     
    }
  
   ionViewDidLoad() {  }
 
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
-  }
+
 }
 

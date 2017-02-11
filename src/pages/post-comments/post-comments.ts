@@ -1,35 +1,37 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
+import { AppUser } from '../../providers/app-user';
 
 @Component({
   selector: 'page-post-comments',
   templateUrl: 'post-comments.html'
 })
 export class PostCommentsPage {
-   currentUserName: string;
-  currentUserId: string;
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
+  public currentUser: AppUser;
+  public liked = false;
 
-this.getCurrentUser();
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams) {
+    this.getCurrentUser();
 
   }
+
+  ionViewWillEnter() { 
+    this.getCurrentUser();
+  }
+  
   post = this.navParams.get('post');
   
   ionViewDidLoad() { }
 
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
+
+
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   addComment(comment) {
-    this.post.comments.push({user: "sirjuan", comment: comment});
+    this.post.comments.push({userName: this.currentUser.userName, userProfilePictureUrl: this.currentUser.profilePictureUrl, comment: comment});
   }
 
 }

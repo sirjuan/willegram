@@ -4,6 +4,9 @@ import { Storage } from '@ionic/storage';
 import { UserService } from '../../providers/user-service';
 import { Data } from '../../providers/data';
 import { Post } from '../../providers/post';
+import { AppUser } from '../../providers/app-user'
+import { ShowPostPage } from '../show-post/show-post';
+import { ShowUserPage } from '../show-user/show-user';
 
 @Component({
   selector: 'page-search-people',
@@ -17,8 +20,7 @@ export class SearchPeoplePage {
   public userName = 'sirjuan';
   public profilePictureUrl = 'assets/images/profile.jpg';
   public likeCount = 1578;
-   currentUserName: string;
-  currentUserId: string;
+  public currentUser: AppUser;
   postsByTag: Post[];
   usersByUserName;
   searchQuery;
@@ -29,20 +31,20 @@ export class SearchPeoplePage {
   }
   tag = this.navParams.get('tag');
   ionViewDidLoad() { }
-
-    getCurrentUser() {   
-        this.userService.storage.get('currentUserName').then((data) => {
-            this.currentUserName = data;       
-        })    
-        this.userService.storage.get('currentUserId').then((data) => {
-            this.currentUserId = data;
-        })
+ionViewWillEnter() { 
+    this.getCurrentUser();
+  }
+  getCurrentUser() {
+    this.currentUser = this.userService.getCurrentUser();
   }
 
   commenceSearch() {
+    if (this.searchQuery.length > 0) {
 
-    this.getPostsByTag(this.searchQuery);
+      this.getPostsByTag(this.searchQuery);
     this.getUsersByUserName(this.searchQuery);
+    }
+    
 
   }
   getUsersByUserName(userName) {
@@ -60,7 +62,21 @@ export class SearchPeoplePage {
         console.log(this.postsByTag)
       })
   }
+  loadPost(post) {
+    this.postService.loadPost(post)
+                    .subscribe(data => {
+      
+      this.navCtrl.push(ShowPostPage, {post: data} );
+    })
+  }
 
+    loadUser(user) {
+    this.userService.loadUser(user._id)
+                    .subscribe(data => {
+      
+      this.navCtrl.push(ShowUserPage, {user: data} );
+    })
+  }
 
 }
 
