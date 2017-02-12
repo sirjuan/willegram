@@ -88,7 +88,7 @@ res.status(200).json(doc);
 // GET: retrieve posts from followed users
 
 app.get("/api/posts/joo/followed", function(req, res) {
-db.collection("posts").find({ follows: { $in: ["wille"]} }).toArray(function(err, docs) {
+db.collection("posts").find({ userNameS: { $in: ["wille","sirjuan"]} }).toArray(function(err, docs) {
 if (err) {
 handleError(res, err.message, "Failed to get posts");
 } else {
