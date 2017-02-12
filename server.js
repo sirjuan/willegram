@@ -88,6 +88,8 @@ res.status(200).json(doc);
 // GET: retrieve posts from followed users
 
 app.get("/api/posts/followed", function(req, res) {
+    console.log(req.params);
+    console.log(req.body);
 db.collection("posts").find({'followers': { $in: req.body}
 }, function(err, docs){
 if (err) {
