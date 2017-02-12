@@ -93,7 +93,7 @@ db.collection("posts").find({followers: { $in: ["sirjuan","wille"]}
 if (err) {
 handleError(res, err.message, "Failed to get post by _id");
 } else {
-res.status(200).json(doc);
+res.status(200).json(docs);
 }
 });
 });
