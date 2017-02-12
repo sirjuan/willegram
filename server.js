@@ -86,11 +86,9 @@ res.status(200).json(doc);
 });
 
 // GET: retrieve posts from followed users
- 
-app.get("/api/posts/followed/:users", function(req, res) {
-    console.log(req.params.users);
-    console.log('joo');
-db.collection("posts").find({'followers': { $in: req.params.users}
+
+app.get("/api/posts/followed", function(req, res) {
+db.collection("posts").find({'followers': { $in: req.body}
 }, function(err, docs){
 if (err) {
 handleError(res, err.message, "Failed to get post by _id");
