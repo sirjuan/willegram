@@ -88,14 +88,26 @@ res.status(200).json(doc);
 // GET: retrieve posts from followed users
 
 app.get("/api/posts/followed", function(req, res) {
-db.collection("posts").find({ followers: { $in: ["sirjuan","wille"]} }).toArray(function(err, docs){
+db.collection("posts").find({ follows: { $in: ["wille"]} }).toArray(function(err, docs) {
 if (err) {
-handleError(res, err.message, "Failed to get post by _id");
+handleError(res, err.message, "Failed to get posts");
 } else {
 res.status(200).json(docs);
 }
 });
 });
+
+// GET: retrieve all posts
+app.get("/api/posts", function(req, res) {
+db.collection("posts").find({}).toArray(function(err, docs) {
+if (err) {
+handleError(res, err.message, "Failed to get posts");
+} else {
+res.status(200).json(docs);
+}
+});
+});
+
 // PUT: update a post by id
 app.put("/api/posts/:id", function(req, res) {
 var updatePost = req.body;
