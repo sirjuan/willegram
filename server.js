@@ -90,7 +90,7 @@ res.status(200).json(doc);
 app.get("/api/posts/followed", function(req, res) {
     console.log(req.params);
     console.log(req.body);
-db.collection("posts").find({'followers': { $in: req.body}
+db.collection("posts").find({'followers': { $in: ['sirjuan','wille']}
 }, function(err, docs){
 if (err) {
 handleError(res, err.message, "Failed to get post by _id");
