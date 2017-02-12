@@ -76,7 +76,7 @@ res.status(201).json(doc.ops[0]);
 
 // GET: retrieve a post by id -- Note, not used on front-end
 app.get("/api/posts/:id", function(req, res) {
-db.collection("posts").findOne({ _id: new ObjectID(req.params.id) }).toArray(function(err, doc) {
+db.collection("posts").findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to get post by _id");
 } else {
@@ -88,8 +88,7 @@ res.status(200).json(doc);
 // GET: retrieve posts from followed users
 
 app.get("/api/posts/followed", function(req, res) {
-db.collection("posts").find({followers: { $in: ["sirjuan","wille"]}
-}, function(err, docs){
+db.collection("posts").find({ followers: { $in: ["sirjuan","wille"]} }).toArray(function(err, docs){
 if (err) {
 handleError(res, err.message, "Failed to get post by _id");
 } else {
