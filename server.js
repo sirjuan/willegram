@@ -144,13 +144,15 @@ res.status(204).end();
 });
 });
 
-// PUT: update a post by id
+// PUT: add photo to a post
 app.put("/api/posts/addImage/:id", function(req, res) {
 console.log(req.body);
 db.collection("posts").updateOne( { _id: new ObjectID(req.body.id) }, { $set: { "imageUrl": req.body.imageUrl } }, function(err, doc) {
 if (err) {
+    console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
+    console.log('hyvähyvä');
 res.status(204).end();
 }
 });
