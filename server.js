@@ -41,7 +41,7 @@ console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.ge
 });
 
 // POST: create a new post
-app.post("/api/image/upload", function(req, res) {
+app.post("/api/images/upload", function(req, res) {
     console.log(req.body);
     
 cloudinary.uploader.upload(
