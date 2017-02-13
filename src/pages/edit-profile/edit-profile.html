@@ -1,0 +1,32 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title *ngIf="user" >Edit profile {{currentUser.userName}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <button padding ion-button large outline block (click)="takePicture()">Open Camera</button>
+  <button padding ion-button large outline block (click)="selectFromGallery()">Select from gallery</button>
+     
+  <ion-item no-lines>
+
+    <ion-thumbnail item-left>
+      <img [src]="base64Image" *ngIf="base64Image"/>
+    </ion-thumbnail>
+    
+    <ion-textarea  #newPost style="font-size: 0.8em;" type="text" placeholder="Write a caption..." value=""> </ion-textarea>
+
+    
+   
+  </ion-item>
+<ion-textarea #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post" value=""> </ion-textarea>
+    <p>Separate tags with space</p>
+  <button ion-button block outline (click)="changeProfilePicture())">
+      <ion-icon name="add-circle"></ion-icon>
+       Post
+    </button>
+
+  
+</ion-content>

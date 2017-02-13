@@ -28,7 +28,7 @@
   </ion-item>
 <ion-textarea #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post" value=""> </ion-textarea>
     <p>Separate tags with space</p>
-  <button ion-button block outline (click)="addPost('this.base64image', newPost.value, newTags.value); newPost.value=''; newTags.value=''">
+  <button ion-button block outline (click)="addPost(newPost.value, newTags.value); newPost.value=''; newTags.value=''">
       <ion-icon name="add-circle"></ion-icon>
        Post
     </button>

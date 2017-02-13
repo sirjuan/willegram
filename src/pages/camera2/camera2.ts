@@ -16,7 +16,8 @@ import { AppUser } from '../../providers/app-user'
 })
 export class Camera2Page {
 
-  public base64Image: string;
+  base64Image: string;
+  
   public posts: Post[];
   cameraData: string;
   photoTaken: boolean;
@@ -31,6 +32,7 @@ export class Camera2Page {
 
   ionViewWillEnter() { 
     this.getCurrentUser();
+    this.base64Image = 'jep';
   }
 
   constructor(public dateService: DateService, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private postService: Data ) {
@@ -45,7 +47,7 @@ export class Camera2Page {
     this.newTime = this.dateService.getTime();
   }
 
-  addPost(photo: string, post:string, tags ) {
+  addPost(post:string, tags ) {
     tags = tags.replace(/#/g, '');
     tags = tags.replace(/,/g, '');
     tags = tags.split(' ');
@@ -64,10 +66,16 @@ export class Camera2Page {
              
                 console.log('hiphip')
             
+           });
+            this.postService.addImage(data._id)
+                          .subscribe(data  => {
+                            
+                console.log('hophop');
+                console.log(data);
+            
+           });
         });
-          
-        });
-
+     
     
   }
 

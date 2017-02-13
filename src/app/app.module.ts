@@ -13,6 +13,7 @@ import { FeedPage } from '../pages/feed/feed';
 import { SearchPage } from '../pages/search/search';
 import { Camera2Page } from '../pages/camera2/camera2';
 import { ProfilePage } from '../pages/profile/profile';
+import { EditProfilePage } from '../pages/edit-profile/edit-profile';
 
 import { SearchPeoplePage } from '../pages/search-people/search-people';
 import { FeedContentPage } from '../pages/feed-content/feed-content';
@@ -49,6 +50,7 @@ const cloudSettings: CloudSettings = {
      ProfilePage,
     ShowPostPage,
     ShowUserPage,
+    EditProfilePage
 
   ],
   imports: [
@@ -72,7 +74,8 @@ const cloudSettings: CloudSettings = {
     ProfilePage,
     SearchPeoplePage,
     ShowPostPage,
-    ShowUserPage
+    ShowUserPage,
+    EditProfilePage
   ],
   providers: [{
     provide: ErrorHandler, 

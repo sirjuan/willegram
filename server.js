@@ -159,6 +159,35 @@ res.status(204).end();
 });
 });
 
+
+app.put("/api/posts/changeProfilePicture/:userName", function(req, res) {
+console.log(req.body);
+db.collection("posts").updateMany( { userName: req.params.userName }, { $set: { "userProfilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
+if (err) {
+    console.log('vittu');
+handleError(res, err.message, "Failed to update post");
+} else {
+    console.log('hyvähyvä');
+    console.log(doc);
+res.status(204).end();
+}
+});
+});
+
+app.put("/api/users/changeProfilePicture/:userName", function(req, res) {
+console.log(req.body);
+db.collection("posts").updateMany( { userName: req.params.userName }, { $set: { "ProfilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
+if (err) {
+    console.log('vittu');
+handleError(res, err.message, "Failed to update post");
+} else {
+    console.log('hyvähyvä');
+    console.log(doc);
+res.status(204).end();
+}
+});
+});
+
 // DELETE: delete a post by id
 app.delete("/api/posts/:id", function(req, res) {
 db.collection("posts").deleteOne({_id: new ObjectID(req.params.id) }, function(err, result) {

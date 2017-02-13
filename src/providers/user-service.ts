@@ -23,6 +23,18 @@ export class UserService {
       })  
   }
 
+      changeProfilePicture(userName) {
+    let url = `${this.usersUrl}/changeProfilePicture/${userName}`; //see mdn.io/templateliterals
+
+    let imageUrl = {userProfilePictureUrl: 'http://res.cloudinary.com/hfttspdhh/image/upload/' + userName + '.jpg'};
+    let body = JSON.stringify(imageUrl)
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => url) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
+  }
+
   getCurrentUser() {
     console.log('returned currentuser');
     console.log(this.currentUser);

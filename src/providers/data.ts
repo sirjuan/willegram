@@ -83,6 +83,40 @@ export class Data {
               .catch(this.handleError);
   }
 
+    // Update a post
+  addImage(id) {
+    let url = `${this.postsUrl}/addImage/${id}`; //see mdn.io/templateliterals
+
+    let imageUrl = {imageUrl: 'http://res.cloudinary.com/hfttspdhh/image/upload/' + id + '.jpg'};
+    let body = JSON.stringify(imageUrl)
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => url) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
+  }
+
+
+    changeProfilePicture(userName) {
+    let url = `${this.postsUrl}/changeProfilePicture/${userName}`; //see mdn.io/templateliterals
+
+    let imageUrl = {userProfilePictureUrl: 'http://res.cloudinary.com/hfttspdhh/image/upload/' + userName + '.jpg'};
+    let body = JSON.stringify(imageUrl)
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.put(url, body, {headers: headers})
+                    .map(() => url) //See mdn.io/arrowfunctions
+                    .catch(this.handleError);
+  }
+
+
+
+
+
+
+
+  changeProfilePicture
+    
 
     // Update a post
   update(post: Post) {
