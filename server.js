@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-
+var cloudinary = require('cloudinary');
 
 var app = express();
 
