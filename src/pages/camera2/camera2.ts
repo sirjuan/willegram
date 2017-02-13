@@ -51,7 +51,7 @@ export class Camera2Page {
     tags = tags.split(' ');
     let postTime = this.dateService.getTime();
     this.getCurrentUser();
-    var url = "joo"
+    var url = "http://www.quickanddirtytips.com/sites/default/files/images/7832/plural-of-mongoose.jpg"
     
     console.log(this.currentUser);
     this.postService.add(this.base64Image, post, postTime, this.currentUser._id, this.currentUser.userName, tags, this.currentUser.profilePictureUrl)
@@ -59,7 +59,13 @@ export class Camera2Page {
           this.imageUrl = data._id;
           console.log('addpostin sisällä responsedata')
           console.log(data._id);
-          this.postService.uploadImage(url, data._id);
+          this.postService.uploadImage(this.base64Image, data._id)
+              .subscribe(data  => {
+             
+                console.log('hiphip')
+            
+        });
+          
         });
 
     
@@ -77,6 +83,8 @@ export class Camera2Page {
       this.base64Image = "data:image/jpeg;base64," + imageData;
       this.photoSelected = true;
       this.photoTaken = false;
+      console.log('select from gallery urii')
+      console.log(this.base64Image)
     }, (err) => {
       // Handle error
     });

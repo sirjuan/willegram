@@ -68,14 +68,17 @@ export class Data {
                     .catch(this.handleError);
   }
 
-  uploadImage(url, id): Observable<Post> {
-    let imageUrl = `${this.imagesUrl}/upload`;
-    let body = JSON.stringify({url: url, id: id});
+  uploadImage(imageUrl, id): Observable<Post> {
+    let url = `${this.imagesUrl}/upload`;
+    let body = JSON.stringify({id: id, url: imageUrl});
     console.log('uploadimage postservicessa body');
+    
     console.log(body);
+    console.log('imageurl');
+    console.log(url);
     let headers = new Headers({'Content-Type': 'application/json'});
 
-      return this.http.post(imageUrl, body, {headers: headers})
+      return this.http.post(url, body, {headers: headers})
               .map(res => res.json())
               .catch(this.handleError);
   }
