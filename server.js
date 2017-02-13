@@ -153,6 +153,7 @@ if (err) {
 handleError(res, err.message, "Failed to update post");
 } else {
     console.log('hyvähyvä');
+    console.log(doc);
 res.status(204).end();
 }
 });
