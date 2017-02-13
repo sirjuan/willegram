@@ -147,7 +147,7 @@ res.status(204).end();
 // PUT: add photo to a post
 app.put("/api/posts/addImage/:id", function(req, res) {
 console.log(req.body);
-db.collection("posts").updateOne( { _id: new ObjectID(req.body.id) }, { $set: { "imageUrl": req.body.imageUrl } }, function(err, doc) {
+db.collection("posts").updateOne( { _id: new ObjectID(req.params.id) }, { $set: { "imageUrl": req.body.imageUrl } }, function(err, doc) {
 if (err) {
     console.log('vittu');
 handleError(res, err.message, "Failed to update post");
@@ -161,7 +161,7 @@ res.status(204).end();
 
 // DELETE: delete a post by id
 app.delete("/api/posts/:id", function(req, res) {
-db.collection("posts").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
+db.collection("posts").deleteOne({_id: new ObjectID(req.params.id) }, function(err, result) {
 if (err) {
 handleError(res, err.message, "Failed to delete post");
 } else {
