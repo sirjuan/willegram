@@ -36,7 +36,7 @@
       <ion-item class="details" no-lines padding-left>
 
 
-      <ion-icon class="small-icon" name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like.userName}}</span>
+      <ion-icon class="small-icon" name="heart"> </ion-icon><span *ngFor="let like of post.likes"> {{like.userName}}</span> 
 
       <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
       <p><a *ngFor="let tag of post.tags" (click)="openSearch()">#{{tag}} </a></p>

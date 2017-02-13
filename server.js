@@ -1,7 +1,16 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+
+
 var app = express();
+
+cloudinary.config({ 
+  cloud_name: 'hfttspdhh', 
+  api_key: '283212495287685', 
+  api_secret: '0k039civAw8agWsahpm-eoY21Uc' 
+});
+
 
 var mongodb = require('mongodb'),
 mongoClient = mongodb.MongoClient,
@@ -30,6 +39,23 @@ app.listen(app.get('port'), function () {
 console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.get('port'));
 });
 });
+
+// POST: create a new post
+app.post("/api/image/upload", function(req, res) {
+    console.log(req.body);
+    
+cloudinary.uploader.upload(
+  req.body.url,
+  function(result) { console.log(result); },
+  {
+    public_id: req.body.id
+  }      
+)
+
+});
+
+
+
 
 /*
 * Endpoint --> "/api/posts"

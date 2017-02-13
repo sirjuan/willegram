@@ -5,8 +5,6 @@ import { MyApp } from './app.component';
 
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
-import { Storage } from '@ionic/storage';
-
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -29,7 +27,6 @@ import { Data } from '../providers/data';
 import { UserService } from '../providers/user-service';
 import { DateService } from '../providers/date-service';
 
-
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '05d00dcf'
@@ -51,11 +48,17 @@ const cloudSettings: CloudSettings = {
     SearchPeoplePage,
      ProfilePage,
     ShowPostPage,
-    ShowUserPage
+    ShowUserPage,
+
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+
     CloudModule.forRoot(cloudSettings)
+  
+    
+  
+     
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -71,6 +74,13 @@ const cloudSettings: CloudSettings = {
     ShowPostPage,
     ShowUserPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}, Data, UserService, DateService, Storage ]
+  providers: [{
+    provide: ErrorHandler, 
+    useClass: IonicErrorHandler}, 
+    Data, 
+    UserService, 
+    DateService
+
+   ]
 })
 export class AppModule {}

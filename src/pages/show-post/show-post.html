@@ -14,38 +14,57 @@
 </ion-header>
 
 
-<ion-list>
+<ion-content>
+
+ <div no-padding>
      
-      <ion-item no-lines>
         
-        <ion-item no-lines><ion-avatar item-left>
-          <img [src]="post.profilePictureUrl">
-        </ion-avatar>
-        <h2 color="grey">{{post.userName}}</h2>
-        <ion-icon item-right name="menu"></ion-icon>
+        <ion-item padding-left >
+          <ion-avatar item-left>
+            <img [src]="post.userProfilePictureUrl">
+          </ion-avatar>
+          <h2 color="grey">{{post.userName}}</h2>
+          <ion-icon item-right name="menu"></ion-icon>
         </ion-item>
                 
-          <img [src]="post.imageUrl" />
+         
 
-
-      <ion-item no-lines>
-      <button ion-button icon-left icon-only clear>
-        <ion-icon name="heart-outline"></ion-icon>
-        
-      </button>
-
-      <button ion-button icon-left icon-only clear>
-        <ion-icon name="text"></ion-icon>
+         <img [src]="post.imageUrl" />
+     
+      <ion-item class="remove-margin" no-lines no-padding>
+      
        
-      </button>
+        <div *ngIf="newCurrentUser">
+        <ion-icon padding-left name="heart" color="danger"  (click)="unlikePost(post)" 
+                  *ngIf="post.likes.indexOf(newCurrentUser.userName) >= 0"></ion-icon>
+        <ion-icon padding-left name="heart"  (click)="likePost(post)" 
+                   *ngIf="post.likes.indexOf(newCurrentUser.userName) <0" ></ion-icon>
+   
+        
+        <ion-icon padding-left name="text" (click)="openComments(post)"></ion-icon>
+        </div>
+     
       </ion-item>
-<hr>
+      
+      <hr>
+    
+      <ion-item class="details" no-lines padding-left>
 
-      <ion-icon small name="heart"> </ion-icon> {{post.likes.length}} likes
+
+      <ion-icon  *ngIf="post.likes.length > 0" class="small-icon" name="heart"> </ion-icon>
+      
+      <span *ngIf="post.likes.length > 10"> {{post.likes.length}} likes</span>
+      <span *ngIf="post.likes.length < 10 && post.likes.length > 0"><span *ngFor="let like of post.likes"> {{like}}</span></span>
+
 
       <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
-      <p color="grey" style="padding: 0px; font-size: 0.8em">View all {{post.comments.length}} comments</p>
-      <p text-uppercase color="grey" style="padding: 0px; font-size: 0.8em">{{post.postTime}} ago</p>
-
+      <p><a *ngFor="let tag of post.tags" (click)="openSearch()">#{{tag}} </a></p>
+      <p (click)="openComments(post)" color="grey" style="padding: 0px; font-size: 0.8em">View all {{post.comments.length}} comments</p>     
       </ion-item>
-</ion-list>
+      <ion-item padding-left ion-text  style="padding: 0px; font-size: 0.7em">
+        <ion-datetime item-right ion-text color="grey" displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="post.postTime"></ion-datetime>
+     
+      </ion-item>
+     </div>
+
+</ion-content>

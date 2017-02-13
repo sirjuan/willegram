@@ -40,7 +40,6 @@ ionViewWillEnter() {
     }
     if (this.user.followers.indexOf(this.currentUser.userName) >= 0) { 
       this.followed = true;
-
     }
     console.log(this.same);
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+
 import { UserService } from '../../providers/user-service';
 import { Data } from '../../providers/data';
 import { Post } from '../../providers/post';
@@ -24,7 +24,8 @@ export class SearchPeoplePage {
   postsByTag: Post[];
   usersByUserName;
   searchQuery;
-  constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, storage: Storage) {
+  constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams
+  ) {
 
     this.getCurrentUser();
 

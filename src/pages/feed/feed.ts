@@ -9,6 +9,7 @@ import { LoginPage } from '../login/login';
 import { AppUser } from '../../providers/app-user'
 import { Auth } from '@ionic/cloud-angular';
 
+
 @Component({
   selector: 'page-feed',
   templateUrl: 'feed.html'
@@ -30,7 +31,8 @@ export class FeedPage {
 
   }
   joo() {
-    this.newCurrentUser = this.userService.getCurrentUser();
+    this.getCurrentUser();
+    this.loadPostsByFollowedUsers();
   }
   what() {
     console.log(this.newCurrentUser);
@@ -38,7 +40,7 @@ export class FeedPage {
   }
   ionViewWillEnter() { 
     this.getCurrentUser();
-    this.loadPosts();
+    this.loadPostsByFollowedUsers();
     console.log('willenter FeedPage');
     console.log(this.newCurrentUser);
     console.log(this.posts);
@@ -87,6 +89,13 @@ export class FeedPage {
       .subscribe(data => {
     this.posts = data;
     })
+  }
+
+    loadPostsByFollowedUsers() {
+    this.postService.loadPostsByFollowedUsers(this.newCurrentUser.follows)
+      .subscribe(data => {
+        this.posts = data;
+      })
   }
 
   logout() {
