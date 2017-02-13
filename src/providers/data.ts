@@ -10,6 +10,7 @@ import { Post } from './post'
 export class Data {
     
   postsUrl = 'https://peaceful-island-53615.herokuapp.com/api/posts';
+  imagesUrl = 'https://peaceful-island-53615.herokuapp.com/api/images';
 
   constructor (private http: Http) {}
 
@@ -65,6 +66,18 @@ export class Data {
     return this.http.post(this.postsUrl, body, {headers: headers})
                     .map(res => res.json())
                     .catch(this.handleError);
+  }
+
+  uploadImage(url, id): Observable<Post> {
+    let imageUrl = `${this.imagesUrl}/upload`;
+    let body = JSON.stringify({url: url, id: id});
+    console.log('uploadimage postservicessa body');
+    console.log(body);
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+      return this.http.post(imageUrl, body, {headers: headers})
+              .map(res => res.json())
+              .catch(this.handleError);
   }
 
 

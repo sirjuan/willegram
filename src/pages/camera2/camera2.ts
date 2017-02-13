@@ -25,6 +25,7 @@ export class Camera2Page {
   images: [{}];
   newTime;
   public currentUser: AppUser;
+  public imageUrl;
 
   ionViewDidLoad() { }
 
@@ -50,12 +51,18 @@ export class Camera2Page {
     tags = tags.split(' ');
     let postTime = this.dateService.getTime();
     this.getCurrentUser();
+    var url = "joo"
+    
     console.log(this.currentUser);
     this.postService.add(this.base64Image, post, postTime, this.currentUser._id, this.currentUser.userName, tags, this.currentUser.profilePictureUrl)
     .subscribe(data  => {
-          var newPost = [];
-          newPost.push(data);
+          this.imageUrl = data._id;
+          console.log('addpostin sisällä responsedata')
+          console.log(data._id);
+          this.postService.uploadImage(url, data._id);
         });
+
+    
   }
 
   selectFromGallery() {
