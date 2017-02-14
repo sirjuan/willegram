@@ -41,22 +41,14 @@ console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.ge
 });
 });
 
-// POST: create a new post
+// Upload image to cloudinary
 app.post("/api/images/upload", function(req, res) {
-    console.log(req.body);
-    
-cloudinary.uploader.upload(
-  req.body.url,
-  function(result) { console.log(result); },
-  {
-    public_id: req.body.id,
-    invalidate: true 
-  }      
-)
-
+cloudinary.uploader.upload(req.body.url, function(result) { if (err) {
+handleError(res, err.message, "Failed to get posts");
+} else {
+res.status(200).json(docs);
+}}, { public_id: req.body.id, invalidate: true })
 });
-
-
 
 
 /*
@@ -65,7 +57,7 @@ cloudinary.uploader.upload(
 
 // GET: retrieve all posts
 app.get("/api/posts", function(req, res) {
-db.collection("posts").find({}).toArray(function(err, docs) {
+db.collection("posts").find({}).sort({postTime: -1}).toArray(function(err, docs) {
 if (err) {
 handleError(res, err.message, "Failed to get posts");
 } else {
@@ -157,51 +149,43 @@ res.status(204).end();
 });
 });
 
-// PUT: add photo to a post
+// PUT: add photo to a post or change profile picture
 app.put("/api/posts/addImage/:id", function(req, res) {
-console.log(req.body);
 db.collection("posts").updateOne( { _id: new ObjectID(req.params.id) }, { $set: { "imageUrl": req.body.imageUrl } }, function(err, doc) {
 if (err) {
-    console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('kuvameniläpicloudinaryynhyvähyvä');
-   
 res.status(204).end();
 }
 });
 });
 
+// PUT: Change profile picture in posts
 
 app.put("/api/posts/changeProfilePicture/:userName", function(req, res) {
 console.log(req.body);
 db.collection("posts").updateMany( { userName: req.params.userName }, { $set: { "userProfilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
 if (err) {
-    console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('urlimeniläpipostiinhyvähyvä');
-
 res.status(204).end();
 }
 });
 });
+
+// PUT: Change profile picture in users
 
 app.put("/api/users/changeProfilePicture/:userName", function(req, res) {
-console.log(req.body);
 db.collection("users").updateMany( { userName: req.params.userName }, { $set: { "profilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
 if (err) {
-    console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('urlimeniläpi useriin hyvähyvä');
-   
 res.status(204).end();
 }
 });
 });
 
-// DELETE: delete a post by id
+// DELETE: delete a post by id (not used on frontend)
 app.delete("/api/posts/:id", function(req, res) {
 db.collection("posts").deleteOne({_id: new ObjectID(req.params.id) }, function(err, result) {
 if (err) {
@@ -219,7 +203,7 @@ res.status(204).end();
 // GET: retrieve posts by userId
 app.get("/api/posts/user/:userId", function(req, res) {
     
-db.collection("posts").find({userId: req.params.userId}).toArray(function(err, result) {
+db.collection("posts").find({userId: req.params.userId}).sort({postTime: -1}).toArray(function(err, result) {
 if (err) {
 handleError(res, err.message, "Failed to get posts by userId");
 } else {
@@ -227,6 +211,10 @@ res.status(200).json(result);
 }
 });
 });
+
+/*
+* Endpoint "/api/posts/user/:userName"
+*/
 
 // GET: retrieve a users by userName
 app.get("/api/users/userName/:userName", function(req, res) {
@@ -245,10 +233,6 @@ app.get("/api/users/userName", function(req, res) {
 });
 
 
-app.get("/api/posts/tags", function(req, res) {
- res.status(200).json([]);
-});
-
 // GET: retrieve posts by tags
 app.get("/api/posts/tags/:tag", function(req, res) {
 var searchQuery = '/' + req.params.tag + '/';
@@ -261,15 +245,8 @@ res.status(200).json(doc);
 });
 });
 
-
-app.delete("/api/posts/:id/likes/user", function(req, res) {
-db.collection("posts.likes").deleteOne({_id: new ObjectID(req.params.id)}, function(err, result) {
-if (err) {
-handleError(res, err.message, "Failed to delete post");
-} else {
-res.status(204).end();
-}
-});
+app.get("/api/posts/tags/", function(req, res) {
+ res.status(200).json([]);
 });
 
 /*
@@ -318,11 +295,10 @@ res.status(200).json(doc);
 });
 });
 
-// PUT: update a user by id
+// PUT: update a user by id (like)
 app.put("/api/users/:id", function(req, res) {
 var updateUser = req.body;
 delete updateUser._id;
-
 db.collection("users").updateOne({_id: new ObjectID(req.params.id)}, updateUser, function(err, doc) {
 if (err) {
 handleError(res, err.message, "Failed to update user");
@@ -334,28 +310,19 @@ res.status(204).end();
 
 // PUT: unlike a post by id
 app.put("/api/posts/:id/unlike/:user", function(req, res) {
-console.log(req.params);
-console.log(req.params.id);
-console.log(req.params.user);
-
 db.collection("posts").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
     { "$pull" : { "likes" :  req.params.user}}, (function(err, doc) {
         if (err) {
-            handleError(res, err.message, "Failed to uplike post");
+            handleError(res, err.message, "Failed to unlike post");
          } 
         res.status(204).end();
-   
 })
 )}
 );
 
 // PUT: unfollow a user by id
 app.put("/api/users/:id/unfollow/:user", function(req, res) {
-console.log(req.params);
-console.log(req.params.id);
-console.log(req.params.user);
-
 db.collection("users").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
     { "$pull" : { "followers" :  req.params.user}}, (function(err, doc) {
@@ -363,17 +330,12 @@ db.collection("users").findOneAndUpdate(
             handleError(res, err.message, "Failed to update user");
          } 
         res.status(204).end();
-   
 })
 )}
 );
 
 // PUT: unfollow a user by id
 app.put("/api/users/:id/unfollower/:user", function(req, res) {
-console.log(req.params);
-console.log(req.params.id);
-console.log(req.params.user);
-
 db.collection("users").findOneAndUpdate(
     {_id: new ObjectID(req.params.id)},
     { "$pull" : { "follows" :  req.params.user}}, (function(err, doc) {
@@ -381,13 +343,9 @@ db.collection("users").findOneAndUpdate(
             handleError(res, err.message, "Failed to update user");
          } 
         res.status(204).end();
-   
 })
 )}
 );
-
-
-
 
 // GET: retrieve a user by userName
 app.get("/api/users/username/:userName", function(req, res) {
