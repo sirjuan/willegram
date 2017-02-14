@@ -121,6 +121,7 @@ app.get("/api/posts/followed/", function(req, res) {
 handleError(res, err.message, "Failed to get posts");
 } else {
  res.status(200).json([]);
+}
 });
 
 
