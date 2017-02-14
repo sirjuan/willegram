@@ -43,12 +43,15 @@ console.log("You're a wizard, Harry. I'm a what? Yes, a wizard, on port", app.ge
 
 // Upload image to cloudinary
 app.post("/api/images/upload", function(req, res) {
-cloudinary.uploader.upload(req.body.url, function(result) { if (err) {
-handleError(res, err.message, "Failed to get posts");
-} else {
-res.status(200).json(docs);
-}}, { public_id: req.body.id, invalidate: true })
+cloudinary.uploader.upload(req.body.url,
+  function(result) { console.log(result); },
+  {
+    public_id: req.body.id,
+    invalidate: true 
+})
 });
+
+
 
 
 /*
