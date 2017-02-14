@@ -35,8 +35,8 @@ export class EditProfilePage {
       sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
       destinationType: Camera.DestinationType.DATA_URL,
       allowEdit: true,
-      targetWidth: 1000,
-      targetHeight: 1000
+      targetWidth: 500,
+      targetHeight: 500
     };
     Camera.getPicture(options).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
@@ -49,8 +49,8 @@ export class EditProfilePage {
     Camera.getPicture({
       destinationType: Camera.DestinationType.DATA_URL,
       allowEdit: true,
-      targetWidth: 1000,
-      targetHeight: 1000
+      targetWidth: 500,
+      targetHeight: 500
     }).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
     }, (err) => {
