@@ -5,8 +5,6 @@ var cloudinary = require('cloudinary');
 
 var app = express();
 
-app.use(express.bodyParser({limit: '50mb'}));
-
 cloudinary.config({ 
   cloud_name: 'hfttspdhh', 
   api_key: '283212495287685', 
