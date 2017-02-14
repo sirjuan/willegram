@@ -58,7 +58,7 @@
 
 
       <span style="font-weight: bold;">{{post.userName}} </span> {{post.caption}}
-      <p><a *ngFor="let tag of post.tags" (click)="openSearch()">#{{tag}} </a></p>
+      <p><a *ngFor="let tag of post.tags" (click)="openSearch(tag)">#{{tag}} </a></p>
       <p (click)="openComments(post)" color="grey" style="padding: 0px; font-size: 0.8em">View all {{post.comments.length}} comments</p>     
       </ion-item>
       <ion-item padding-left ion-text  style="padding: 0px; font-size: 0.7em">

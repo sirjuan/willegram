@@ -4,6 +4,7 @@ import { Post } from '../../providers/post';
 import { Data } from '../../providers/data';
 import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
+import { EditProfilePage } from '../edit-profile/edit-profile';
 
 @Component({
   selector: 'page-profile',
@@ -11,24 +12,15 @@ import { AppUser } from '../../providers/app-user';
 })
 export class ProfilePage {
 
-   public posts: Post[];
-   public postCount = 24;
-   public followerCount = 26;
-   public followCount = 20;
-   public currentUser: AppUser;
+  public posts: Post[];
+  public currentUser: AppUser;
 
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
-
-    this.getCurrentUser();
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) { 
     
-  }
+   }
 
-  ionViewDidLoad() {
-      
-  }
-ionViewWillEnter() { 
+  ionViewWillEnter() { 
     this.getCurrentUser();
-    console.log(this.currentUser);
     this.loadPostsByUserId(this.currentUser._id);
   }
   getCurrentUser() {
@@ -37,9 +29,13 @@ ionViewWillEnter() {
 
   loadPostsByUserId(id) {
     this.postService.loadPostsByUser(id)
-      .subscribe(data => {
-        this.posts = data;
-      })
+    .subscribe(data => {
+      this.posts = data;
+    })
+  }
+
+  changePicture() {
+    this.navCtrl.push(EditProfilePage, {currentUser: this.currentUser} );
   }
 
 }

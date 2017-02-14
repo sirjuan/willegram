@@ -9,36 +9,24 @@ import { Data } from '../../providers/data';
   templateUrl: 'post-comments.html'
 })
 export class PostCommentsPage {
+
   public currentUser: AppUser;
-  public liked = false;
+  post = this.navParams.get('post');
 
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public postService: Data) {
-    this.getCurrentUser();
-
-  }
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public postService: Data) { }
 
   ionViewWillEnter() { 
     this.getCurrentUser();
   }
   
-  post = this.navParams.get('post');
-  
-  ionViewDidLoad() { }
-
-
-
   getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();
   }
 
   addComment(comment) {
-    console.log('addcomment.currentuser');
-    console.log(this.currentUser);
     this.post.comments.push({userName: this.currentUser.userName, userProfilePictureUrl: this.currentUser.profilePictureUrl, comment: comment});
     this.postService.update(this.post)
-        .subscribe(response => {
-
-        });
+    .subscribe(response => { });
   }
 
 }

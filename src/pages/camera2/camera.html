@@ -1,18 +1,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title *ngIf="user" >Publish {{currentUser.userName}}</ion-title>
+    <ion-title *ngIf="currentUser" >Publish {{currentUser.userName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  {{newTime}}
-  <button ion-button (click)="userService.setCurrentUser('sirjuha@taanappitoimii.com');">Set</button>
-   <button ion-button (click)="share();">Get</button>
-   {{serviceData}}
- <button padding ion-button large outline block (click)="getNewTime()">Get time</button>
+
   <button padding ion-button large outline block (click)="takePicture()">Open Camera</button>
+
   <button padding ion-button large outline block (click)="selectFromGallery()">Select from gallery</button>
      
   <ion-item no-lines>
@@ -21,17 +18,13 @@
       <img [src]="base64Image" *ngIf="base64Image"/>
     </ion-thumbnail>
     
-    <ion-textarea  #newPost style="font-size: 0.8em;" type="text" placeholder="Write a caption..." value=""> </ion-textarea>
-
-    
+    <ion-textarea *ngIf="base64Image"  #newPost style="font-size: 0.8em;" type="text" placeholder="Write a caption..." value=""> </ion-textarea>
    
   </ion-item>
-<ion-textarea #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post" value=""> </ion-textarea>
-    <p>Separate tags with space</p>
-  <button ion-button block outline (click)="addPost(newPost.value, newTags.value); newPost.value=''; newTags.value=''">
-      <ion-icon name="add-circle"></ion-icon>
-       Post
-    </button>
+
+  <ion-textarea *ngIf="base64Image" #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post, separate tags with space" value=""> </ion-textarea>
+  
+  <button *ngIf="base64Image" ion-button block outline (click)="addPost(newPost.value, newTags.value); newPost.value=''; newTags.value=''">Post</button>
 
   
 </ion-content>

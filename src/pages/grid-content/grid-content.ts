@@ -1,10 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
-
 import { Data } from '../../providers/data';
 import { ShowPostPage } from '../show-post/show-post';
-
 import { UserService } from '../../providers/user-service';
 import { AppUser } from '../../providers/app-user';
 
@@ -14,19 +12,13 @@ import { AppUser } from '../../providers/app-user';
 })
 export class GridContentPage {
   @Input() posts: Post[];
-  post: Post;
-
   public currentUser: AppUser;
 
-  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {
+  constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data) {}
 
-    this.getCurrentUser();
-
-  }
-ionViewWillEnter() { 
+  ionViewWillEnter() { 
     this.getCurrentUser();
   }
-  ionViewDidLoad() {  }
 
   getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();
@@ -34,8 +26,7 @@ ionViewWillEnter() {
 
   loadPost(post) {
     this.postService.loadPost(post)
-                    .subscribe(data => {
-      
+    .subscribe(data => {
       this.navCtrl.push(ShowPostPage, {post: data} );
     })
   }

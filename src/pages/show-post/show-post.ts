@@ -15,25 +15,15 @@ import { UserService } from '../../providers/user-service';
 })
 export class ShowPostPage {
 
-  public postTime = '14 hours'
-  public commentsCount = 7;
-  public userName = 'sirjuan';
-  public profilePictureUrl = 'assets/images/profile.jpg';
-  public likeCount = 1578;
   public newCurrentUser: AppUser;
-  
-  post = this.navParams.get('post');
-  liked;
+  public post = this.navParams.get('post');
+  public liked;
   
     
   constructor(public userService: UserService, public navCtrl: NavController, public navParams: NavParams, private postService: Data, public user:User, public auth:Auth) {
-
-     
-   }
+  }
  
-  ionViewDidLoad() {  }
-
-    ionViewWillEnter() { 
+  ionViewWillEnter() { 
     this.getCurrentUser();
   }
 
@@ -43,36 +33,27 @@ export class ShowPostPage {
 
   openSearch(tag) {
     this.navCtrl.push(SearchPeoplePage, { tag: tag });
-    
   }
+
   openComments(post) {
     this.navCtrl.push(PostCommentsPage, { post: post });
   }
 
   likePost(post) {
-      this.getCurrentUser();
-      post.likes.push(this.newCurrentUser.userName);
-      this.postService.update(post)
-        .subscribe(response => {
-
-        });
-     
+    this.getCurrentUser();
+    post.likes.push(this.newCurrentUser.userName);
+    this.postService.update(post)
+    .subscribe(response => { });
     this.liked = true;
-
   }
 
   unlikePost(post) {
-    this.getCurrentUser();
-    console.log('unLike post');
-    console.log(post);
     let data = {id: post._id, user: this.newCurrentUser.userName};
-
     this.userService.unfollow(data)
-      .subscribe(response => { });
-        this.liked = false;
+    .subscribe(response => { });
+    this.liked = false;
     let index = this.post.likes.indexOf(this.newCurrentUser.userName);
     this.post.likes.splice(index, 1);
-
   }
 }
 

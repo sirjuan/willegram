@@ -6,7 +6,7 @@ export class Post {
   imageUrl: string;
   caption: string;
   postTime: string;
-  tags: [{userId: string; userName: string;}];
+  tags: [string];
   likes: [string];
   comments: [{
     _id?: number;

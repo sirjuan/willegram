@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Post } from '../../providers/post';
 import { SearchPeoplePage } from '../search-people/search-people';
@@ -23,59 +23,36 @@ export class FeedPage {
   post;
 
   constructor(public auth: Auth, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public postService: Data) { 
+  }
      
-    }
-
-  ionViewDidLoad() {
-     
-
-  }
-  joo() {
-    this.getCurrentUser();
-    this.loadPostsByFollowedUsers();
-  }
-  what() {
-    console.log(this.newCurrentUser);
-    console.log(this.posts);
-  }
   ionViewWillEnter() { 
     this.getCurrentUser();
     this.loadPostsByFollowedUsers();
-    console.log('willenter FeedPage');
-    console.log(this.newCurrentUser);
-    console.log(this.posts);
   }
 
   getCurrentUser() {
     this.newCurrentUser = this.userService.getCurrentUser();
   }
 
-    openSearch(tag) {
-    this.navCtrl.push(SearchPeoplePage, { tag: tag });
-    
-  }
-  openComments(post) {
-    this.navCtrl.push(PostCommentsPage, { post: post });
+  loadPostsByFollowedUsers() {
+    this.postService.loadPostsByFollowedUsers(this.newCurrentUser.follows)
+      .subscribe(data => {
+        this.posts = data;
+      })
   }
 
   likePost(post: Post) {
-      this.getCurrentUser();
-      post.likes.push(this.newCurrentUser.userName);
-      this.postService.update(post)
-        .subscribe(response => {
+    post.likes.push(this.newCurrentUser.userName);
+    this.postService.update(post)
+      .subscribe(response => {
 
-        });
-     
-      let liked = true;
-      return post;
+      });
+    let liked = true;
+    return post;
   }
 
   unlikePost(post) {
-    this.getCurrentUser();
-    console.log('unLike post');
-    console.log(post);
     let data = {id: post._id, user: this.newCurrentUser.userName};
-
     this.postService.unlike(data)
       .subscribe(response => { });
     let liked = false;
@@ -84,23 +61,17 @@ export class FeedPage {
     return post;
   }
 
-  loadPosts() {
-    this.postService.load()
-      .subscribe(data => {
-    this.posts = data;
-    })
-  }
-
-    loadPostsByFollowedUsers() {
-    this.postService.loadPostsByFollowedUsers(this.newCurrentUser.follows)
-      .subscribe(data => {
-        this.posts = data;
-      })
-  }
-
   logout() {
     this.auth.logout();
     this.navCtrl.setRoot(LoginPage);
+  }
+
+  openSearch(tag) {
+    this.navCtrl.push(SearchPeoplePage, { tag: tag });
+    }
+
+  openComments(post) {
+    this.navCtrl.push(PostCommentsPage, { post: post });
   }
 
 }

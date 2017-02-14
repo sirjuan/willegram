@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
 import { UserService } from '../../providers/user-service';
 import { Data } from '../../providers/data';
 import { Post } from '../../providers/post';
@@ -15,66 +14,58 @@ import { ShowUserPage } from '../show-user/show-user';
 
 export class SearchPeoplePage {
 
-  public postTime = '14 hours'
-  public commentsCount = 7;
-  public userName = 'sirjuan';
-  public profilePictureUrl = 'assets/images/profile.jpg';
-  public likeCount = 1578;
   public currentUser: AppUser;
-  postsByTag: Post[];
-  usersByUserName;
-  searchQuery;
-  constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams
-  ) {
+  public postsByTag: Post[];
+  public usersByUserName: AppUser;
+  public searchQuery = "";
+  public tag = this.navParams.get('tag');
+  public search = 'people';
 
+  constructor(public postService: Data, public userService: UserService, public navCtrl: NavController, public navParams: NavParams) { }
+  
+  ionViewWillEnter() { 
     this.getCurrentUser();
+    if (this.tag) {
+      this.searchQuery = this.tag;
+      this.search = 'tags';
+    } 
+  }
 
-  }
-  tag = this.navParams.get('tag');
-  ionViewDidLoad() { }
-ionViewWillEnter() { 
-    this.getCurrentUser();
-  }
   getCurrentUser() {
     this.currentUser = this.userService.getCurrentUser();
   }
 
   commenceSearch() {
     if (this.searchQuery.length > 0) {
-
       this.getPostsByTag(this.searchQuery);
-    this.getUsersByUserName(this.searchQuery);
+      this.getUsersByUserName(this.searchQuery);
     }
-    
-
   }
+
   getUsersByUserName(userName) {
-        this.userService.loadUsersByUserName(userName)
-      .subscribe(data => {
-        this.usersByUserName = data;
-        console.log(this.usersByUserName);
-      })
+    this.userService.loadUsersByUserName(userName)
+    .subscribe(data => {
+      this.usersByUserName = data;
+    })
   }
 
   getPostsByTag(tag) {
     this.postService.loadPostsByTag(tag)
-      .subscribe(data => {
-        this.postsByTag = data;
-        console.log(this.postsByTag)
-      })
+    .subscribe(data => {
+      this.postsByTag = data;
+    })
   }
+
   loadPost(post) {
     this.postService.loadPost(post)
-                    .subscribe(data => {
-      
+    .subscribe(data => {
       this.navCtrl.push(ShowPostPage, {post: data} );
     })
   }
 
-    loadUser(user) {
+  loadUser(user) {
     this.userService.loadUser(user._id)
-                    .subscribe(data => {
-      
+    .subscribe(data => {
       this.navCtrl.push(ShowUserPage, {user: data} );
     })
   }

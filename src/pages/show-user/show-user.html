@@ -30,7 +30,7 @@
 </ion-col>
 </ion-row>
 <ion-row>
-  <button *ngIf="same" ion-button color="grey" outline block>Edit Profile</button>
+  <button *ngIf="same" ion-button color="grey" outline block (click)="changePicture()" >Edit Profile</button>
   <button *ngIf="!same && !followed" ion-button color="grey" outline block (click)="followUser(user)" >Follow</button>
   <button *ngIf="!same && followed" ion-button color="grey" outline block (click)="unFollowUser(user)" >Unfollow</button>
 </ion-row>

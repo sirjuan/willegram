@@ -152,8 +152,8 @@ if (err) {
     console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('hyvähyvä');
-    console.log(doc);
+    console.log('kuvameniläpicloudinaryynhyvähyvä');
+   
 res.status(204).end();
 }
 });
@@ -167,8 +167,8 @@ if (err) {
     console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('hyvähyvä');
-    console.log(doc);
+    console.log('urlimeniläpipostiinhyvähyvä');
+
 res.status(204).end();
 }
 });
@@ -181,8 +181,8 @@ if (err) {
     console.log('vittu');
 handleError(res, err.message, "Failed to update post");
 } else {
-    console.log('hyvähyvä');
-    console.log(doc);
+    console.log('urlimeniläpi useriin hyvähyvä');
+   
 res.status(204).end();
 }
 });

@@ -12,34 +12,24 @@ export class UserService {
   usersUrl = 'https://peaceful-island-53615.herokuapp.com/api/users';
   public currentUser: AppUser;
 
-  constructor (private http: Http) {
-   
+  constructor (private http: Http) {  }
+
+  setCurrentUser(data) {
+    this.currentUser = data;
   }
 
- setCurrentUser(email) {       
-     this.loadCurrentUser(email)
-      .subscribe(data => {
-        this.currentUser = data;
-      })  
-  }
-
-      changeProfilePicture(userName) {
-    let url = `${this.usersUrl}/changeProfilePicture/${userName}`; //see mdn.io/templateliterals
-
+  changeProfilePicture(userName) {
+    let url = `${this.usersUrl}/changeProfilePicture/${userName}`;
     let imageUrl = {userProfilePictureUrl: 'http://res.cloudinary.com/hfttspdhh/image/upload/' + userName + '.jpg'};
     let body = JSON.stringify(imageUrl)
     let headers = new Headers({'Content-Type': 'application/json'});
-
     return this.http.put(url, body, {headers: headers})
                     .map(() => url) //See mdn.io/arrowfunctions
                     .catch(this.handleError);
   }
 
   getCurrentUser() {
-    console.log('returned currentuser');
-    console.log(this.currentUser);
     return this.currentUser;
-    
   }
 
   loadCurrentUser(email) {
@@ -47,7 +37,7 @@ export class UserService {
     return this.http.get(url)
                .map(res => res.json())
                .catch(this.handleError);
-    }
+  }
 
   load(): Observable<AppUser[]> {
     return this.http.get(this.usersUrl)
@@ -56,7 +46,6 @@ export class UserService {
   }
 
   loadUser(id) {
-
     let url = `${this.usersUrl}/${id}`;
     return this.http.get(url)
                .map(res => res.json())
@@ -64,7 +53,6 @@ export class UserService {
   }
 
   loadUsersByUserName(userName) {
-
     let url = `${this.usersUrl}/userName/${userName}`;
     return this.http.get(url)
                .map(res => res.json())
@@ -82,42 +70,33 @@ export class UserService {
 
     // Update a user
   update(user: AppUser) {
-    let url = `${this.usersUrl}/${user._id}`; //see mdn.io/templateliterals
+    let url = `${this.usersUrl}/${user._id}`;
     let body = JSON.stringify(user)
-    console.log('UserService body')
-    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
-
     return this.http.put(url, body, {headers: headers})
-                    .map(() => user) //See mdn.io/arrowfunctions
+                    .map(() => user) 
                     .catch(this.handleError);
   }
 
       // Unfollow a user
   unfollow(data) {
-    let url = `${this.usersUrl}/${data.id}/unfollow/${data.user}`; //see mdn.io/templateliterals
+    let url = `${this.usersUrl}/${data.id}/unfollow/${data.user}`; 
     let body = JSON.stringify(data);
-    console.log('UserService body');
-    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
-
     return this.http.put(url, body, {headers: headers})
-                    .map(() => data) //See mdn.io/arrowfunctions
+                    .map(() => data) 
                     .catch(this.handleError);
   }
 
     unfollower(data) {
-    let url = `${this.usersUrl}/${data.id}/unfollower/${data.user}`; //see mdn.io/templateliterals
+    let url = `${this.usersUrl}/${data.id}/unfollower/${data.user}`;
     let body = JSON.stringify(data);
-    console.log('UserService body');
-    console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
-
     return this.http.put(url, body, {headers: headers})
-                    .map(() => data) //See mdn.io/arrowfunctions
+                    .map(() => data) 
                     .catch(this.handleError);
   }
-        // Update a post
+     
 
     handleError(error) {
       console.error(error);
