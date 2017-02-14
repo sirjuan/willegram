@@ -133,7 +133,7 @@ app.get("/api/posts/followed/:users", function(req, res) {
     console.log(data);
     console.log(req.params);
     console.log(req.params.users);
-db.collection("posts").find({ userName: { $in: data} }).toArray(function(err, docs) {
+db.collection("posts").find({ userName: { $in: data} }).sort({postTime: -1}).toArray(function(err, docs) {
 if (err) {
 handleError(res, err.message, "Failed to get posts");
 } else {

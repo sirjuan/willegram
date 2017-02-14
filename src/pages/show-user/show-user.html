@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content no-padding>
-  <ion-item padding no-lines>
+  <ion-item no-padding no-lines>
 
 
 
@@ -36,14 +36,14 @@
 </ion-row>
 </ion-grid>
 
-    <ion-thumbnail item-left round>
+<ion-thumbnail item-left round>
      <img *ngIf="user" [src]="user.profilePictureUrl"> 
     </ion-thumbnail>
 </ion-item>
 <hr>
 
-<div padding>
-  <ion-segment [(ngModel)]="view">
+<div>
+  <ion-segment no-padding no-lines [(ngModel)]="view">
 
     <ion-segment-button value="grid">
       <ion-icon color="grey" large name="grid"></ion-icon>
@@ -57,8 +57,6 @@
 </div>
 
 
-
-<ion-item no-lines text-center>
 
   <div [ngSwitch]="view">
     <ion-list *ngSwitchCase="'feed'">
@@ -78,6 +76,6 @@
     </ion-list>
   </div>
 
-</ion-item>
+
 
 

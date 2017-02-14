@@ -104,15 +104,19 @@ export class LoginPage {
       });
       loader.present();
       
-      this.addUser(this.name, this.email);
-
       this.auth.signup(details).then(() => {
         this.auth.login('basic', {'email':details.email, 'password':details.password}).then(() => {
-          loader.dismissAll();
-          this.navCtrl.setRoot(TabsPage);
+           this.userService.add(this.name, this.email)
+            .subscribe(data  => {
+              this.userService.loadCurrentUser(this.email)
+              .subscribe(data => {
+                this.userService.setCurrentUser(data);
+                loader.dismissAll();
+                this.navCtrl.setRoot(TabsPage);   
+              })  
+            });
         });
-
-      }, (err:IDetailedError<string[]>) => {
+     }, (err:IDetailedError<string[]>) => {
         loader.dismissAll();
         let errors = '';
         for(let e of err.details) {

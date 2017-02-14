@@ -26145,3 +26145,8 @@ page-feed-content .details {
 page-feed-content .small-icon {
   font-size: 0.8em;
 }
+
+page-login ion-navbar {
+  background-image: url("../assets/images/willegram.jpg");
+  -webkit-background-image: url("../assets/images/willegram.jpg");
+}

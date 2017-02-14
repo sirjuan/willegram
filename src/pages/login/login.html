@@ -1,49 +1,26 @@
-<ion-header class="header-no-padding" no-padding no-border>
-  <ion-navbar color="primary">
+<ion-header class="header-no-padding" color="primary" no-padding no-border>
 
-  </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content no-padding>
 
+  <img src="../assets/images/willegram.jpg" />
+  
   <div padding *ngIf="showLogin">
-    <ion-item>
-      <ion-input padding-top type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input  type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-
-    <button ion-button margin-top color="primary" full (click)="doLogin()">Login</button>
+    <ion-item><ion-input padding-top type="email" placeholder="Email" [(ngModel)]="email"></ion-input></ion-item>
+    <ion-item><ion-input  type="password" placeholder="Password" [(ngModel)]="password"></ion-input></ion-item>
+    <button ion-button margin-top color="primary" block (click)="doLogin()">Login</button>
   </div>
 
   <div padding *ngIf="!showLogin">
-
-    <ion-item>
-      <ion-input padding-top type="text" placeholder="Username" [(ngModel)]="name"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-
-    <button ion-button margin-top color="primary" full (click)="doRegister()">Register</button>
+    <ion-item><ion-input padding-top type="text" placeholder="Username" [(ngModel)]="name"></ion-input></ion-item>
+    <ion-item><ion-input type="email" placeholder="Email" [(ngModel)]="email"></ion-input></ion-item>
+    <ion-item><ion-input type="password" placeholder="Password" [(ngModel)]="password"></ion-input></ion-item>
+    <button ion-button margin-top color="primary" block (click)="doRegister()">Register</button>
   </div>
-
-  
-   
-  
 
 </ion-content>
 
-<ion-footer>
-  <ion-item text-center no-lines (click)="registerForm()">
-  <span>Don't have an account? </span><span color="primary">Sign up</span> 
-
-  </ion-item>
+<ion-footer (click)="registerForm()">
+  <ion-item text-center no-lines>Don't have an account?<span color="primary"> Sign up</span></ion-item> 
 </ion-footer>
