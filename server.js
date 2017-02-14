@@ -176,7 +176,7 @@ res.status(204).end();
 
 app.put("/api/users/changeProfilePicture/:userName", function(req, res) {
 console.log(req.body);
-db.collection("posts").updateMany( { userName: req.params.userName }, { $set: { "ProfilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
+db.collection("posts").updateMany( { userName: req.params.userName }, { $set: { "profilePictureUrl": req.body.userProfilePictureUrl  }  }, function(err, doc) {
 if (err) {
     console.log('vittu');
 handleError(res, err.message, "Failed to update post");
