@@ -2,7 +2,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Comments {{currentUser.userName}}</ion-title>
+    <ion-title *ngIf="currentUser" >Comments {{currentUser.userName}}</ion-title>
   </ion-navbar>
 
 </ion-header>

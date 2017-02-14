@@ -35,7 +35,7 @@ export class Data {
   }
 
   loadPostsByFollowedUsers(users) {
-    users = users.join('');
+    users = users.join(',');
     let url = `${this.postsUrl}/followed/${users}`;
     return this.http.get(url)
                .map(res => res.json())

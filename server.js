@@ -48,7 +48,8 @@ cloudinary.uploader.upload(
   req.body.url,
   function(result) { console.log(result); },
   {
-    public_id: req.body.id
+    public_id: req.body.id,
+    invalidate: true 
   }      
 )
 
@@ -114,6 +115,16 @@ res.status(200).json(doc);
 });
 
 // GET: retrieve posts from followed users
+
+app.get("/api/posts/followed/", function(req, res) {
+    if (err) {
+handleError(res, err.message, "Failed to get posts");
+} else {
+ res.status(200).json([]);
+});
+
+
+
 
 app.get("/api/posts/followed/:users", function(req, res) {
     var data = req.params.users.split(',');

@@ -23,6 +23,7 @@ export class FeedPage {
   post;
 
   constructor(public auth: Auth, public userService: UserService, public navCtrl: NavController, public navParams: NavParams, public postService: Data) { 
+
   }
      
   ionViewWillEnter() { 
@@ -38,7 +39,7 @@ export class FeedPage {
     this.postService.loadPostsByFollowedUsers(this.newCurrentUser.follows)
       .subscribe(data => {
         this.posts = data;
-      })
+    })
   }
 
   likePost(post: Post) {

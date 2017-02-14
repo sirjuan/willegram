@@ -2,8 +2,8 @@
 <ion-header>
 
   <ion-navbar>
-  
-         <ion-title text-center>Willegram {{newCurrentUserName}}</ion-title>
+
+         <ion-title text-center *ngIf="newCurrentUser">Willegram {{newCurrentUser.userName}}</ion-title>
        <ion-buttons end>
             <button ion-button icon-only (click)="logout()" clear large item-right><ion-icon item-left name="camera"></ion-icon></button>
        </ion-buttons>
@@ -13,8 +13,8 @@
 </ion-header>
 
 
-<ion-content *ngIf="posts && posts.length > 0">
-
+<ion-content >
+ 
      <div no-padding *ngFor="let post of posts; let index = index">
           
         <ion-item padding-left >
