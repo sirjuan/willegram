@@ -26126,27 +26126,83 @@ sub {
   }
 }
 
-page-feed-content .item-md.item-block .item-inner {
-  padding-right: 0px !important;
+page-camera2 .icons {
+  font-size: 4em;
 }
 
-page-feed-content .remove-margin {
+page-camera2 .smaller-icons {
+  font-size: 1.6em;
+}
+
+page-edit-profile .icons {
+  font-size: 4em;
+}
+
+page-edit-profile .smaller-icons {
+  font-size: 1.6em;
+}
+
+page-feed .details {
+  font-size: 0.95em;
+}
+
+page-feed .small-icon {
+  font-size: 0.8em;
+}
+
+page-feed .icons {
+  font-size: 1.6em;
+}
+
+page-feed .remove-margin {
   margin: 0px !important;
 }
 
-page-feed-content .label-md {
+page-feed hr {
   margin: 0px !important;
 }
 
 page-feed-content .details {
-  font-size: 0.9em;
+  font-size: 0.95em;
 }
 
 page-feed-content .small-icon {
   font-size: 0.8em;
 }
 
+page-feed-content .icons {
+  font-size: 1.6em;
+}
+
+page-feed-content .remove-margin {
+  margin: 0px !important;
+}
+
+page-feed-content hr {
+  margin: 0px !important;
+}
+
 page-login ion-navbar {
   background-image: url("../assets/images/willegram.jpg");
   -webkit-background-image: url("../assets/images/willegram.jpg");
+}
+
+page-show-post .details {
+  font-size: 0.95em;
+}
+
+page-show-post .small-icon {
+  font-size: 0.8em;
+}
+
+page-show-post .icons {
+  font-size: 1.6em;
+}
+
+page-show-post .remove-margin {
+  margin: 0px !important;
+}
+
+page-show-post hr {
+  margin: 0px !important;
 }

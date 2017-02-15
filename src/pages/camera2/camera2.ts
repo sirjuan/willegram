@@ -56,6 +56,7 @@ export class Camera2Page {
     };
     Camera.getPicture(options).then((imageData) => {
       this.base64Image = "data:image/jpeg;base64," + imageData;
+
     }, (err) => {
       // Handle error
     });

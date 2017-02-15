@@ -22,13 +22,8 @@
 
 <ion-item style="font-size: 0.8em" *ngFor="let comment of post.comments">
 
-<span style="font-weight: bold">{{comment.user}}</span> {{comment.comment}}
+<span style="font-weight: bold">{{comment.userName}}</span> {{comment.comment}}
 <ion-icon item-right name="heart-outline"></ion-icon>
-<br>
-<div color="grey">
-  <span>14h</span>
-  <span color="grey" style="padding-left: 10px; font-weight: bold">Reply</span>
-</div>
 <ion-avatar item-left>
   <img [src]="comment.userProfilePictureUrl">
 </ion-avatar>

@@ -61,7 +61,7 @@
 
   <div [ngSwitch]="view">
     <ion-list *ngSwitchCase="'feed'">
-      <page-feed-content [posts]="posts"></page-feed-content>
+      <page-feed-content [posts]="posts" [currentUser]="currentUser"></page-feed-content>
     </ion-list>
  
 

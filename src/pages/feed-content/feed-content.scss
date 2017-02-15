@@ -1,19 +1,17 @@
 page-feed-content {
-.item-md.item-block .item-inner {
-    padding-right: 0px !important;
-   
-}
-.remove-margin {
-    margin: 0px !important;
-}
-.label-md {
-    margin: 0px !important;
-}
 .details {
-    font-size: 0.9em;
+    font-size: 0.95em;
 }
 .small-icon {
     font-size: 0.8em;
 }
-$item-md-body-text-line-height: 1;
+.icons {
+    font-size: 1.6em;
+}
+.remove-margin {
+    margin: 0px !important;
+}
+hr {
+    margin: 0px !important;
+}
 }

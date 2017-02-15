@@ -9,7 +9,7 @@ import { DateService } from '../../providers/date-service';
 import { AppUser } from '../../providers/app-user'
 
 @Component({
-  selector: 'edit-profile',
+  selector: 'page-edit-profile',
   templateUrl: 'edit-profile.html'
 })
 export class EditProfilePage {
@@ -21,6 +21,7 @@ export class EditProfilePage {
   }
 
   changeProfilePicture() {
+
     this.userService.changeProfilePicture(this.currentUser.userName)
       .subscribe(data  => { });
     this.postService.changeProfilePicture(this.currentUser.userName)

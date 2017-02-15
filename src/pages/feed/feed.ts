@@ -5,6 +5,7 @@ import { SearchPeoplePage } from '../search-people/search-people';
 import { Data } from '../../providers/data';
 import { UserService } from '../../providers/user-service';
 import { PostCommentsPage } from '../post-comments/post-comments';
+import { ShowUserPage } from '../show-user/show-user';
 import { LoginPage } from '../login/login';
 import { AppUser } from '../../providers/app-user'
 import { Auth } from '@ionic/cloud-angular';
@@ -75,4 +76,10 @@ export class FeedPage {
     this.navCtrl.push(PostCommentsPage, { post: post });
   }
 
+  loadUser(user) {
+    this.userService.loadUser(user.userId)
+    .subscribe(data => {
+      this.navCtrl.push(ShowUserPage, {user: data} );
+    })
+  }
 }

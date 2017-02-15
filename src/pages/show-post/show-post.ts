@@ -4,7 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Data } from '../../providers/data';
 import { SearchPeoplePage } from '../search-people/search-people';
 import { PostCommentsPage } from '../post-comments/post-comments';
-
+import { ShowUserPage } from '../show-user/show-user';
 import { Auth, User } from '@ionic/cloud-angular';
 import { AppUser } from '../../providers/app-user'
 import { UserService } from '../../providers/user-service';
@@ -54,6 +54,13 @@ export class ShowPostPage {
     this.liked = false;
     let index = this.post.likes.indexOf(this.newCurrentUser.userName);
     this.post.likes.splice(index, 1);
+  }
+
+  loadUser(user) {
+    this.userService.loadUser(user.userId)
+    .subscribe(data => {
+      this.navCtrl.push(ShowUserPage, {user: data} );
+    })
   }
 }
 

@@ -6,25 +6,37 @@
 
 </ion-header>
 
-<ion-content>
+<ion-content no-padding>
 
-  <button padding ion-button large outline block (click)="takePicture()">Open Camera</button>
+  <ion-item text-center no-padding>
+    <ion-grid no-padding>
+      <ion-row>
+        <ion-col width-50 (click)="takePicture()">
+          <ion-icon *ngIf="!base64Image" class="icons" name="camera"></ion-icon>
+          <ion-icon *ngIf="base64Image" class="smaller-icons" name="camera"></ion-icon>
+        </ion-col>
+        <ion-col width-50 (click)="selectFromGallery()">
+          <ion-icon *ngIf="!base64Image" class="icons" name="photos"></ion-icon>
+          <ion-icon *ngIf="base64Image" class="smaller-icons" name="camera"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 
-  <button padding ion-button large outline block (click)="selectFromGallery()">Select from gallery</button>
-     
-  <ion-item no-lines>
+  <ion-item padding-right>
 
-    <ion-thumbnail item-left>
-      <img [src]="base64Image" *ngIf="base64Image"/>
+    <ion-thumbnail *ngIf="base64Image" item-left>
+      <img [src]="base64Image"/>
     </ion-thumbnail>
     
     <ion-textarea  #newPost style="font-size: 0.8em;" type="text" placeholder="Write a caption..." value=""> </ion-textarea>
    
+   
   </ion-item>
-
-  <ion-textarea  #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post, separate tags with space" value=""> </ion-textarea>
+  <ion-item padding-right>
+  <ion-input  #newTags style="font-size: 0.8em;" type="text" placeholder="Tag post, separate tags with space" value=""> </ion-input>
+   <button ion-button item-right large clear (click)="addPost(newPost.value, newTags.value); newPost.value=''; newTags.value=''"><ion-icon color="" name="send"></ion-icon></button>
+  </ion-item>
   
-  <button ion-button block outline (click)="addPost(newPost.value, newTags.value); newPost.value=''; newTags.value=''">Post</button>
-
   
 </ion-content>
